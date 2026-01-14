@@ -16,7 +16,7 @@ src/
 ├── messages/
 │   ├── uk.json           # Ukrainian translations (default)
 │   └── en.json           # English translations
-├── middleware.ts          # Locale routing middleware
+├── proxy.ts               # Locale routing proxy (Next.js 16)
 └── app/
     ├── layout.tsx        # Root layout
     └── [locale]/         # Locale-specific routes
@@ -108,7 +108,7 @@ URLs are automatically prefixed with locale:
 - `/about` → `/uk/about`
 - `/en/about` → English version
 
-The middleware handles locale detection and routing automatically.
+The proxy handles locale detection and routing automatically.
 
 ## Configuration
 
