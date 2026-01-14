@@ -5,18 +5,18 @@
  * Defines supported locales and default language.
  */
 
-export type Locale = 'uk' | 'en';
+export type Locale = 'ua' | 'en';
 
-export const locales: readonly Locale[] = ['uk', 'en'] as const;
+export const locales: readonly Locale[] = ['ua', 'en'] as const;
 
-export const defaultLocale: Locale = 'uk';
+export const defaultLocale: Locale = 'ua';
 
 export const localeNames: Record<Locale, string> = {
-  uk: 'Українська',
+  ua: 'Українська',
   en: 'English',
 };
 
 export const localeFlags: Record<Locale, string> = {
-  uk: '🇺🇦',
+  ua: '🇺🇦',
   en: '🇺🇸',
 };

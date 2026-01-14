@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/UI/Button/Button';
 import { Card } from '@/components/UI/Card/Card';
+import { useTranslations } from 'next-intl';
 import styles from './Testimonials.module.scss';
 
 const TESTIMONIALS = [
@@ -57,13 +60,15 @@ const TESTIMONIALS = [
 ];
 
 export const Testimonials = () => {
+  const t = useTranslations('testimonials');
+
   return (
     <section className={styles.testimonials}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>What users say</h2>
+          <h2 className={styles.title}>{t('title')}</h2>
           <p className={styles.subtitle}>
-            Over 2300 developers have already improved their skills
+            {t('subtitle')}
           </p>
         </div>
 
@@ -94,7 +99,7 @@ export const Testimonials = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              All reviews
+              {t('allReviews')}
             </Link>
           </Button>
           <Button variant="outline" asChild>
@@ -103,7 +108,7 @@ export const Testimonials = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Leave a review
+              {t('leaveReview')}
             </Link>
           </Button>
         </div>

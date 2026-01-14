@@ -3,42 +3,42 @@
 import { Badge } from '@/components/UI/Badge/Badge';
 import { Button } from '@/components/UI/Button/Button';
 import { Card } from '@/components/UI/Card/Card';
+import { useTranslations } from 'next-intl';
 import styles from './Hero.module.scss';
 
-const FEATURES = [
-  {
-    icon: '📚',
-    title: 'Knowledge Base',
-    description:
-      'Questions and their breakdowns on theory and practice from real interviews.',
-  },
-  {
-    icon: '💻',
-    title: 'Online IDE',
-    description:
-      'Write and check code directly in the browser with automatic checking.',
-  },
-  {
-    icon: '🎯',
-    title: 'Problems from real companies',
-    description:
-      'Practice on problems from Yandex, Ozon, Sber and other top companies.',
-  },
-  {
-    icon: '🏆',
-    title: 'Progress tracking',
-    description: 'See how your skills and achievements grow.',
-  },
-];
-
-const CHECK_ITEMS = [
-  'Study theory, questions and answers only from real interviews',
-  'Write code directly in the browser with automatic checking',
-  'Solve problems from real interviews',
-  'View statistics and achievements',
-];
-
 export const Hero = () => {
+  const t = useTranslations('hero');
+  const tFeatures = useTranslations('features');
+
+  const FEATURES = [
+    {
+      icon: '📚',
+      title: tFeatures('knowledge.title'),
+      description: tFeatures('knowledge.description'),
+    },
+    {
+      icon: '💻',
+      title: tFeatures('ide.title'),
+      description: tFeatures('ide.description'),
+    },
+    {
+      icon: '🎯',
+      title: tFeatures('problems.title'),
+      description: tFeatures('problems.description'),
+    },
+    {
+      icon: '🏆',
+      title: tFeatures('progress.title'),
+      description: tFeatures('progress.description'),
+    },
+  ];
+
+  const CHECK_ITEMS = [
+    t('features.theory'),
+    t('features.code'),
+    t('features.problems'),
+    t('features.progress'),
+  ];
   return (
     <section className={styles.hero}>
       <div className={styles.background} />
@@ -59,24 +59,23 @@ export const Hero = () => {
               >
                 <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
               </svg>
-              Everything for frontend interview preparation
+              {t('badge')}
             </Badge>
 
             <h1 className={styles.title}>
-              <span className={styles.titleMain}>Prepare for interviews</span>
+              <span className={styles.titleMain}>{t('title.line1')}</span>
               <span className={styles.titleGradient}>
-                and land your dream offer
+                {t('title.line2')}
               </span>
             </h1>
 
             <p className={styles.description}>
-              Hack Frontend is where theory meets practice. Learn key topics,
-              solve problems, and feel confident before any interview.
+              {t('description')}
             </p>
 
             <div className={styles.actions}>
               <Button size="lg" className={styles.ctaButton}>
-                Start preparing
+                {t('cta')}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />
@@ -97,8 +96,7 @@ export const Hero = () => {
             </div>
 
             <p className={styles.stats}>
-              Over <strong>2300+</strong> developers have prepared for
-              interviews with Hack Frontend
+              {t('stats', { count: '2300+' })}
             </p>
           </div>
 
@@ -107,13 +105,13 @@ export const Hero = () => {
             <Card className={styles.codeCard}>
               <div className={styles.cardHeader}>
                 <div className={styles.cardTitle}>
-                  <p className={styles.cardSubtitle}>Test task</p>
+                  <p className={styles.cardSubtitle}>{t('card.label')}</p>
                   <p className={styles.cardName}>
-                    Implement flattenArray function
+                    {t('card.title')}
                   </p>
                 </div>
                 <div className={styles.tags}>
-                  <Badge>JavaScript</Badge>
+                  <Badge>{t('card.badge')}</Badge>
                 </div>
               </div>
 
@@ -137,7 +135,7 @@ export const Hero = () => {
 
                 <div className={styles.results}>
                   <div className={styles.resultsHeader}>
-                    <p className={styles.resultsTitle}>Check results</p>
+                    <p className={styles.resultsTitle}>{t('card.results')}</p>
                   </div>
                   <div className={styles.resultsList}>
                     <div className={styles.resultItem}>

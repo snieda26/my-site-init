@@ -24,7 +24,7 @@ export const metadata: Metadata = {
       'Prepare for frontend interviews with 200+ articles, coding problems, quizzes, and flashcards.',
     url: 'https://www.hackfrontend.com',
     siteName: 'Hack Frontend',
-    locale: 'uk_UA',
+    locale: 'ua_UA',
     type: 'website',
   },
   twitter: {

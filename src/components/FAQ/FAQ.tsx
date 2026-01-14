@@ -1,53 +1,47 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import styles from './FAQ.module.scss';
 
-const FAQ_ITEMS = [
-  {
-    question: 'What is Hack Frontend?',
-    answer:
-      'Hack Frontend is a comprehensive platform for frontend interview preparation. It offers a knowledge base with 200+ questions from real interviews, coding problems, quizzes, and an online IDE for practice. Everything is collected in one place to help you prepare efficiently.',
-  },
-  {
-    question: 'What makes Hack Frontend different from other interview prep platforms?',
-    answer:
-      'Unlike other platforms, Hack Frontend focuses exclusively on real interview questions from top tech companies. Every question and problem is sourced from actual interviews. The platform also provides an integrated online IDE for immediate practice and automatic code checking.',
-  },
-  {
-    question: 'Do I need to register to use Hack Frontend?',
-    answer:
-      'You can browse some content without registration, but creating a free account unlocks full access to all features including progress tracking, personalized recommendations, and the ability to save your favorite questions.',
-  },
-  {
-    question: 'Which companies\' interview questions are included?',
-    answer:
-      'The platform includes interview questions from leading tech companies like Yandex, Ozon, Sber, Tinkoff, and many other top companies from the CIS region and international markets.',
-  },
-  {
-    question: 'Can I practice coding problems online?',
-    answer:
-      'Yes! Hack Frontend provides an integrated online IDE where you can write and test code directly in your browser. The platform supports automatic checking of your solutions against test cases.',
-  },
-  {
-    question: 'How often is new content added?',
-    answer:
-      'The platform is actively developed with new content added regularly. This includes new interview questions, coding problems, and improvements to existing materials based on user feedback and recent interview trends.',
-  },
-  {
-    question: 'Is Hack Frontend suitable for beginners?',
-    answer:
-      'Absolutely! The platform caters to all levels from junior to senior developers. Content is organized by difficulty and topic, making it easy to start with basics and progressively tackle more advanced concepts.',
-  },
-  {
-    question: 'Why is this platform needed if there are different resources like AI-powered platforms?',
-    answer:
-      'While AI platforms can generate answers, Hack Frontend provides curated, verified content from real interviews with detailed explanations. The platform offers a structured learning path and consistent quality that AI-generated content may lack.',
-  },
-];
-
 export const FAQ = () => {
+  const t = useTranslations('faq');
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const FAQ_ITEMS = [
+    {
+      question: t('items.what.question'),
+      answer: t('items.what.answer'),
+    },
+    {
+      question: t('items.different.question'),
+      answer: t('items.different.answer'),
+    },
+    {
+      question: t('items.register.question'),
+      answer: t('items.register.answer'),
+    },
+    {
+      question: t('items.companies.question'),
+      answer: t('items.companies.answer'),
+    },
+    {
+      question: t('items.practice.question'),
+      answer: t('items.practice.answer'),
+    },
+    {
+      question: t('items.updates.question'),
+      answer: t('items.updates.answer'),
+    },
+    {
+      question: t('items.beginners.question'),
+      answer: t('items.beginners.answer'),
+    },
+    {
+      question: t('items.ai.question'),
+      answer: t('items.ai.answer'),
+    },
+  ];
 
   const toggleItem = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -57,9 +51,9 @@ export const FAQ = () => {
     <section className={styles.faq}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Frequently Asked Questions</h2>
+          <h2 className={styles.title}>{t('title')}</h2>
           <p className={styles.subtitle}>
-            Everything you need to know about Hack Frontend
+            {t('subtitle')}
           </p>
         </div>
 
