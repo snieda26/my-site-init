@@ -1,0 +1,122 @@
+.faq {
+  padding: 6rem 0;
+  background: linear-gradient(
+    to bottom,
+    var(--color-background),
+    rgba(113, 101, 216, 0.03)
+  );
+}
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  
+  @media (min-width: 768px) {
+    padding: 0 var(--spacing-xl);
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--color-muted-foreground);
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.item {
+  border-bottom: 1px solid var(--color-border);
+  
+  &:first-child {
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-lg) 0;
+  background: none;
+  border: none;
+  color: var(--color-foreground);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+  
+  &:hover {
+    color: var(--color-primary);
+    
+    .questionText {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+  }
+}
+
+.questionText {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  padding-right: var(--spacing-lg);
+  
+  @media (max-width: 640px) {
+    font-size: 0.9375rem;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+  
+  .open & {
+    transform: rotate(180deg);
+  }
+}
+
+.answerWrapper {
+  overflow: hidden;
+  transition: max-height var(--transition-slow);
+}
+
+.answer {
+  padding: 0 0 var(--spacing-lg) 0;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-muted-foreground);
+  
+  p {
+    margin: 0;
+  }
+}
+
+// Accessibility
+.question:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .answerWrapper,
+  .icon {
+    transition: none;
+  }
+}

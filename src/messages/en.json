@@ -1,0 +1,143 @@
+{
+  "banner": {
+    "announcement": "🎉 First video:",
+    "video": "Interview with Meta Developer"
+  },
+  "nav": {
+    "logo": "Hack Frontend",
+    "links": {
+      "questions": "Interview Questions",
+      "problems": "Problems",
+      "knowledgeCheck": "Knowledge Check"
+    },
+    "search": "Search...",
+    "notifications": "Notifications",
+    "login": "Log in",
+    "theme": {
+      "toggle": "Toggle theme",
+      "switchTo": "Switch to {theme} theme"
+    }
+  },
+  "hero": {
+    "badge": "Everything for frontend interview preparation",
+    "title": {
+      "line1": "Prepare for interviews",
+      "line2": "and land your dream offer"
+    },
+    "description": "Hack Frontend is where theory meets practice. Learn key topics, solve problems, and feel confident before any interview.",
+    "cta": "Start preparing",
+    "features": {
+      "theory": "Study theory, questions and answers only from real interviews",
+      "code": "Write code directly in the browser with automatic checking",
+      "problems": "Solve problems from real interviews",
+      "progress": "View statistics and achievements"
+    },
+    "stats": "Over {count} developers have prepared for interviews with Hack Frontend",
+    "card": {
+      "label": "Test task",
+      "title": "Implement flattenArray function",
+      "badge": "JavaScript",
+      "results": "Check results"
+    }
+  },
+  "about": {
+    "badge": "About the creator",
+    "title": "Created with ❤️ by a developer for developers",
+    "subtitle": "The story of how one person turned their experience into a platform for thousands",
+    "creator": {
+      "name": "Dastan Salmurzaev",
+      "role": "Frontend Developer in London",
+      "location": "Bishkek, Kyrgyzstan",
+      "bio1": "I went through a large number of interviews for a frontend developer position myself. I know how difficult it is to prepare when information is scattered across different sources.",
+      "bio2": "That's why on January 26, 2025 I launched Hack Frontend — a platform that brings everything you need in one place.",
+      "bio3": "Today the platform is used by {count}+ users from CIS countries, and I continue to develop it every day.",
+      "linkedin": "Connect on LinkedIn",
+      "telegram": "Telegram community"
+    },
+    "stats": {
+      "users": {
+        "count": "2300+",
+        "label": "Registered users"
+      },
+      "articles": {
+        "count": "200+",
+        "label": "Questions and breakdowns from real interviews"
+      },
+      "visitors": {
+        "count": "~500",
+        "label": "Daily visitors"
+      },
+      "organic": "100% organic growth without advertising budget"
+    },
+    "why": "Why did I create this platform? Because I know what it's like to prepare for interviews while working full-time. Hack Frontend is the tool I wish I had at the start of my career."
+  },
+  "features": {
+    "knowledge": {
+      "title": "Knowledge Base",
+      "description": "Questions and their breakdowns on theory and practice from real interviews."
+    },
+    "ide": {
+      "title": "Online IDE",
+      "description": "Write and check code directly in the browser with automatic checking."
+    },
+    "problems": {
+      "title": "Problems from real companies",
+      "description": "Practice on problems from Yandex, Ozon, Sber and other top companies."
+    },
+    "progress": {
+      "title": "Progress tracking",
+      "description": "See how your skills and achievements grow."
+    }
+  },
+  "testimonials": {
+    "title": "What users say",
+    "subtitle": "Over 2300 developers have already improved their skills",
+    "readReview": "Read review",
+    "allReviews": "All reviews",
+    "leaveReview": "Leave a review"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about Hack Frontend",
+    "items": {
+      "what": {
+        "question": "What is Hack Frontend?",
+        "answer": "Hack Frontend is a free platform for frontend interview preparation. We offer a structured knowledge base, practical tasks, and code checking tools."
+      },
+      "different": {
+        "question": "What makes Hack Frontend different from other interview prep platforms?",
+        "answer": "We focus exclusively on real interview questions from top companies. All content is structured with detailed explanations and the ability to practice directly in the browser."
+      },
+      "register": {
+        "question": "Do I need to register to use Hack Frontend?",
+        "answer": "You can view a lot of content without registration, but to track progress, save completed tasks, and access all features, we recommend creating a free account."
+      },
+      "companies": {
+        "question": "Which companies' interview questions are included?",
+        "answer": "We include questions from interviews at companies like Google, Meta, Yandex, Ozon, Sber, Tinkoff, and many other top IT companies."
+      },
+      "practice": {
+        "question": "Can I practice coding online?",
+        "answer": "Yes! We have a built-in IDE where you can write and run code directly in the browser with automatic solution checking."
+      },
+      "updates": {
+        "question": "How often is new content added?",
+        "answer": "We add new content regularly - new questions, tasks, and articles appear every week."
+      },
+      "beginners": {
+        "question": "Is Hack Frontend suitable for beginners?",
+        "answer": "Yes! We have content for all levels - from junior to senior developers. Material is structured from simple to complex."
+      },
+      "ai": {
+        "question": "Why is this platform needed if there are different resources like AI?",
+        "answer": "AI is a great tool, but our platform provides verified, structured content specifically from real interviews. We know what they ask and how best to prepare."
+      }
+    }
+  },
+  "footer": {
+    "copyright": "© {year} Hack Frontend",
+    "community": "Hack Frontend Community",
+    "youtube": "YouTube Channel",
+    "support": "Support"
+  }
+}

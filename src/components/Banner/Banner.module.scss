@@ -1,0 +1,51 @@
+.banner {
+  width: 100%;
+  min-height: 46px;
+  background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  gap: var(--spacing-sm);
+  
+  @media (min-width: 768px) {
+    min-height: 26px;
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: all var(--transition-fast);
+  
+  &:hover {
+    text-decoration-color: #ffd700;
+    color: #ffd700;
+    opacity: 1;
+  }
+}
+
+.emoji {
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.text {
+  @media (max-width: 640px) {
+    &:last-child {
+      display: none;
+    }
+  }
+}
+
+.icon {
+  margin: 0 var(--spacing-xs);
+  flex-shrink: 0;
+}
