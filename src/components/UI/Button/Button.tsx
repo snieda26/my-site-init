@@ -1,12 +1,14 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
 import clsx from 'clsx';
 import styles from './Button.module.scss';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
-  asChild?: boolean;
+  isLoading?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -16,8 +18,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'primary',
       size = 'md',
       fullWidth = false,
-      children,
+      isLoading = false,
       disabled,
+      leftIcon,
+      rightIcon,
+      children,
       ...props
     },
     ref
@@ -30,13 +35,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           styles[variant],
           styles[size],
           fullWidth && styles.fullWidth,
-          disabled && styles.disabled,
+          (disabled || isLoading) && styles.disabled,
           className
         )}
-        disabled={disabled}
+        disabled={disabled || isLoading}
         {...props}
       >
-        {children}
+        {isLoading ? (
+          <span className={styles.spinner}>⟳</span>
+        ) : (
+          <>
+            {leftIcon && <span className={styles.icon}>{leftIcon}</span>}
+            {children}
+            {rightIcon && <span className={styles.icon}>{rightIcon}</span>}
+          </>
+        )}
       </button>
     );
   }

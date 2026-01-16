@@ -413,6 +413,11 @@
     }
   },
   "auth": {
+    "signInToAccount": "Sign in to your account",
+    "createNewAccount": "Create your new account",
+    "googleSignIn": "Continue with Google",
+    "signUp": "Sign up",
+    "signIn": "Sign in",
     "login": {
       "welcome": "Welcome back!",
       "email": "Email",

@@ -1,0 +1,51 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.input-group {
+  @include flex-column;
+  gap: $spacing-2;
+  
+  &__label {
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    color: $text-primary;
+  }
+  
+  &__error {
+    font-size: $text-xs;
+    color: $error;
+  }
+  
+  &__hint {
+    font-size: $text-xs;
+    color: $text-muted;
+  }
+}
+
+.input {
+  @include input-base;
+  
+  &--error {
+    border-color: $error;
+    
+    &:focus {
+      border-color: $error;
+      box-shadow: 0 0 0 2px rgba($error, 0.2);
+    }
+  }
+}
+
+.textarea {
+  @include input-base;
+  min-height: 100px;
+  resize: vertical;
+  
+  &--error {
+    border-color: $error;
+    
+    &:focus {
+      border-color: $error;
+      box-shadow: 0 0 0 2px rgba($error, 0.2);
+    }
+  }
+}

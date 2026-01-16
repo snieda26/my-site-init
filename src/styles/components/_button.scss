@@ -1,0 +1,104 @@
+@use 'sass:color';
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.button {
+  @include button-base;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  
+  // Sizes
+  &--sm {
+    height: 32px;
+    padding: 0 $spacing-3;
+    font-size: $text-xs;
+  }
+  
+  &--md {
+    height: 40px;
+    padding: 0 $spacing-4;
+  }
+  
+  &--lg {
+    height: 48px;
+    padding: 0 $spacing-6;
+    font-size: $text-base;
+  }
+  
+  // Variants
+  &--primary {
+    background: $primary;
+    color: $text-primary;
+    
+    &:hover:not(:disabled) {
+      background: $primary-light;
+      box-shadow: $glow-primary;
+    }
+  }
+  
+  &--secondary {
+    background: $bg-tertiary;
+    color: $text-primary;
+    
+    &:hover:not(:disabled) {
+      background: $bg-hover;
+    }
+  }
+  
+  &--ghost {
+    background: transparent;
+    color: $text-secondary;
+    
+    &:hover:not(:disabled) {
+      background: $bg-hover;
+      color: $text-primary;
+    }
+  }
+  
+  &--danger {
+    background: $error;
+    color: $text-primary;
+    
+    &:hover:not(:disabled) {
+      background: color.adjust($error, $lightness: -10%);
+    }
+  }
+  
+  &--outline {
+    background: transparent;
+    border: 1px solid $border-default;
+    color: $text-primary;
+    
+    &:hover:not(:disabled) {
+      background: $bg-hover;
+      border-color: $border-hover;
+    }
+  }
+  
+  // States
+  &--full {
+    width: 100%;
+  }
+  
+  &--icon {
+    padding: 0;
+    width: 40px;
+    
+    &.button--sm {
+      width: 32px;
+    }
+    
+    &.button--lg {
+      width: 48px;
+    }
+  }
+  
+  &--loading {
+    pointer-events: none;
+    
+    .button__spinner {
+      animation: spin 1s linear infinite;
+      margin-right: $spacing-2;
+    }
+  }
+}

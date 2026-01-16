@@ -1,0 +1,35 @@
+@use '../variables' as *;
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    $bg-tertiary 0%,
+    $bg-hover 50%,
+    $bg-tertiary 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  
+  &--text {
+    height: 1em;
+    border-radius: $radius-sm;
+    width: 100%;
+  }
+  
+  &--circular {
+    border-radius: $radius-full;
+  }
+  
+  &--rectangular {
+    border-radius: $radius-md;
+  }
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

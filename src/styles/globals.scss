@@ -1,6 +1,9 @@
-// Variables
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// CSS Custom Properties (for theme switching)
 :root {
-  // Colors
+  // Colors - Dark theme (default)
   --color-primary: #7165d8;
   --color-primary-hover: #5f54c0;
   --color-background: #0a0a0a;
@@ -66,6 +69,7 @@
 }
 
 html {
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
@@ -75,12 +79,12 @@ body {
   min-height: 100vh;
   background-color: var(--color-background);
   color: var(--color-foreground);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-family: $font-primary;
+  font-size: $text-base;
+  line-height: $leading-normal;
   transition: background-color var(--transition-base), color var(--transition-base);
+  
+  @include custom-scrollbar;
 }
 
 // Typography
@@ -90,9 +94,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: var(--spacing-md);
+  font-weight: $font-semibold;
+  line-height: $leading-tight;
+  margin-bottom: $spacing-4;
 }
 
 h1 {
@@ -107,8 +111,13 @@ h3 {
   font-size: clamp(1.5rem, 3vw, 2rem);
 }
 
+h4 {
+  font-size: $text-lg;
+}
+
 p {
-  margin-bottom: var(--spacing-md);
+  color: $text-secondary;
+  margin-bottom: $spacing-4;
   
   &:last-child {
     margin-bottom: 0;
@@ -118,10 +127,10 @@ p {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color var(--transition-fast), opacity var(--transition-fast);
+  transition: color $transition-fast, opacity $transition-fast;
   
   &:hover {
-    opacity: 0.8;
+    color: $primary-light;
   }
 }
 
@@ -130,22 +139,34 @@ button {
   cursor: pointer;
 }
 
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
 img,
-svg {
+svg,
+video {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
+ul,
+ol {
+  list-style: none;
+}
+
 // Utilities
 .container {
   width: 100%;
-  max-width: 1850px;
+  max-width: $container-max;
   margin: 0 auto;
-  padding: 0 var(--spacing-md);
+  padding: 0 $spacing-4;
   
-  @media (min-width: 768px) {
-    padding: 0 var(--spacing-xl);
+  @include md {
+    padding: 0 $spacing-8;
   }
 }
 
@@ -161,27 +182,39 @@ svg {
   border-width: 0;
 }
 
+// Selection
+::selection {
+  background: rgba($primary, 0.3);
+  color: $text-primary;
+}
+
+// Focus visible
+:focus-visible {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-secondary;
+  border-radius: $radius-full;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $bg-hover;
+  border-radius: $radius-full;
+  
+  &:hover {
+    background: $text-muted;
+  }
+}
+
 // Animations
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -197,24 +230,5 @@ svg {
   }
   to {
     transform: translateX(0);
-  }
-}
-
-// Scrollbar
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: var(--radius-lg);
-  
-  &:hover {
-    background: var(--color-muted);
   }
 }

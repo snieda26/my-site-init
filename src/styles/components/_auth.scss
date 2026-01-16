@@ -1,0 +1,122 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.auth-page {
+  min-height: 80vh;
+  @include flex-center;
+  background: radial-gradient(ellipse at top, rgba($primary, 0.15) 0%, transparent 50%);
+  padding: $spacing-8 $spacing-4;
+}
+
+.auth-card {
+  @include card;
+  width: 100%;
+  max-width: 400px;
+  padding: 0;
+  overflow: hidden;
+  
+  &__header {
+    @include flex-column;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-6;
+    text-align: center;
+  }
+  
+  &__logo {
+    @include flex-center;
+    gap: $spacing-2;
+    font-size: $text-2xl;
+    font-weight: $font-bold;
+    color: $text-primary;
+    text-decoration: none;
+    
+    svg {
+      color: $primary;
+    }
+  }
+  
+  &__title {
+    font-size: $text-xl;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin: 0;
+  }
+  
+  &__subtitle {
+    font-size: $text-sm;
+    color: $text-secondary;
+    margin: 0;
+  }
+  
+  &__content {
+    padding: 0 $spacing-6;
+  }
+  
+  &__form {
+    @include flex-column;
+    gap: $spacing-4;
+  }
+  
+  &__divider {
+    @include flex-center;
+    gap: $spacing-3;
+    margin: $spacing-4 0;
+    
+    &-line {
+      flex: 1;
+      height: 1px;
+      background: $border-default;
+    }
+    
+    &-text {
+      font-size: $text-xs;
+      color: $text-muted;
+      text-transform: uppercase;
+    }
+  }
+  
+  &__social {
+    @include flex-column;
+    gap: $spacing-3;
+  }
+  
+  &__google-btn {
+    @include button-base;
+    width: 100%;
+    height: 40px;
+    background: $bg-tertiary;
+    border: 1px solid $border-default;
+    border-radius: $radius-md;
+    color: $text-primary;
+    font-size: $text-sm;
+    
+    &:hover:not(:disabled) {
+      background: $bg-hover;
+      border-color: $border-hover;
+    }
+    
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-right: $spacing-2;
+    }
+  }
+  
+  &__footer {
+    @include flex-center;
+    padding: $spacing-6;
+    font-size: $text-sm;
+    color: $text-secondary;
+    
+    a {
+      color: $primary;
+      text-decoration: none;
+      margin-left: $spacing-1;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
