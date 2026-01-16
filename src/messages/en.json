@@ -253,6 +253,34 @@
       "navigation": {
         "forward": "Forward"
       }
+    },
+    "questions": {
+      "breadcrumb": {
+        "documentation": "Documentation"
+      },
+      "actions": {
+        "practiceProblems": "Practice {section} Problems",
+        "signInToMark": "Sign in to mark as read"
+      },
+      "navigation": {
+        "back": "Back",
+        "forward": "Forward"
+      },
+      "sections": {
+        "react": "React"
+      },
+      "questions": {
+        "react": {
+          "component-lifecycle-methods-in-react": {
+            "title": "Component Lifecycle Methods in React",
+            "content": "## What is Component Lifecycle?\n\n**Component lifecycle** in React is a sequence of stages that component goes through from its **creation** to **removal** from DOM.\n\nLifecycle exists only for **class components**, but its behavior can be **replicated** using **hooks** in functional components.\n\n---\n\n## Lifecycle Stages\n\nLifecycle is divided into **3 key phases**:\n\n| Phase | Description |\n|-------|-------------|\n| **Mounting** | Moment component appears in DOM |\n| **Updating** | Component update when changes occur |\n| **Unmounting** | Component removal from DOM |\n\n## Mounting Phase Methods\n\n| Method | When called |\n|--------|-------------|\n| `constructor` | At component creation moment |\n| `static getDerivedStateFromProps` | Before render (rarely used) |\n| `render` | Required method, returns JSX |\n| `componentDidMount` | After mounting to DOM |\n\n## Updating Phase Methods\n\n| Method | When called |\n|--------|-------------|\n| `static getDerivedStateFromProps` | When props update |\n| `shouldComponentUpdate` | Before re-render (can cancel it) |\n| `render` | At every update |\n| `getSnapshotBeforeUpdate` | DOM snapshot before update |\n| `componentDidUpdate` | After component update |\n\n## Unmounting Phase Method\n\n| Method | When called |\n|--------|-------------|\n| `componentWillUnmount` | Before component removal from DOM |\n\n## Functional Component Equivalents\n\nHook functions allow replicating lifecycle behavior:\n\n| Class method | Hook in function |\n|--------------|-----------------|\n| `componentDidMount` | `useEffect(() => {}, [])` |\n| `componentDidUpdate` | `useEffect(() => {...}, [dep])` |\n| `componentWillUnmount` | `useEffect(() => { return () => {...} }, [])` |\n| `shouldComponentUpdate` | `React.memo()` + `useCallback`, `useMemo` |\n\n## Hook Usage Example\n\n```tsx\nimport { useEffect } from \"react\";\n\nfunction MyComponent() {\n  useEffect(() => {\n    console.log(\"Component mounting\");\n\n    return () => {\n      console.log(\"Component unmounting\");\n    };\n  }, []);\n\n  return <div>Hello!</div>;\n}\n```\n\n> **Tip:** In new projects it's better to use **functional components with hooks** — they're simpler, more concise and recommended by React community."
+          },
+          "virtual-dom": {
+            "title": "Virtual DOM in React",
+            "content": "## What is Virtual DOM?\n\n**Virtual DOM** is a programming concept where a \"virtual\" representation of the UI is kept in memory and synced with the \"real\" DOM by a library such as React.\n\n## Why Virtual DOM?\n\nDirect DOM manipulation is expensive. Virtual DOM allows React to:\n\n- **Batch updates** efficiently\n- **Minimize reflows and repaints**\n- **Optimize rendering** by comparing virtual trees\n- **Provide a simpler programming model**\n\n## How It Works\n\n1. React creates a **virtual representation** of the DOM in memory\n2. When state changes, React creates a **new virtual DOM tree**\n3. React **compares** (diffs) the new tree with the previous one\n4. React **updates only the changed nodes** in the real DOM\n\n## Example\n\n```tsx\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>Increment</button>\n    </div>\n  );\n}\n```\n\nWhen `count` changes, React:\n1. Creates new virtual DOM\n2. Diffs with previous virtual DOM\n3. Updates only the `<p>` text node in real DOM\n\n> **Tip:** Virtual DOM is not faster than direct DOM manipulation, but it makes React's declarative programming model possible and optimizes updates efficiently."
+          }
+        }
+      }
     }
   }
 }

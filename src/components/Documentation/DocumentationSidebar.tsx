@@ -44,7 +44,21 @@ export const DocumentationSidebar = () => {
     {
       title: t('sections.react'),
       href: '/interview-questions/react',
-      children: []
+      children: [
+        { title: 'What is React and Why is it Needed?', href: '/interview-questions/react/what-is-react' },
+        { title: 'Virtual DOM in React', href: '/interview-questions/react/virtual-dom' },
+        { title: 'React Fiber and Virtual DOM Update Process', href: '/interview-questions/react/react-fiber' },
+        { title: 'Why is key Needed in React?', href: '/interview-questions/react/why-key' },
+        { title: 'What is Batching in React?', href: '/interview-questions/react/batching' },
+        { title: 'What is JSX in React?', href: '/interview-questions/react/jsx' },
+        { title: 'How useState Works in React?', href: '/interview-questions/react/usestate' },
+        { title: 'How useEffect Works in React?', href: '/interview-questions/react/useeffect' },
+        { title: 'How useLayoutEffect Works in React and How Does it Differ from useEffect?', href: '/interview-questions/react/uselayout-effect' },
+        { title: 'How useRef Works in React?', href: '/interview-questions/react/useref' },
+        { title: 'Why useImperativeHandle is Needed in React', href: '/interview-questions/react/useimperative-handle' },
+        { title: 'How useCallback Works and Why is it Needed', href: '/interview-questions/react/usecallback' },
+        { title: 'How useMemo Works and Why is it Needed', href: '/interview-questions/react/usememo' },
+      ]
     },
     {
       title: t('sections.vue'),
@@ -103,32 +117,56 @@ export const DocumentationSidebar = () => {
 
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>{t('sections.title')}</h2>
-            {sections.map((section) => (
-              <div key={section.title} className={styles.sectionItem}>
-                <div className={styles.sectionHeader}>
-                  <Link href={section.href} className={styles.link}>
-                    {section.title}
-                  </Link>
-                  {section.children && section.children.length > 0 && (
-                    <button
-                      className={styles.toggleBtn}
-                      onClick={() => toggleSection(section.title)}
-                      aria-expanded={expandedSections.has(section.title)}
-                    >
-                      <svg
-                        stroke="currentColor"
-                        fill="none"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        className={styles.toggleIcon}
+            {sections.map((section) => {
+              const isExpanded = expandedSections.has(section.title);
+              const hasChildren = section.children && section.children.length > 0;
+              
+              return (
+                <div key={section.title} className={styles.sectionItem}>
+                  <div className={styles.sectionHeader}>
+                    {hasChildren ? (
+                      <button
+                        className={styles.sectionToggle}
+                        onClick={() => toggleSection(section.title)}
+                        aria-expanded={isExpanded}
                       >
-                        <path d="m9 18 6-6-6-6" />
-                      </svg>
-                    </button>
+                        <span className={styles.link}>{section.title}</span>
+                        <svg
+                          stroke="currentColor"
+                          fill="none"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                          className={`${styles.toggleIcon} ${isExpanded ? styles.toggleIconExpanded : ''}`}
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </button>
+                    ) : (
+                      <Link href={section.href} className={styles.link}>
+                        {section.title}
+                      </Link>
+                    )}
+                  </div>
+                  {hasChildren && (
+                    <div 
+                      className={`${styles.childrenContainer} ${isExpanded ? styles.childrenExpanded : styles.childrenCollapsed}`}
+                    >
+                      <div className={styles.childrenList}>
+                        {section.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className={styles.childLink}
+                          >
+                            {child.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <hr className={styles.divider} />

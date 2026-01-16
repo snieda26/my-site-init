@@ -1,0 +1,26 @@
+.container {
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.875rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.025em;
+  margin: 1.25rem 0;
+  background-color: var(--color-muted);
+
+  :global(p) {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    color: var(--color-foreground);
+
+    :global(strong) {
+      font-weight: 600;
+    }
+  }
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: -0.75rem;
+  color: var(--color-foreground);
+}

@@ -44,6 +44,10 @@
   display: flex;
   align-items: flex-start;
   gap: 3.5rem;
+  
+  @media (max-width: 1279px) {
+    gap: 0;
+  }
 }
 
 .toc {
