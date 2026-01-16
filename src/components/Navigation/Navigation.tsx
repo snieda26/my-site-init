@@ -47,7 +47,7 @@ export const Navigation = () => {
 
           {/* Desktop menu */}
           <div className={styles.desktopMenu}>
-            <Link href="/docs" className={styles.menuLink}>
+            <Link href="/interview-questions" className={styles.menuLink}>
               {t('links.questions')}
             </Link>
             <Link href="/problems" className={styles.menuLink}>

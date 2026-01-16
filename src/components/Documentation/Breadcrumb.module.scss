@@ -1,0 +1,45 @@
+.breadcrumb {
+  margin-bottom: 1.25rem;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  word-break: break-words;
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.separator {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-muted-foreground);
+}
+
+.separatorIcon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.link {
+  transition: color var(--transition-base);
+  color: var(--color-muted-foreground);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-foreground);
+  }
+}
+
+.current {
+  font-weight: normal;
+  color: var(--color-foreground);
+}

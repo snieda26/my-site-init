@@ -139,5 +139,120 @@
     "community": "Hack Frontend Community",
     "youtube": "YouTube Channel",
     "support": "Support"
+  },
+  "docs": {
+    "brand": "Hack Frontend",
+    "preparationGuide": "Interview Preparation Guide",
+    "gitCheatSheet": "Git Cheat Sheet",
+    "sections": {
+      "title": "Sections",
+      "htmlCss": "HTML & CSS",
+      "javascript": "Javascript",
+      "typescript": "Typescript",
+      "react": "React",
+      "vue": "Vue",
+      "angular": "Angular",
+      "redux": "Redux",
+      "generalQuestions": "General Questions",
+      "architecture": "Architecture",
+      "principles": "Principles",
+      "patterns": "Patterns"
+    },
+    "introduction": {
+      "breadcrumb": {
+        "documentation": "Documentation",
+        "introduction": "Introduction"
+      },
+      "title": "Hack Frontend - Platform for Frontend Interview Preparation",
+      "welcome": "your reliable assistant in interview preparation!",
+      "description": "We understand that preparing for a frontend developer interview can be challenging. Web technologies are constantly evolving, competition in the job market is growing, and it's important to be ready for all questions. That's why we created this platform to help you not only refresh your knowledge of key aspects of frontend development, but also gain practical experience in solving typical tasks that you might encounter in interviews.",
+      "platformName": "Hack Frontend",
+      "platformDescription": "is a platform that combines <strong>theoretical knowledge</strong> and <strong>practical tasks</strong> so you can prepare for interviews as effectively as possible.",
+      "whatDoWeOffer": {
+        "title": "What do we offer?",
+        "knowledgeBase": {
+          "title": "Knowledge Base",
+          "description": "Knowledge Base",
+          "text": "— is your guide to the most important topics in frontend development. Here you'll find answers to popular questions often asked in interviews.",
+          "mainSections": "Main sections:",
+          "javascript": "from basics to advanced concepts",
+          "htmlCss": "layout, semantics, responsive design",
+          "react": "Virtual DOM, hooks, JSX and much more",
+          "angular": "Angular, RxJS, Change Detection",
+          "vue": "Vue, Vuex, Composition API",
+          "typescript": "typing, generics, utility types",
+          "generalQuestions": "General Questions",
+          "generalQuestionsDesc": "HTTP, CORS, REST, optimization",
+          "architecture": "Architecture",
+          "architectureDesc": "FSD, Atomic, Modular",
+          "principles": "Principles",
+          "principlesDesc": "SOLID, DRY, KISS",
+          "patterns": "Patterns",
+          "patternsDesc": "Abstract Factory, Decorator, Singleton, Observer"
+        },
+        "problemsDatabase": {
+          "title": "Problems Database",
+          "description": "Problems Database",
+          "text": "— is practical assignments that will help you consolidate knowledge and prepare for real interviews.",
+          "jsProblems": "JS problems",
+          "jsProblemsDesc": "Problems that test JavaScript knowledge from real interviews.",
+          "quizzes": "What will be logged to the console?",
+          "quizzesDesc": "You know those tricky interview questions where you have to say what will be printed to the console? They can involve the event loop, closures, promises, prototypes, reference types, and other JavaScript quirks.",
+          "reactProblems": "React problems",
+          "reactProblemsDesc": "Problems that test React knowledge from real interviews.",
+          "features": "Features:",
+          "feature1": "Solve problems directly on the platform with built-in IDE",
+          "feature2": "Get instant feedback",
+          "feature3": "Problems from real interviews at top companies",
+          "feature4": "Track your progress"
+        },
+        "knowledgeCheck": {
+          "title": "Knowledge Check",
+          "description": "Knowledge Check",
+          "text": "— is like \"flash cards\" for language learning, but for frontend interview preparation.",
+          "whatYouGet": "What you get:",
+          "questionsCount": "500+ questions",
+          "questionsDesc": "with detailed answers and explanations",
+          "categories": "Breakdowns by categories: JavaScript, React, HTML/CSS and other topics",
+          "progress": "Track learning progress",
+          "mark": "Ability to mark studied questions"
+        }
+      },
+      "whyChoose": {
+        "title": "Why choose Hack Frontend?",
+        "upToDate": "Up-to-date materials",
+        "upToDateDesc": ": We regularly update content so you stay current with the latest trends in web development.",
+        "practical": "Practical approach",
+        "practicalDesc": ": Theory + tasks + knowledge check = confidence in interviews.",
+        "convenience": "Convenience",
+        "convenienceDesc": ": All materials are structured and available in one place.",
+        "free": "Free",
+        "freeDesc": ": Full access to all materials without restrictions."
+      },
+      "howToGetStarted": {
+        "title": "How to get started?",
+        "step1": "Study the knowledge base",
+        "step1Desc": ": Refresh theory and learn new concepts on topics that interest you.",
+        "step2": "Solve problems",
+        "step2Desc": ": Practice on real examples from interviews.",
+        "step3": "Check your knowledge",
+        "step3Desc": ": Go through questions by selected categories and track progress.",
+        "step4": "Pass the interview",
+        "step4Desc": ": Confidently answer questions and solve tasks.",
+        "telegram": "Join our Telegram chat",
+        "telegramLink": "Hack Frontend Community",
+        "telegramDesc": "— connect with like-minded developers and share experiences!",
+        "youtube": "Subscribe to our",
+        "youtubeLink": "YouTube channel",
+        "youtubeDesc": "— we interview experienced developers from top companies who share their career paths and professional insights!"
+      },
+      "tip": {
+        "title": "Tip from professionals:",
+        "text": "Start with the knowledge base to refresh theory, then move on to practice — solve problems and check your knowledge. This way you can confidently answer questions and solve tasks in interviews!"
+      },
+      "navigation": {
+        "forward": "Forward"
+      }
+    }
   }
 }
