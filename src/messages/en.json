@@ -340,6 +340,51 @@
         "description": "General Questions"
       }
     },
-    "questions": "questions"
+    "questions": "questions",
+    "categoryPage": {
+      "title": "Questions by section {category}",
+      "loginPrompt": {
+        "title": "Log in to track progress",
+        "description": "Save study statistics and sync progress across devices",
+        "button": "Log in or sign up"
+      },
+      "navigation": {
+        "back": "Back",
+        "backToCategories": "Back to categories",
+        "of": "of"
+      },
+      "question": {
+        "trackButton": "Log in to track",
+        "trackButtonShort": "Log in",
+        "viewAnswer": "View answer and explanation",
+        "answerPlaceholder": "Answer content will be displayed here..."
+      },
+      "categories": {
+        "html-and-css": {
+          "name": "HTML & CSS"
+        },
+        "javascript": {
+          "name": "JavaScript"
+        },
+        "react": {
+          "name": "React"
+        },
+        "typescript": {
+          "name": "TypeScript"
+        },
+        "vue": {
+          "name": "Vue"
+        },
+        "angular": {
+          "name": "Angular"
+        },
+        "redux": {
+          "name": "Redux"
+        },
+        "general-questions": {
+          "name": "General Questions"
+        }
+      }
+    }
   }
 }

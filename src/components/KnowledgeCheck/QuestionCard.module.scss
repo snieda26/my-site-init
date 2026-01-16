@@ -1,0 +1,189 @@
+.card {
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  padding: 0;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(31, 41, 55, 0.5);
+    border-color: rgba(55, 65, 81, 0.5);
+  }
+
+  &:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.questionInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.badge {
+  background: linear-gradient(to right, rgb(59, 130, 246), rgb(147, 51, 234));
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.title {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(17, 24, 39);
+
+  @media (prefers-color-scheme: dark) {
+    color: rgb(243, 244, 246);
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+.trackButton {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 500;
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  color: rgb(37, 99, 235);
+  transition: all 0.3s;
+  text-decoration: none;
+  border-radius: 0.375rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: rgb(96, 165, 250);
+
+    &:hover {
+      color: rgb(147, 197, 253);
+    }
+  }
+
+  &:hover {
+    background-color: rgb(249, 250, 251);
+    color: rgb(29, 78, 216);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: rgb(31, 41, 55);
+    }
+  }
+}
+
+.lockIcon {
+  height: 1rem;
+  width: 1rem;
+  transition: transform 0.3s;
+}
+
+.trackButton:hover .lockIcon {
+  transform: scale(1.1);
+}
+
+.trackTextDesktop {
+  display: none;
+
+  @media (min-width: 640px) {
+    display: inline;
+  }
+}
+
+.trackTextMobile {
+  display: inline;
+
+  @media (min-width: 640px) {
+    display: none;
+  }
+}
+
+.content {
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.accordionButton {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s;
+  color: rgb(37, 99, 235);
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+
+  @media (prefers-color-scheme: dark) {
+    color: rgb(96, 165, 250);
+
+    &:hover {
+      color: rgb(147, 197, 253);
+    }
+  }
+
+  &:hover {
+    text-decoration: underline;
+    color: rgb(29, 78, 216);
+  }
+}
+
+.accordionLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eyeIcon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.chevronIcon {
+  height: 1rem;
+  width: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.chevronExpanded {
+  transform: rotate(180deg);
+}
+
+.answerContent {
+  padding-top: 0.5rem;
+  color: rgb(75, 85, 99);
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  @media (prefers-color-scheme: dark) {
+    color: rgb(209, 213, 219);
+  }
+}

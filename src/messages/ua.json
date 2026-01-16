@@ -312,6 +312,51 @@
         "description": "Загальні питання"
       }
     },
-    "questions": "питань"
+    "questions": "питань",
+    "categoryPage": {
+      "title": "Питання за розділом {category}",
+      "loginPrompt": {
+        "title": "Увійдіть для відстеження прогресу",
+        "description": "Зберігайте статистику навчання та синхронізуйте прогрес на всіх пристроях",
+        "button": "Увійти або зареєструватися"
+      },
+      "navigation": {
+        "back": "Назад",
+        "backToCategories": "Назад до категорій",
+        "of": "з"
+      },
+      "question": {
+        "trackButton": "Увійти для відстеження",
+        "trackButtonShort": "Увійти",
+        "viewAnswer": "Переглянути відповідь та пояснення",
+        "answerPlaceholder": "Тут буде відображено відповідь..."
+      },
+      "categories": {
+        "html-and-css": {
+          "name": "HTML та CSS"
+        },
+        "javascript": {
+          "name": "JavaScript"
+        },
+        "react": {
+          "name": "React"
+        },
+        "typescript": {
+          "name": "TypeScript"
+        },
+        "vue": {
+          "name": "Vue"
+        },
+        "angular": {
+          "name": "Angular"
+        },
+        "redux": {
+          "name": "Redux"
+        },
+        "general-questions": {
+          "name": "Загальні питання"
+        }
+      }
+    }
   }
 }
