@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import { useTheme } from '@/hooks/useTheme';
 import { Button } from '@/components/UI/Button/Button';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
@@ -10,6 +11,8 @@ import styles from './Navigation.module.scss';
 
 export const Navigation = () => {
   const t = useTranslations('nav');
+  const params = useParams();
+  const locale = params.locale as string;
   const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -125,8 +128,10 @@ export const Navigation = () => {
           </Link>
 
           {/* Login button */}
-          <Button variant="outline" size="sm" className={styles.loginBtn}>
-            {t('login')}
+          <Button variant="outline" size="sm" className={styles.loginBtn} asChild>
+            <Link href={`/${locale}/auth/login`}>
+              {t('login')}
+            </Link>
           </Button>
         </div>
       </div>
