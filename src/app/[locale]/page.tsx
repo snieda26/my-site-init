@@ -1,7 +1,7 @@
 'use client';
 
 import { Navigation } from '@/components/Navigation/Navigation';
-import { Banner } from '@/components/Banner/Banner';
+// import { Banner } from '@/components/Banner/Banner';
 import { Hero } from '@/components/Hero/Hero';
 import { About } from '@/components/About/About';
 import { Testimonials } from '@/components/Testimonials/Testimonials';
@@ -11,7 +11,7 @@ import { Footer } from '@/components/Footer/Footer';
 export default function HomePage() {
   return (
     <>
-      <Banner />
+      {/* <Banner /> */}
       <Navigation />
       <main>
         <Hero />
