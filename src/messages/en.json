@@ -282,5 +282,64 @@
         }
       }
     }
+  },
+  "knowledgeCheck": {
+    "title": "Check Your Knowledge",
+    "description": "Test and expand your programming knowledge with our interactive question categories. Track your progress, identify areas for improvement and master new concepts at your own pace.",
+    "loginPrompt": {
+      "title": "Log in to track your progress.",
+      "button": "Log in to save progress",
+      "trackProgress": "Log in to track progress"
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "step1": {
+        "title": "Select category",
+        "description": "Choose a topic that interests you or aligns with your learning goals"
+      },
+      "step2": {
+        "title": "Answer questions",
+        "description": "Work with questions at your own pace with detailed explanations"
+      },
+      "step3": {
+        "title": "Track progress",
+        "description": "Follow your learning journey and identify areas for improvement"
+      }
+    },
+    "categories": {
+      "htmlAndCss": {
+        "name": "HTML & CSS",
+        "description": "HTML & CSS"
+      },
+      "javascript": {
+        "name": "JavaScript",
+        "description": "JavaScript"
+      },
+      "react": {
+        "name": "React",
+        "description": "React"
+      },
+      "typescript": {
+        "name": "TypeScript",
+        "description": "TypeScript"
+      },
+      "vue": {
+        "name": "Vue",
+        "description": "Vue"
+      },
+      "angular": {
+        "name": "Angular",
+        "description": "Angular"
+      },
+      "redux": {
+        "name": "Redux",
+        "description": "Redux"
+      },
+      "generalQuestions": {
+        "name": "General Questions",
+        "description": "General Questions"
+      }
+    },
+    "questions": "questions"
   }
 }

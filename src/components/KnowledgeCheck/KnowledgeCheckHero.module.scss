@@ -1,0 +1,45 @@
+.container {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(to right, rgb(17, 24, 39), rgb(30, 64, 175), rgb(107, 33, 168));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(to right, rgb(255, 255, 255), rgb(191, 219, 254), rgb(233, 213, 255));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: rgb(75, 85, 99);
+  max-width: 48rem;
+  margin: 0 auto 2rem;
+  line-height: 1.75;
+
+  @media (prefers-color-scheme: dark) {
+    color: rgb(209, 213, 219);
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
