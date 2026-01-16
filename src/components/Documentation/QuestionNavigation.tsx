@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+import { useLocale } from '@/common/hooks';
 import styles from './QuestionNavigation.module.scss';
 
 interface QuestionNavigationProps {
@@ -12,8 +12,7 @@ interface QuestionNavigationProps {
 
 export const QuestionNavigation = ({ section, question }: QuestionNavigationProps) => {
   const t = useTranslations('docs.questions');
-  const params = useParams();
-  const locale = params.locale as string;
+  const locale = useLocale();
 
   // TODO: Implement actual navigation logic based on question order
   const prevQuestion = null; // Get previous question
@@ -24,7 +23,7 @@ export const QuestionNavigation = ({ section, question }: QuestionNavigationProp
       <div className={styles.navGroup}>
         {prevQuestion ? (
           <Link
-            href={`/${locale}/interview-questions/${section}/${prevQuestion}`}
+            href={`/interview-questions/${section}/${prevQuestion}/${locale}`}
             className={styles.navButton}
           >
             <svg
@@ -60,7 +59,7 @@ export const QuestionNavigation = ({ section, question }: QuestionNavigationProp
       <div className={styles.navGroup}>
         {nextQuestion ? (
           <Link
-            href={`/${locale}/interview-questions/${section}/${nextQuestion}`}
+            href={`/interview-questions/${section}/${nextQuestion}/${locale}`}
             className={styles.navButton}
           >
             <p>{t('navigation.forward')}</p>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Poppins } from 'next/font/google'
 import { AppProviders } from '@/providers/app-providers'
@@ -60,8 +60,11 @@ export default async function LocaleLayout({ children, params }: Props) {
 		notFound()
 	}
 
-	// Providing all messages to the client side is the easiest way to get started
-	const messages = await getMessages()
+	// Enable static rendering by setting the locale for server components
+	setRequestLocale(locale)
+
+	// Providing all messages to the client side - pass locale explicitly
+	const messages = await getMessages({ locale })
 
 	return (
 		<html lang={locale} className={poppins.variable} suppressHydrationWarning>
@@ -79,7 +82,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 				/>
 			</head>
 			<body>
-				<NextIntlClientProvider messages={messages}>
+				<NextIntlClientProvider locale={locale} messages={messages}>
 					<AppProviders>{children}</AppProviders>
 				</NextIntlClientProvider>
 			</body>

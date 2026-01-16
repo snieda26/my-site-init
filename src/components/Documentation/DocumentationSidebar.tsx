@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { useLocale, useLocalePath } from '@/common/hooks';
 import styles from './DocumentationSidebar.module.scss';
 
 interface Section {
@@ -13,6 +14,8 @@ interface Section {
 
 export const DocumentationSidebar = () => {
   const t = useTranslations('docs');
+  const locale = useLocale();
+  const localePath = useLocalePath();
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
 
   const toggleSection = (title: string) => {
@@ -102,13 +105,13 @@ export const DocumentationSidebar = () => {
       <div className={styles.scrollArea}>
         <div className={styles.content}>
           <div className={styles.section}>
-            <Link href="/" className={styles.brandLink}>
+            <Link href={`/${locale}`} className={styles.brandLink}>
               {t('brand')}
             </Link>
           </div>
 
           <div className={styles.section}>
-            <Link href="/interview-questions/frontend-interview-preparation-guide" className={styles.link}>
+            <Link href={localePath('/interview-questions/frontend-interview-preparation-guide')} className={styles.link}>
               {t('preparationGuide')}
             </Link>
           </div>
@@ -142,7 +145,7 @@ export const DocumentationSidebar = () => {
                         </svg>
                       </button>
                     ) : (
-                      <Link href={section.href} className={styles.link}>
+                      <Link href={localePath(section.href)} className={styles.link}>
                         {section.title}
                       </Link>
                     )}
@@ -155,7 +158,7 @@ export const DocumentationSidebar = () => {
                         {section.children.map((child) => (
                           <Link
                             key={child.href}
-                            href={child.href}
+                            href={localePath(child.href)}
                             className={styles.childLink}
                           >
                             {child.title}
@@ -172,7 +175,7 @@ export const DocumentationSidebar = () => {
           <hr className={styles.divider} />
 
           <div className={styles.section}>
-            <Link href="/interview-questions/git" className={styles.link}>
+            <Link href={localePath('/interview-questions/git')} className={styles.link}>
               {t('gitCheatSheet')}
             </Link>
           </div>

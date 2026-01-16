@@ -1,8 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useLocale } from '@/common/hooks';
 import styles from './CategoryHeader.module.scss';
 
 interface CategoryHeaderProps {
@@ -11,8 +11,7 @@ interface CategoryHeaderProps {
 
 export const CategoryHeader = ({ category }: CategoryHeaderProps) => {
   const t = useTranslations('knowledgeCheck.categoryPage');
-  const params = useParams();
-  const locale = params.locale as string;
+  const locale = useLocale();
 
   const categoryName = t(`categories.${category}.name`) || category;
 
@@ -43,7 +42,7 @@ export const CategoryHeader = ({ category }: CategoryHeaderProps) => {
             <h3 className={styles.loginTitle}>{t('loginPrompt.title')}</h3>
             <p className={styles.loginDescription}>{t('loginPrompt.description')}</p>
             <Link 
-              href={`/${locale}/auth/login`}
+              href={`/auth/login/${locale}`}
               className={styles.loginButton}
             >
               {t('loginPrompt.button')}

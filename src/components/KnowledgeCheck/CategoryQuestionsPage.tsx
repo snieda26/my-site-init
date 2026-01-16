@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useLocale } from '@/common/hooks';
 import { CategoryHeader } from './CategoryHeader';
 import { CategoryNavigation } from './CategoryNavigation';
 import { QuestionList } from './QuestionList';
@@ -12,8 +12,7 @@ interface CategoryQuestionsPageProps {
 }
 
 export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) => {
-  const params = useParams();
-  const locale = params.locale as string;
+  const locale = useLocale();
 
   return (
     <div className={styles.container}>

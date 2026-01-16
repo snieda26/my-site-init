@@ -1,15 +1,14 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useLocale } from '@/common/hooks';
 import { CategoryCard } from './CategoryCard';
 import styles from './CategoryGrid.module.scss';
 
 export const CategoryGrid = () => {
   const t = useTranslations('knowledgeCheck.categories');
-  const params = useParams();
-  const locale = params.locale as string;
+  const locale = useLocale();
 
   const categories = [
     {

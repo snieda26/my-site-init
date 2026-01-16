@@ -1,8 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useLocale } from '@/common/hooks';
 import styles from './QuestionCard.module.scss';
 
 interface QuestionCardProps {
@@ -16,8 +16,7 @@ interface QuestionCardProps {
 
 export const QuestionCard = ({ question, isExpanded, onToggle }: QuestionCardProps) => {
   const t = useTranslations('knowledgeCheck.categoryPage');
-  const params = useParams();
-  const locale = params.locale as string;
+  const locale = useLocale();
 
   return (
     <div className={styles.card}>
@@ -27,7 +26,7 @@ export const QuestionCard = ({ question, isExpanded, onToggle }: QuestionCardPro
           <div className={styles.title}>{question.title}</div>
         </div>
         <Link 
-          href={`/${locale}/auth/login`}
+          href={`/auth/login/${locale}`}
           className={styles.trackButton}
         >
           <svg 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useLocale } from '@/common/hooks';
 import { ProblemItem } from './ProblemItem';
 import styles from './ProblemList.module.scss';
 
@@ -110,8 +110,7 @@ export const ProblemList = ({
   currentPage,
   itemsPerPage,
 }: ProblemListProps) => {
-  const params = useParams();
-  const locale = params.locale as string;
+  const locale = useLocale();
 
   const problems = getProblems(activeTab, statusFilter, companyFilter);
 

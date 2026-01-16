@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+import { useLocale } from '@/common/hooks';
 import { Breadcrumb } from './Breadcrumb';
 import { QuestionActionButtons } from './QuestionActionButtons';
 import { QuestionContent } from './QuestionContent';
@@ -15,8 +15,7 @@ interface QuestionPageContentProps {
 
 export const QuestionPageContent = ({ section, question }: QuestionPageContentProps) => {
   const t = useTranslations('docs.questions');
-  const params = useParams();
-  const locale = params.locale as string;
+  const locale = useLocale();
 
   // Generate breadcrumb items
   let questionTitle = question.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -28,8 +27,8 @@ export const QuestionPageContent = ({ section, question }: QuestionPageContentPr
   }
 
   const breadcrumbItems = [
-    { label: t('breadcrumb.documentation'), href: `/${locale}/interview-questions` },
-    { label: t(`sections.${section}`) || section, href: `/${locale}/interview-questions/${section}` },
+    { label: t('breadcrumb.documentation'), href: `/interview-questions/${locale}` },
+    { label: t(`sections.${section}`) || section, href: `/interview-questions/${section}/${locale}` },
     { label: questionTitle },
   ];
 

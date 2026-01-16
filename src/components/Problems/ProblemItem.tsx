@@ -17,7 +17,7 @@ export const ProblemItem = ({ problem, locale }: ProblemItemProps) => {
   return (
     <li className={styles.item}>
       <Link
-        href={`/${locale}/problems/${problem.id}`}
+        href={`/problems/${problem.id}/${locale}`}
         className={styles.link}
       >
         <div className={styles.header}>

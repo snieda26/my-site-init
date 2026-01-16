@@ -1,24 +1,37 @@
 'use client';
 
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { locales, localeNames, localeFlags, type Locale } from '@/i18n/config';
+import { useLocale } from '@/common/hooks';
 import styles from './LanguageSwitcher.module.scss';
 
 export const LanguageSwitcher = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
-  const currentLocale = (params.locale as Locale) || 'ua';
+  const currentLocale = useLocale();
 
   const switchLocale = (newLocale: Locale) => {
     if (!pathname) return;
 
-    // Replace the locale in the pathname
-    const segments = pathname.split('/');
-    segments[1] = newLocale;
-    const newPathname = segments.join('/');
+    const segments = pathname.split('/').filter(Boolean);
+    
+    // Check if locale is at the end (new format: /path/locale)
+    const lastSegment = segments[segments.length - 1];
+    if (locales.includes(lastSegment as Locale)) {
+      // Replace locale at the end
+      segments[segments.length - 1] = newLocale;
+    } 
+    // Check if locale is at the start (old format: /locale/path)
+    else if (locales.includes(segments[0] as Locale)) {
+      segments[0] = newLocale;
+    }
+    // No locale found, append new locale
+    else {
+      segments.push(newLocale);
+    }
 
+    const newPathname = '/' + segments.join('/');
     router.push(newPathname);
   };
 

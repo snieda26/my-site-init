@@ -21,7 +21,7 @@ export const CategoryCard = ({ category, locale }: CategoryCardProps) => {
 
   return (
     <Link 
-      href={`/${locale}/check-knowledge/${category.id}`}
+      href={`/check-knowledge/${category.id}/${locale}`}
       className={styles.card}
     >
       <div 

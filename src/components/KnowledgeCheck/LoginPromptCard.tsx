@@ -2,20 +2,19 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useLocale } from '@/common/hooks';
 import styles from './LoginPromptCard.module.scss';
 
 export const LoginPromptCard = () => {
   const t = useTranslations('knowledgeCheck');
-  const params = useParams();
-  const locale = params.locale as string;
+  const locale = useLocale();
 
   return (
     <div className={styles.card}>
       <div className={styles.content}>
         <h2 className={styles.title}>{t('loginPrompt.title')}</h2>
         <Link 
-          href={`/${locale}/auth/login`}
+          href={`/auth/login/${locale}`}
           className={styles.button}
         >
           <svg 

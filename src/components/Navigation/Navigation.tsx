@@ -3,17 +3,16 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { useParams } from 'next/navigation'
 import { FiMenu, FiSearch, FiPlus, FiBell, FiSun, FiMoon } from 'react-icons/fi'
-import { useTheme } from '@/common/hooks'
+import { useTheme, useLocale, useLocalePath } from '@/common/hooks'
 import { Button } from '@/common/components/ui'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
 import styles from './Navigation.module.scss'
 
 export const Navigation = () => {
 	const t = useTranslations('nav')
-	const params = useParams()
-	const locale = params.locale as string
+	const locale = useLocale()
+	const localePath = useLocalePath()
 	const { theme, toggleTheme } = useTheme()
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 	const [searchOpen, setSearchOpen] = useState(false)
@@ -40,13 +39,13 @@ export const Navigation = () => {
 
 					{/* Desktop menu */}
 					<div className={styles.desktopMenu}>
-						<Link href={`/${locale}/interview-questions`} className={styles.menuLink}>
+						<Link href={localePath('/interview-questions')} className={styles.menuLink}>
 							{t('links.questions')}
 						</Link>
-						<Link href={`/${locale}/problems`} className={styles.menuLink}>
+						<Link href={localePath('/problems')} className={styles.menuLink}>
 							{t('links.problems')}
 						</Link>
-						<Link href={`/${locale}/check-knowledge`} className={styles.menuLink}>
+						<Link href={localePath('/check-knowledge')} className={styles.menuLink}>
 							{t('links.knowledgeCheck')}
 						</Link>
 					</div>
@@ -92,14 +91,14 @@ export const Navigation = () => {
 					</button>
 
 					{/* Notifications */}
-					<Link href={`/${locale}/notifications`} className={styles.iconBtn} aria-label={t('notifications')}>
+					<Link href={localePath('/notifications')} className={styles.iconBtn} aria-label={t('notifications')}>
 						<FiBell size={20} />
 						<span className={styles.notificationDot} />
 					</Link>
 
 					{/* Login button */}
 					<Button variant="outline" size="sm">
-						<Link href={`/${locale}/auth/login`}>{t('login')}</Link>
+						<Link href={localePath('/auth/login')}>{t('login')}</Link>
 					</Button>
 				</div>
 			</div>

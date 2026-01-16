@@ -31,7 +31,7 @@ export const CategoryNavigation = ({ category, locale }: CategoryNavigationProps
     <div className={styles.container}>
       <div className={styles.content}>
         <Link 
-          href={`/${locale}/check-knowledge`}
+          href={`/check-knowledge/${locale}`}
           className={styles.backButton}
         >
           <svg 

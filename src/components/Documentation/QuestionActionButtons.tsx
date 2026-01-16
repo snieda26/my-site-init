@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+import { useLocale } from '@/common/hooks';
 import styles from './QuestionActionButtons.module.scss';
 
 interface QuestionActionButtonsProps {
@@ -11,14 +11,13 @@ interface QuestionActionButtonsProps {
 
 export const QuestionActionButtons = ({ section }: QuestionActionButtonsProps) => {
   const t = useTranslations('docs.questions');
-  const params = useParams();
-  const locale = params.locale as string;
+  const locale = useLocale();
 
   return (
     <div className={styles.container}>
       <div className={styles.buttons}>
         <Link
-          href={`/${locale}/problems/${section}-problems`}
+          href={`/problems/${section}-problems/${locale}`}
           className={styles.practiceButton}
         >
           <svg

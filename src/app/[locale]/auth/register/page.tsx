@@ -1,17 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { FaCode } from 'react-icons/fa'
+import { useLocale } from '@/common/hooks'
 import { RegisterForm, GoogleSignInButton } from '@/modules/auth'
 import { Footer } from '@/components/Footer/Footer'
 
 export default function RegisterPage() {
 	const t = useTranslations('auth.register')
 	const tAuth = useTranslations('auth')
-	const params = useParams()
-	const locale = params.locale as string
+	const locale = useLocale()
 
 	return (
 		<>
@@ -42,7 +41,7 @@ export default function RegisterPage() {
 
 					<div className="auth-card__footer">
 						{t('haveAccount')}
-						<Link href={`/${locale}/auth/login`}>{tAuth('signIn')}</Link>
+						<Link href={`/auth/login/${locale}`}>{tAuth('signIn')}</Link>
 					</div>
 				</div>
 			</main>

@@ -2,11 +2,14 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useLocale, useLocalePath } from '@/common/hooks';
 import { Breadcrumb } from './Breadcrumb';
 import styles from './IntroductionContent.module.scss';
 
 export const IntroductionContent = () => {
   const t = useTranslations('docs.introduction');
+  const locale = useLocale();
+  const localePath = useLocalePath();
 
   return (
     <div className={styles.container}>
@@ -45,7 +48,7 @@ export const IntroductionContent = () => {
             📚 {t('whatDoWeOffer.knowledgeBase.title')}
           </h3>
           <p>
-            <Link href="/interview-questions" className={styles.link}>
+            <Link href={localePath('/interview-questions')} className={styles.link}>
               {t('whatDoWeOffer.knowledgeBase.description')}
             </Link>{' '}
             {t('whatDoWeOffer.knowledgeBase.text')}
@@ -55,61 +58,61 @@ export const IntroductionContent = () => {
           </p>
           <ul>
             <li>
-              <Link href="/interview-questions/javascript" className={styles.link}>
+              <Link href={localePath('/interview-questions/javascript')} className={styles.link}>
                 JavaScript
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.javascript')}
             </li>
             <li>
-              <Link href="/interview-questions/html-and-css" className={styles.link}>
+              <Link href={localePath('/interview-questions/html-and-css')} className={styles.link}>
                 HTML & CSS
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.htmlCss')}
             </li>
             <li>
-              <Link href="/interview-questions/react" className={styles.link}>
+              <Link href={localePath('/interview-questions/react')} className={styles.link}>
                 React
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.react')}
             </li>
             <li>
-              <Link href="/interview-questions/angular" className={styles.link}>
+              <Link href={localePath('/interview-questions/angular')} className={styles.link}>
                 Angular
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.angular')}
             </li>
             <li>
-              <Link href="/interview-questions/vue" className={styles.link}>
+              <Link href={localePath('/interview-questions/vue')} className={styles.link}>
                 Vue
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.vue')}
             </li>
             <li>
-              <Link href="/interview-questions/typescript" className={styles.link}>
+              <Link href={localePath('/interview-questions/typescript')} className={styles.link}>
                 TypeScript
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.typescript')}
             </li>
             <li>
-              <Link href="/interview-questions/general-questions" className={styles.link}>
+              <Link href={localePath('/interview-questions/general-questions')} className={styles.link}>
                 {t('whatDoWeOffer.knowledgeBase.generalQuestions')}
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.generalQuestionsDesc')}
             </li>
             <li>
-              <Link href="/interview-questions/architecture" className={styles.link}>
+              <Link href={localePath('/interview-questions/architecture')} className={styles.link}>
                 {t('whatDoWeOffer.knowledgeBase.architecture')}
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.architectureDesc')}
             </li>
             <li>
-              <Link href="/interview-questions/principles" className={styles.link}>
+              <Link href={localePath('/interview-questions/principles')} className={styles.link}>
                 {t('whatDoWeOffer.knowledgeBase.principles')}
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.principlesDesc')}
             </li>
             <li>
-              <Link href="/interview-questions/patterns" className={styles.link}>
+              <Link href={localePath('/interview-questions/patterns')} className={styles.link}>
                 {t('whatDoWeOffer.knowledgeBase.patterns')}
               </Link>{' '}
               — {t('whatDoWeOffer.knowledgeBase.patternsDesc')}
@@ -258,7 +261,7 @@ export const IntroductionContent = () => {
         <div className={styles.navigation}>
           <div></div>
           <div>
-            <Link href="/interview-questions/frontend-interview-preparation-guide" className={styles.forwardBtn}>
+            <Link href={localePath('/interview-questions/frontend-interview-preparation-guide')} className={styles.forwardBtn}>
               <p>{t('navigation.forward')}</p>
               <svg
                 stroke="currentColor"
