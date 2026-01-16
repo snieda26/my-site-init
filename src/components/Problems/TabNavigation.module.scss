@@ -1,0 +1,53 @@
+.container {
+  display: inline-flex;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  background-color: rgb(243, 244, 246);
+  border-radius: 0.5rem;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(31, 41, 55);
+  }
+}
+
+.tab {
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.3s;
+  font-size: 0.875rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(75, 85, 99);
+  text-decoration: none;
+
+  @media (min-width: 768px) {
+    padding: 0.25rem 0.625rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: rgb(209, 213, 219);
+
+    &:hover {
+      background-color: rgb(55, 65, 81);
+      color: rgb(243, 244, 246);
+    }
+  }
+
+  &:hover {
+    background-color: rgb(229, 231, 235);
+    color: rgb(17, 24, 39);
+  }
+
+  &.active {
+    background: rgb(37, 99, 235);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    &:hover {
+      background: rgb(29, 78, 216);
+    }
+  }
+}

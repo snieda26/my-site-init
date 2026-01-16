@@ -82,7 +82,7 @@
     },
     "problems": {
       "title": "Problems from real companies",
-      "description": "Practice on problems from Yandex, Ozon, Sber and other top companies."
+      "description": "Practice on problems from EPAM, SoftServe, GlobalLogic and other top companies."
     },
     "progress": {
       "title": "Progress tracking",
@@ -114,7 +114,7 @@
       },
       "companies": {
         "question": "Which companies' interview questions are included?",
-        "answer": "We include questions from interviews at companies like Google, Meta, Yandex, Ozon, Sber, Tinkoff, and many other top IT companies."
+        "answer": "We include questions from interviews at companies like Google, Meta, EPAM, SoftServe, GlobalLogic, and many other top IT companies."
       },
       "practice": {
         "question": "Can I practice coding online?",
@@ -385,6 +385,31 @@
           "name": "General Questions"
         }
       }
+    }
+  },
+  "problems": {
+    "title": "Problems",
+    "description": "Solve interview problems from top IT companies",
+    "tabs": {
+      "problems": "Problems",
+      "reactProblems": "React Problems",
+      "quizzes": "Console Output Quiz"
+    },
+    "filters": {
+      "status": {
+        "label": "Status",
+        "all": "All",
+        "solved": "Solved",
+        "unsolved": "Unsolved"
+      },
+      "company": {
+        "label": "Company",
+        "all": "All"
+      }
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
     }
   }
 }
