@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { FiMenu, FiSearch, FiPlus, FiBell, FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi'
+import { FiMenu, FiSearch, FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi'
 import { useTheme, useLocale, useLocalePath } from '@/common/hooks'
 import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth'
 import { Button } from '@/common/components/ui'
@@ -88,10 +88,10 @@ export const Navigation = () => {
 						</div>
 					</div>
 
-					{/* Add button */}
-					<button className={styles.iconBtn} aria-label="Add">
+					{/* Add button - hidden for now */}
+					{/* <button className={styles.iconBtn} aria-label="Add">
 						<FiPlus size={24} />
-					</button>
+					</button> */}
 
 					{/* Language switcher */}
 					<LanguageSwitcher />
@@ -106,11 +106,11 @@ export const Navigation = () => {
 						{theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}
 					</button>
 
-				{/* Notifications */}
-				<Link href={localePath('/notifications')} className={styles.iconBtn} aria-label={t('notifications')}>
+				{/* Notifications - hidden for now */}
+				{/* <Link href={localePath('/notifications')} className={styles.iconBtn} aria-label={t('notifications')}>
 					<FiBell size={20} />
 					<span className={styles.notificationDot} />
-				</Link>
+				</Link> */}
 
 				{/* User Avatar with Dropdown OR Login button */}
 				{isLoading ? (
