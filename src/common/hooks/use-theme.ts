@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback } from 'react'
 import { useAppDispatch, useAppSelector } from '@/stores/hooks'
 import { setTheme as setThemeAction, toggleTheme as toggleThemeAction } from '@/stores/theme/theme.slice'

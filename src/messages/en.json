@@ -468,5 +468,105 @@
       "passwordMismatch": "Passwords do not match",
       "submitting": "Please wait..."
     }
+  },
+  "onboarding": {
+    "title": "Set Up Your Learning Profile",
+    "subtitle": "Help us personalize your experience by answering a few questions",
+    "loading": "Loading...",
+    "back": "Back",
+    "next": "Next",
+    "complete": "Complete Setup",
+    "saving": "Saving...",
+    "steps": {
+      "experience": {
+        "title": "Tell us about yourself",
+        "description": "This helps us recommend the right content for your level",
+        "levelLabel": "Your experience level",
+        "positionLabel": "Target position",
+        "yearsLabel": "Years of experience",
+        "yearsNone": "Just starting",
+        "yearsMax": "15+ years",
+        "yearsValue": "{years} years",
+        "levels": {
+          "beginner": "Beginner",
+          "junior": "Junior",
+          "middle": "Middle",
+          "senior": "Senior",
+          "lead": "Tech Lead"
+        },
+        "positions": {
+          "frontend": "Frontend",
+          "backend": "Backend",
+          "fullstack": "Full Stack",
+          "devops": "DevOps",
+          "mobile": "Mobile"
+        }
+      },
+      "technologies": {
+        "title": "What technologies do you want to learn?",
+        "description": "Select all technologies you're interested in or currently working with",
+        "selected": "{count} selected",
+        "categories": {
+          "frontend": "Frontend",
+          "backend": "Backend",
+          "database": "Database",
+          "api": "API",
+          "devops": "DevOps",
+          "cloud": "Cloud",
+          "tools": "Tools",
+          "other": "Other"
+        }
+      },
+      "goals": {
+        "title": "What's your learning goal?",
+        "description": "Understanding your goal helps us prioritize the right content",
+        "goalLabel": "Primary goal",
+        "hoursLabel": "Time commitment",
+        "hoursHint": "How many hours per week can you dedicate to learning?",
+        "hoursPerWeek": "hours/week",
+        "goals": {
+          "interview_prep": {
+            "title": "Interview Preparation",
+            "description": "Prepare for technical interviews at top companies"
+          },
+          "skill_improvement": {
+            "title": "Skill Improvement",
+            "description": "Deepen your existing knowledge and learn new concepts"
+          },
+          "career_change": {
+            "title": "Career Change",
+            "description": "Transition into a new role or technology stack"
+          },
+          "certification": {
+            "title": "Get Certified",
+            "description": "Prepare for professional certifications"
+          },
+          "hobby": {
+            "title": "Personal Interest",
+            "description": "Learn for fun and personal projects"
+          }
+        }
+      },
+      "focus": {
+        "title": "Choose your focus areas",
+        "description": "Select areas you want to improve most",
+        "hint": "Optional - you can skip this step"
+      },
+      "summary": {
+        "title": "Review Your Profile",
+        "description": "Make sure everything looks good before we personalize your experience",
+        "experience": "Experience",
+        "level": "Level",
+        "position": "Position",
+        "years": "Experience",
+        "yearsLabel": "years",
+        "technologies": "Technologies",
+        "learningGoal": "Learning Goal",
+        "goal": "Goal",
+        "weeklyHours": "Time commitment",
+        "focusAreas": "Focus Areas",
+        "confirmationMessage": "We'll customize your dashboard and recommendations based on your profile. You can always update these preferences later."
+      }
+    }
   }
 }

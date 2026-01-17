@@ -1,3 +1,5 @@
+'use client'
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
@@ -54,7 +56,12 @@ export function useRegister() {
 				})
 			)
 			toast.success('Account created successfully!')
-			router.push(`/${locale}`)
+			// Redirect to onboarding if not completed, otherwise home
+			if (!data.account.onboardingCompleted) {
+				router.push(`/onboarding/${locale}`)
+			} else {
+				router.push(`/${locale}`)
+			}
 		},
 		// Error is displayed on the form, no toast needed
 	})
@@ -82,7 +89,12 @@ export function useLogin() {
 				})
 			)
 			toast.success('Logged in successfully!')
-			router.push(`/${locale}`)
+			// Redirect to onboarding if not completed, otherwise home
+			if (!data.account.onboardingCompleted) {
+				router.push(`/onboarding/${locale}`)
+			} else {
+				router.push(`/${locale}`)
+			}
 		},
 		// Error is displayed on the form, no toast needed
 	})

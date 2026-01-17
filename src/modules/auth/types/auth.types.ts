@@ -4,6 +4,7 @@ export interface User {
 	name?: string
 	avatarUrl?: string
 	emailVerified: boolean
+	onboardingCompleted?: boolean
 	role?: 'USER' | 'ADMIN'
 	createdAt?: string
 }

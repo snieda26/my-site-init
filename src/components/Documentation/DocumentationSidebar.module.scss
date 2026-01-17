@@ -167,3 +167,31 @@
   border-top: 1px solid var(--color-border);
   margin: 0.5rem 0;
 }
+
+.filterToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--color-muted-foreground);
+  background: rgba(var(--color-primary-rgb), 0.1);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  width: 100%;
+  text-align: left;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: rgba(var(--color-primary-rgb), 0.15);
+    color: var(--color-foreground);
+    border-color: var(--color-primary);
+  }
+}
