@@ -117,8 +117,10 @@ export function useProfile() {
 	return useQuery({
 		queryKey: ['profile'],
 		queryFn: () => authService.getProfile(),
-		retry: false,
+		retry: 1, // Retry once on failure
+		retryDelay: 500,
 		enabled: !!accessToken, // Only fetch if we have a token
+		staleTime: 1000 * 60 * 5, // Cache for 5 minutes
 	})
 }
 

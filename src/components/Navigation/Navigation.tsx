@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { FiMenu, FiSearch, FiPlus, FiBell, FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi'
 import { useTheme, useLocale, useLocalePath } from '@/common/hooks'
@@ -116,26 +115,18 @@ export const Navigation = () => {
 				{/* User Avatar with Dropdown OR Login button */}
 				{isLoading ? (
 					<div className={styles.avatarSkeleton} />
-				) : isAuthenticated && user ? (
+				) : isAuthenticated ? (
 					<div className={styles.userMenu} ref={userMenuRef}>
 						<button
 							className={styles.avatarBtn}
 							onClick={() => setUserMenuOpen(!userMenuOpen)}
 							aria-label="User menu"
 						>
-							{user.channel?.avatarPath ? (
-								<Image
-									src={user.channel.avatarPath}
-									alt={user.name || 'User'}
-									width={36}
-									height={36}
-									className={styles.avatar}
-								/>
-							) : (
-								<div className={styles.avatarPlaceholder}>
-									{(user.name || user.email || 'U').charAt(0).toUpperCase()}
-								</div>
-							)}
+							<img
+								src={user?.avatarUrl || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&s=128'}
+								alt={user?.name || 'User'}
+								className={styles.avatar}
+							/>
 						</button>
 						
 						{userMenuOpen && (
