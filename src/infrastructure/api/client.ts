@@ -1,6 +1,8 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
 import Cookies from 'js-cookie'
 import { API_URL } from '@/common/constants/api.constants'
+import { store } from '@/stores'
+import { logout } from '@/stores/auth/auth.slice'
 
 export const apiClient = axios.create({
 	baseURL: API_URL,
@@ -94,9 +96,9 @@ apiClient.interceptors.response.use(
 			} catch (refreshError) {
 				processQueue(refreshError as AxiosError, null)
 
-				// Clear tokens - but don't redirect automatically
-				// Let the app handle the redirect through proper auth state
+				// Clear tokens and Redux state
 				Cookies.remove('accessToken')
+				store.dispatch(logout())
 
 				return Promise.reject(refreshError)
 			} finally {
