@@ -14,21 +14,12 @@ export const QuestionsGrid = () => {
   const sections = useMemo(() => docsConfig.map(section => ({
     id: section.id,
     title: section.title[locale as 'en' | 'ua'] || section.title.en,
-    questions: section.questions.map((q, index) => ({
-      number: `${index + 1}`,
+    href: `/interview-questions/${section.id}`,
+    questions: section.questions.map((q) => ({
       title: q.title[locale as 'en' | 'ua'] || q.title.en,
       href: `/interview-questions/${section.id}/${q.slug}`,
     })),
   })).filter(section => section.questions.length > 0), [locale]);
-
-  // Group sections into columns for better layout
-  const groupedSections = useMemo(() => {
-    const result: typeof sections[] = [[], [], []];
-    sections.forEach((section, index) => {
-      result[index % 3].push(section);
-    });
-    return result;
-  }, [sections]);
 
   return (
     <div className={styles.container}>
@@ -38,33 +29,34 @@ export const QuestionsGrid = () => {
         </h1>
         <p className={styles.subtitle}>
           {locale === 'ua' 
-            ? 'Вивчайте теорію та готуйтесь до технічних співбесід'
-            : 'Study theory and prepare for technical interviews'}
+            ? 'Вивчайте теорію та готуйтесь до технічних співбесід. Оберіть тему нижче.'
+            : 'Study theory and prepare for technical interviews. Choose a topic below.'}
         </p>
       </div>
 
-      <div className={styles.grid}>
-        {groupedSections.map((column, columnIndex) => (
-          <div key={columnIndex} className={styles.column}>
-            {column.map((section) => (
-              <div key={section.id} className={styles.section}>
-                <h2 className={styles.sectionTitle}>{section.title}</h2>
-                <div className={styles.questions}>
-                  {section.questions.map((question) => (
-                    <Link
-                      key={question.href}
-                      href={localePath(question.href)}
-                      className={styles.questionLink}
-                    >
-                      <span className={styles.questionNumber}>{question.number}.</span>
-                      <span className={styles.questionTitle}>{question.title}</span>
-                    </Link>
-                  ))}
-                </div>
+      <div className={styles.content}>
+        <div className={styles.list}>
+          {sections.map((section) => (
+            <div key={section.id} className={styles.listItem}>
+              <div className={styles.listTitle}>
+                <Link href={localePath(section.href)} className={styles.listLink}>
+                  {section.title}
+                </Link>
               </div>
-            ))}
-          </div>
-        ))}
+              <ul className={styles.listSub}>
+                {section.questions.map((question) => (
+                  <li key={question.href} className={styles.listSubItem}>
+                    <div className={styles.listSubTitle}>
+                      <Link href={localePath(question.href)} className={styles.listSubLink}>
+                        {question.title}
+                      </Link>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
 
       {sections.length === 0 && (

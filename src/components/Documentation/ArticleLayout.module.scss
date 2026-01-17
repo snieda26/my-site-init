@@ -1,15 +1,16 @@
 .container {
   display: flex;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
   min-height: calc(100vh - 200px);
+  gap: 2rem;
 }
 
 .tocSidebar {
-  width: 260px;
+  width: 220px;
   flex-shrink: 0;
-  padding: 2rem 1rem 2rem 0;
+  padding: 2rem 0;
   position: sticky;
   top: 80px;
   height: fit-content;
@@ -24,17 +25,14 @@
 .content {
   flex: 1;
   min-width: 0;
-  display: flex;
-  justify-content: center;
   padding: 2rem 0;
 }
 
 .contentInner {
   width: 100%;
-  max-width: 800px;
-  padding: 0 2rem;
+  max-width: 750px;
   
   @media (max-width: 768px) {
-    padding: 0 1rem;
+    padding: 0;
   }
 }
