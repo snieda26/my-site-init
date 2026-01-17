@@ -1,6 +1,6 @@
 import { Navigation } from '@/components/Navigation/Navigation';
 import { Footer } from '@/components/Footer/Footer';
-import { DocumentationLayout } from '@/components/Documentation/DocumentationLayout';
+import { ArticleLayout } from '@/components/Documentation/ArticleLayout';
 import { QuestionPageContent } from '@/components/Documentation/QuestionPageContent';
 import { getDocBySlug } from '@/lib/docs';
 import { notFound } from 'next/navigation';
@@ -28,7 +28,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
     <>
       <Navigation />
       <main className="flex-1 w-full">
-        <DocumentationLayout>
+        <ArticleLayout>
           <QuestionPageContent 
             section={section} 
             question={question}
@@ -38,7 +38,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
             next={doc.frontmatter.next}
             locale={locale}
           />
-        </DocumentationLayout>
+        </ArticleLayout>
       </main>
       <Footer />
     </>

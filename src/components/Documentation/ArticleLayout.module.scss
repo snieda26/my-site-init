@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  min-height: calc(100vh - 200px);
+}
+
+.tocSidebar {
+  width: 260px;
+  flex-shrink: 0;
+  padding: 2rem 1rem 2rem 0;
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.contentInner {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+}

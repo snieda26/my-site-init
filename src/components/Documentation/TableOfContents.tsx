@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useLocale } from '@/common/hooks';
 import styles from './TableOfContents.module.scss';
 
 interface TOCItem {
@@ -12,6 +13,7 @@ interface TOCItem {
 export const TableOfContents = () => {
   const [items, setItems] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>('');
+  const locale = useLocale();
 
   useEffect(() => {
     const headings = document.querySelectorAll('h2, h3');
@@ -68,7 +70,7 @@ export const TableOfContents = () => {
 
   return (
     <div className={styles.toc}>
-      <h3 className={styles.title}>Content</h3>
+      <h3 className={styles.title}>{locale === 'ua' ? 'Зміст' : 'Content'}</h3>
       <div className={styles.scrollArea}>
         <div className={styles.items}>
           {items.map((item) => (
@@ -101,7 +103,7 @@ export const TableOfContents = () => {
           <path d="m5 12 7-7 7 7" />
           <path d="M12 19V5" />
         </svg>
-        <span>Back to Top</span>
+        <span>{locale === 'ua' ? 'На початок' : 'Back to Top'}</span>
       </button>
     </div>
   );
