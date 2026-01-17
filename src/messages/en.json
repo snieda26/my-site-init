@@ -269,7 +269,17 @@
         "forward": "Forward"
       },
       "sections": {
-        "react": "React"
+        "html-css": "HTML & CSS",
+        "javascript": "JavaScript",
+        "typescript": "TypeScript",
+        "react": "React",
+        "vue": "Vue",
+        "angular": "Angular",
+        "redux": "Redux",
+        "general-questions": "General Questions",
+        "architecture": "Architecture",
+        "principles": "Principles",
+        "patterns": "Patterns"
       },
       "questions": {
         "react": {

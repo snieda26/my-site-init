@@ -4,12 +4,14 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useLocale, useLocalePath } from '@/common/hooks';
+import { docsConfig } from '@/content/docs/_config';
 import styles from './DocumentationSidebar.module.scss';
 
 interface Section {
+  id: string;
   title: string;
   href: string;
-  children?: Section[];
+  children?: { title: string; href: string }[];
 }
 
 export const DocumentationSidebar = () => {
@@ -18,87 +20,26 @@ export const DocumentationSidebar = () => {
   const localePath = useLocalePath();
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
 
-  const toggleSection = (title: string) => {
+  const toggleSection = (id: string) => {
     const newExpanded = new Set(expandedSections);
-    if (newExpanded.has(title)) {
-      newExpanded.delete(title);
+    if (newExpanded.has(id)) {
+      newExpanded.delete(id);
     } else {
-      newExpanded.add(title);
+      newExpanded.add(id);
     }
     setExpandedSections(newExpanded);
   };
 
-  const sections: Section[] = [
-    {
-      title: t('sections.htmlCss'),
-      href: '/interview-questions/html-and-css',
-      children: []
-    },
-    {
-      title: t('sections.javascript'),
-      href: '/interview-questions/javascript',
-      children: []
-    },
-    {
-      title: t('sections.typescript'),
-      href: '/interview-questions/typescript',
-      children: []
-    },
-    {
-      title: t('sections.react'),
-      href: '/interview-questions/react',
-      children: [
-        { title: 'What is React and Why is it Needed?', href: '/interview-questions/react/what-is-react' },
-        { title: 'Virtual DOM in React', href: '/interview-questions/react/virtual-dom' },
-        { title: 'React Fiber and Virtual DOM Update Process', href: '/interview-questions/react/react-fiber' },
-        { title: 'Why is key Needed in React?', href: '/interview-questions/react/why-key' },
-        { title: 'What is Batching in React?', href: '/interview-questions/react/batching' },
-        { title: 'What is JSX in React?', href: '/interview-questions/react/jsx' },
-        { title: 'How useState Works in React?', href: '/interview-questions/react/usestate' },
-        { title: 'How useEffect Works in React?', href: '/interview-questions/react/useeffect' },
-        { title: 'How useLayoutEffect Works in React and How Does it Differ from useEffect?', href: '/interview-questions/react/uselayout-effect' },
-        { title: 'How useRef Works in React?', href: '/interview-questions/react/useref' },
-        { title: 'Why useImperativeHandle is Needed in React', href: '/interview-questions/react/useimperative-handle' },
-        { title: 'How useCallback Works and Why is it Needed', href: '/interview-questions/react/usecallback' },
-        { title: 'How useMemo Works and Why is it Needed', href: '/interview-questions/react/usememo' },
-      ]
-    },
-    {
-      title: t('sections.vue'),
-      href: '/interview-questions/vue',
-      children: []
-    },
-    {
-      title: t('sections.angular'),
-      href: '/interview-questions/angular',
-      children: []
-    },
-    {
-      title: t('sections.redux'),
-      href: '/interview-questions/redux',
-      children: []
-    },
-    {
-      title: t('sections.generalQuestions'),
-      href: '/interview-questions/general-questions',
-      children: []
-    },
-    {
-      title: t('sections.architecture'),
-      href: '/interview-questions/architecture',
-      children: []
-    },
-    {
-      title: t('sections.principles'),
-      href: '/interview-questions/principles',
-      children: []
-    },
-    {
-      title: t('sections.patterns'),
-      href: '/interview-questions/patterns',
-      children: []
-    }
-  ];
+  // Build sections from config
+  const sections: Section[] = docsConfig.map(section => ({
+    id: section.id,
+    title: section.title[locale as 'en' | 'ua'] || section.title.en,
+    href: `/interview-questions/${section.id}`,
+    children: section.questions.map(q => ({
+      title: q.title[locale as 'en' | 'ua'] || q.title.en,
+      href: `/interview-questions/${section.id}/${q.slug}`,
+    })),
+  }));
 
   return (
     <div className={styles.sidebar}>
@@ -121,16 +62,16 @@ export const DocumentationSidebar = () => {
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>{t('sections.title')}</h2>
             {sections.map((section) => {
-              const isExpanded = expandedSections.has(section.title);
+              const isExpanded = expandedSections.has(section.id);
               const hasChildren = section.children && section.children.length > 0;
               
               return (
-                <div key={section.title} className={styles.sectionItem}>
+                <div key={section.id} className={styles.sectionItem}>
                   <div className={styles.sectionHeader}>
                     {hasChildren ? (
                       <button
                         className={styles.sectionToggle}
-                        onClick={() => toggleSection(section.title)}
+                        onClick={() => toggleSection(section.id)}
                         aria-expanded={isExpanded}
                       >
                         <span className={styles.link}>{section.title}</span>
@@ -155,7 +96,7 @@ export const DocumentationSidebar = () => {
                       className={`${styles.childrenContainer} ${isExpanded ? styles.childrenExpanded : styles.childrenCollapsed}`}
                     >
                       <div className={styles.childrenList}>
-                        {section.children.map((child) => (
+                        {section.children!.map((child) => (
                           <Link
                             key={child.href}
                             href={localePath(child.href)}

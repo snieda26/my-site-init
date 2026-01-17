@@ -255,6 +255,32 @@
       "navigation": {
         "forward": "Далі"
       }
+    },
+    "questions": {
+      "breadcrumb": {
+        "documentation": "Документація"
+      },
+      "actions": {
+        "practiceProblems": "Практика {section} завдань",
+        "signInToMark": "Увійти, щоб позначити як прочитане"
+      },
+      "navigation": {
+        "back": "Назад",
+        "forward": "Далі"
+      },
+      "sections": {
+        "html-css": "HTML та CSS",
+        "javascript": "JavaScript",
+        "typescript": "TypeScript",
+        "react": "React",
+        "vue": "Vue",
+        "angular": "Angular",
+        "redux": "Redux",
+        "general-questions": "Загальні питання",
+        "architecture": "Архітектура",
+        "principles": "Принципи",
+        "patterns": "Паттерни"
+      }
     }
   },
   "knowledgeCheck": {

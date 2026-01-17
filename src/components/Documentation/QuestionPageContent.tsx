@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useLocale } from '@/common/hooks';
 import { Breadcrumb } from './Breadcrumb';
 import { QuestionActionButtons } from './QuestionActionButtons';
 import { QuestionContent } from './QuestionContent';
@@ -11,25 +10,39 @@ import styles from './QuestionPageContent.module.scss';
 interface QuestionPageContentProps {
   section: string;
   question: string;
+  title: string;
+  content: string;
+  prev?: string | null;
+  next?: string | null;
+  locale: string;
 }
 
-export const QuestionPageContent = ({ section, question }: QuestionPageContentProps) => {
+export const QuestionPageContent = ({ 
+  section, 
+  question,
+  title,
+  content,
+  prev,
+  next,
+  locale,
+}: QuestionPageContentProps) => {
   const t = useTranslations('docs.questions');
-  const locale = useLocale();
 
-  // Generate breadcrumb items
-  let questionTitle = question.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  // Get section name from translations or fallback to section id
+  let sectionTitle = section;
   try {
-    const questionT = useTranslations(`docs.questions.questions.${section}.${question}`);
-    questionTitle = questionT('title');
+    sectionTitle = t(`sections.${section}`);
   } catch (e) {
-    // Use default title
+    // Use section id as fallback
+    sectionTitle = section.split('-').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
   }
 
   const breadcrumbItems = [
     { label: t('breadcrumb.documentation'), href: `/interview-questions/${locale}` },
-    { label: t(`sections.${section}`) || section, href: `/interview-questions/${section}/${locale}` },
-    { label: questionTitle },
+    { label: sectionTitle, href: `/interview-questions/${section}/${locale}` },
+    { label: title },
   ];
 
   return (
@@ -41,10 +54,15 @@ export const QuestionPageContent = ({ section, question }: QuestionPageContentPr
       </div>
 
       <div className={styles.content}>
-        <QuestionContent section={section} question={question} />
+        <QuestionContent title={title} content={content} />
       </div>
 
-      <QuestionNavigation section={section} question={question} />
+      <QuestionNavigation 
+        section={section} 
+        prev={prev} 
+        next={next}
+        locale={locale}
+      />
     </div>
   );
 };

@@ -1,14 +1,17 @@
 'use client';
 
+import Link from 'next/link';
 import { Badge } from '@/components/UI/Badge/Badge';
 import { Button } from '@/components/UI/Button/Button';
 import { Card } from '@/components/UI/Card/Card';
 import { useTranslations } from 'next-intl';
+import { useLocalePath } from '@/common/hooks';
 import styles from './Hero.module.scss';
 
 export const Hero = () => {
   const t = useTranslations('hero');
   const tFeatures = useTranslations('features');
+  const localePath = useLocalePath();
 
   const FEATURES = [
     {
@@ -74,13 +77,15 @@ export const Hero = () => {
             </p>
 
             <div className={styles.actions}>
-              <Button size="lg" className={styles.ctaButton}>
-                {t('cta')}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </Button>
+              <Link href={localePath('/interview-questions')}>
+                <Button size="lg" className={styles.ctaButton}>
+                  {t('cta')}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </Button>
+              </Link>
             </div>
 
             <div className={styles.checkList}>
