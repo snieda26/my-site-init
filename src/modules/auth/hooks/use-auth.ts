@@ -1,10 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
+import { AxiosError } from 'axios'
 import { useAppDispatch, useAppSelector } from '@/stores/hooks'
 import { setCredentials, logout as logoutAction, setUser } from '@/stores/auth/auth.slice'
 import { authService } from '../services/auth.service'
+import { useLocale } from '@/common/hooks/use-locale'
 import type { RegisterDto, LoginDto, ChangePasswordDto, UpdateProfileDto } from '../types/auth.types'
+
+interface ApiErrorResponse {
+	message: string
+	statusCode: number
+	error?: string
+}
 
 /**
  * Hook to get current auth state
@@ -30,22 +38,25 @@ export function useAuth() {
 export function useRegister() {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
+	const locale = useLocale()
 
-	return useMutation({
+	return useMutation<
+		Awaited<ReturnType<typeof authService.register>>,
+		AxiosError<ApiErrorResponse>,
+		RegisterDto
+	>({
 		mutationFn: (data: RegisterDto) => authService.register(data),
 		onSuccess: (data) => {
 			dispatch(
 				setCredentials({
-					user: data.user,
+					user: data.account,
 					accessToken: data.accessToken,
 				})
 			)
 			toast.success('Account created successfully!')
-			router.push('/')
+			router.push(`/${locale}`)
 		},
-		onError: (error: Error & { response?: { data?: { message?: string } } }) => {
-			toast.error(error.response?.data?.message || 'Registration failed')
-		},
+		// Error is displayed on the form, no toast needed
 	})
 }
 
@@ -55,22 +66,25 @@ export function useRegister() {
 export function useLogin() {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
+	const locale = useLocale()
 
-	return useMutation({
+	return useMutation<
+		Awaited<ReturnType<typeof authService.login>>,
+		AxiosError<ApiErrorResponse>,
+		LoginDto
+	>({
 		mutationFn: (data: LoginDto) => authService.login(data),
 		onSuccess: (data) => {
 			dispatch(
 				setCredentials({
-					user: data.user,
+					user: data.account,
 					accessToken: data.accessToken,
 				})
 			)
 			toast.success('Logged in successfully!')
-			router.push('/')
+			router.push(`/${locale}`)
 		},
-		onError: (error: Error & { response?: { data?: { message?: string } } }) => {
-			toast.error(error.response?.data?.message || 'Login failed')
-		},
+		// Error is displayed on the form, no toast needed
 	})
 }
 
@@ -81,6 +95,7 @@ export function useLogout() {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const queryClient = useQueryClient()
+	const locale = useLocale()
 
 	return useMutation({
 		mutationFn: () => authService.logout(),
@@ -88,7 +103,7 @@ export function useLogout() {
 			dispatch(logoutAction())
 			queryClient.clear()
 			toast.success('Logged out successfully')
-			router.push('/auth/login')
+			router.push(`/auth/login/${locale}`)
 		},
 	})
 }
@@ -114,15 +129,20 @@ export function useUpdateProfile() {
 	const dispatch = useAppDispatch()
 	const queryClient = useQueryClient()
 
-	return useMutation({
+	return useMutation<
+		Awaited<ReturnType<typeof authService.updateProfile>>,
+		AxiosError<ApiErrorResponse>,
+		UpdateProfileDto
+	>({
 		mutationFn: (data: UpdateProfileDto) => authService.updateProfile(data),
 		onSuccess: (data) => {
 			dispatch(setUser(data))
 			queryClient.invalidateQueries({ queryKey: ['profile'] })
 			toast.success('Profile updated successfully')
 		},
-		onError: (error: Error & { response?: { data?: { message?: string } } }) => {
-			toast.error(error.response?.data?.message || 'Update failed')
+		onError: (error) => {
+			const message = error.response?.data?.message || 'Update failed'
+			toast.error(message)
 		},
 	})
 }
@@ -131,13 +151,14 @@ export function useUpdateProfile() {
  * Hook to change password
  */
 export function useChangePassword() {
-	return useMutation({
+	return useMutation<void, AxiosError<ApiErrorResponse>, ChangePasswordDto>({
 		mutationFn: (data: ChangePasswordDto) => authService.changePassword(data),
 		onSuccess: () => {
 			toast.success('Password changed successfully')
 		},
-		onError: (error: Error & { response?: { data?: { message?: string } } }) => {
-			toast.error(error.response?.data?.message || 'Password change failed')
+		onError: (error) => {
+			const message = error.response?.data?.message || 'Password change failed'
+			toast.error(message)
 		},
 	})
 }

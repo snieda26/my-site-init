@@ -19,7 +19,7 @@ export default function RegisterPage() {
 					<div className="auth-card__header">
 						<Link href={`/${locale}`} className="auth-card__logo">
 							<FaCode />
-							<span>Hack Frontend</span>
+							<span>ITLead</span>
 						</Link>
 						<h1 className="auth-card__title">{t('createAccount')}</h1>
 						<p className="auth-card__subtitle">{tAuth('createNewAccount')}</p>

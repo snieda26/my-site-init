@@ -21,24 +21,24 @@ type Props = {
 }
 
 export const metadata: Metadata = {
-	title: 'Hack Frontend — Platform for Frontend Interview Preparation',
+	title: 'ITLead — Platform for Frontend Interview Preparation',
 	description:
 		'Prepare for frontend interviews with 200+ articles, coding problems, quizzes, and flashcards. All questions from real interviews at top tech companies.',
 	keywords:
 		'frontend interview preparation, frontend interview questions, javascript interview, react interview questions, typescript interview',
-	authors: [{ name: 'Hack Frontend' }],
+	authors: [{ name: 'ITLead' }],
 	openGraph: {
-		title: 'Hack Frontend — Platform for Frontend Interview Preparation',
+		title: 'ITLead — Platform for Frontend Interview Preparation',
 		description:
 			'Prepare for frontend interviews with 200+ articles, coding problems, quizzes, and flashcards.',
-		url: 'https://www.hackfrontend.com',
-		siteName: 'Hack Frontend',
+		url: 'https://www.itlead.com',
+		siteName: 'ITLead',
 		locale: 'ua_UA',
 		type: 'website',
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: 'Hack Frontend — Platform for Frontend Interview Preparation',
+		title: 'ITLead — Platform for Frontend Interview Preparation',
 		description:
 			'Prepare for frontend interviews with 200+ articles, coding problems, quizzes, and flashcards.',
 	},

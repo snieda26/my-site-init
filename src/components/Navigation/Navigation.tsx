@@ -1,10 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { FiMenu, FiSearch, FiPlus, FiBell, FiSun, FiMoon } from 'react-icons/fi'
+import { FiMenu, FiSearch, FiPlus, FiBell, FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi'
 import { useTheme, useLocale, useLocalePath } from '@/common/hooks'
+import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth'
 import { Button } from '@/common/components/ui'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
 import styles from './Navigation.module.scss'
@@ -14,8 +16,23 @@ export const Navigation = () => {
 	const locale = useLocale()
 	const localePath = useLocalePath()
 	const { theme, toggleTheme } = useTheme()
+	const { user, isAuthenticated, isLoading } = useAuth()
+	const logout = useLogout()
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 	const [searchOpen, setSearchOpen] = useState(false)
+	const [userMenuOpen, setUserMenuOpen] = useState(false)
+	const userMenuRef = useRef<HTMLDivElement>(null)
+
+	// Close dropdown when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+				setUserMenuOpen(false)
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => document.removeEventListener('mousedown', handleClickOutside)
+	}, [])
 
 	return (
 		<nav className={styles.nav}>
@@ -90,17 +107,66 @@ export const Navigation = () => {
 						{theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}
 					</button>
 
-					{/* Notifications */}
-					<Link href={localePath('/notifications')} className={styles.iconBtn} aria-label={t('notifications')}>
-						<FiBell size={20} />
-						<span className={styles.notificationDot} />
-					</Link>
+				{/* Notifications */}
+				<Link href={localePath('/notifications')} className={styles.iconBtn} aria-label={t('notifications')}>
+					<FiBell size={20} />
+					<span className={styles.notificationDot} />
+				</Link>
 
-					{/* Login button */}
+				{/* User Avatar with Dropdown OR Login button */}
+				{isLoading ? (
+					<div className={styles.avatarSkeleton} />
+				) : isAuthenticated && user ? (
+					<div className={styles.userMenu} ref={userMenuRef}>
+						<button
+							className={styles.avatarBtn}
+							onClick={() => setUserMenuOpen(!userMenuOpen)}
+							aria-label="User menu"
+						>
+							{user.channel?.avatarPath ? (
+								<Image
+									src={user.channel.avatarPath}
+									alt={user.name || 'User'}
+									width={36}
+									height={36}
+									className={styles.avatar}
+								/>
+							) : (
+								<div className={styles.avatarPlaceholder}>
+									{(user.name || user.email || 'U').charAt(0).toUpperCase()}
+								</div>
+							)}
+						</button>
+						
+						{userMenuOpen && (
+							<div className={styles.dropdown}>
+								<Link
+									href={localePath('/dashboard')}
+									className={styles.dropdownItem}
+									onClick={() => setUserMenuOpen(false)}
+								>
+									<FiBarChart2 size={18} />
+									<span>{t('dashboard')}</span>
+								</Link>
+								<button
+									className={styles.dropdownItem}
+									onClick={() => {
+										logout.mutate()
+										setUserMenuOpen(false)
+									}}
+								>
+									<FiLogOut size={18} />
+									<span>{t('logout')}</span>
+								</button>
+							</div>
+						)}
+					</div>
+				) : (
 					<Button variant="outline" size="sm">
 						<Link href={localePath('/auth/login')}>{t('login')}</Link>
 					</Button>
-				</div>
+				)}
+			</div>
 			</div>
 		</nav>
 	)

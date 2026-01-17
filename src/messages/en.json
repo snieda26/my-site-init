@@ -4,7 +4,7 @@
     "video": "Interview with Meta Developer"
   },
   "nav": {
-    "logo": "Hack Frontend",
+    "logo": "ITLead",
     "links": {
       "questions": "Interview Questions",
       "problems": "Problems",
@@ -13,6 +13,8 @@
     "search": "Search...",
     "notifications": "Notifications",
     "login": "Log in",
+    "logout": "Log out",
+    "dashboard": "Dashboard",
     "theme": {
       "toggle": "Toggle theme",
       "switchTo": "Switch to {theme} theme"
@@ -24,7 +26,7 @@
       "line1": "Prepare for interviews",
       "line2": "and land your dream offer"
     },
-    "description": "Hack Frontend is where theory meets practice. Learn key topics, solve problems, and feel confident before any interview.",
+    "description": "ITLead is where theory meets practice. Learn key topics, solve problems, and feel confident before any interview.",
     "cta": "Start preparing",
     "features": {
       "theory": "Study theory, questions and answers only from real interviews",
@@ -32,7 +34,7 @@
       "problems": "Solve problems from real interviews",
       "progress": "View statistics and achievements"
     },
-    "stats": "Over {count} developers have prepared for interviews with Hack Frontend",
+    "stats": "Over {count} developers have prepared for interviews with ITLead",
     "card": {
       "label": "Test task",
       "title": "Implement flattenArray function",
@@ -49,7 +51,7 @@
       "role": "Frontend Developer in London",
       "location": "Bishkek, Kyrgyzstan",
       "bio1": "I went through a large number of interviews for a frontend developer position myself. I know how difficult it is to prepare when information is scattered across different sources.",
-      "bio2": "That's why on January 26, 2025 I launched Hack Frontend — a platform that brings everything you need in one place.",
+      "bio2": "That's why on January 26, 2025 I launched ITLead — a platform that brings everything you need in one place.",
       "bio3": "Today the platform is used by {count}+ users from CIS countries, and I continue to develop it every day.",
       "linkedin": "Connect on LinkedIn",
       "telegram": "Telegram community"
@@ -69,7 +71,7 @@
       },
       "organic": "100% organic growth without advertising budget"
     },
-    "why": "Why did I create this platform? Because I know what it's like to prepare for interviews while working full-time. Hack Frontend is the tool I wish I had at the start of my career."
+    "why": "Why did I create this platform? Because I know what it's like to prepare for interviews while working full-time. ITLead is the tool I wish I had at the start of my career."
   },
   "features": {
     "knowledge": {
@@ -98,18 +100,18 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about Hack Frontend",
+    "subtitle": "Everything you need to know about ITLead",
     "items": {
       "what": {
-        "question": "What is Hack Frontend?",
-        "answer": "Hack Frontend is a free platform for frontend interview preparation. We offer a structured knowledge base, practical tasks, and code checking tools."
+        "question": "What is ITLead?",
+        "answer": "ITLead is a free platform for frontend interview preparation. We offer a structured knowledge base, practical tasks, and code checking tools."
       },
       "different": {
-        "question": "What makes Hack Frontend different from other interview prep platforms?",
+        "question": "What makes ITLead different from other interview prep platforms?",
         "answer": "We focus exclusively on real interview questions from top companies. All content is structured with detailed explanations and the ability to practice directly in the browser."
       },
       "register": {
-        "question": "Do I need to register to use Hack Frontend?",
+        "question": "Do I need to register to use ITLead?",
         "answer": "You can view a lot of content without registration, but to track progress, save completed tasks, and access all features, we recommend creating a free account."
       },
       "companies": {
@@ -125,7 +127,7 @@
         "answer": "We add new content regularly - new questions, tasks, and articles appear every week."
       },
       "beginners": {
-        "question": "Is Hack Frontend suitable for beginners?",
+        "question": "Is ITLead suitable for beginners?",
         "answer": "Yes! We have content for all levels - from junior to senior developers. Material is structured from simple to complex."
       },
       "ai": {
@@ -135,13 +137,13 @@
     }
   },
   "footer": {
-    "copyright": "© {year} Hack Frontend",
-    "community": "Hack Frontend Community",
+    "copyright": "© {year} ITLead",
+    "community": "ITLead Community",
     "youtube": "YouTube Channel",
     "support": "Support"
   },
   "docs": {
-    "brand": "Hack Frontend",
+    "brand": "ITLead",
     "preparationGuide": "Interview Preparation Guide",
     "gitCheatSheet": "Git Cheat Sheet",
     "sections": {
@@ -163,10 +165,10 @@
         "documentation": "Documentation",
         "introduction": "Introduction"
       },
-      "title": "Hack Frontend - Platform for Frontend Interview Preparation",
+      "title": "ITLead - Platform for Frontend Interview Preparation",
       "welcome": "your reliable assistant in interview preparation!",
       "description": "We understand that preparing for a frontend developer interview can be challenging. Web technologies are constantly evolving, competition in the job market is growing, and it's important to be ready for all questions. That's why we created this platform to help you not only refresh your knowledge of key aspects of frontend development, but also gain practical experience in solving typical tasks that you might encounter in interviews.",
-      "platformName": "Hack Frontend",
+      "platformName": "ITLead",
       "platformDescription": "is a platform that combines <strong>theoretical knowledge</strong> and <strong>practical tasks</strong> so you can prepare for interviews as effectively as possible.",
       "whatDoWeOffer": {
         "title": "What do we offer?",
@@ -219,7 +221,7 @@
         }
       },
       "whyChoose": {
-        "title": "Why choose Hack Frontend?",
+        "title": "Why choose ITLead?",
         "upToDate": "Up-to-date materials",
         "upToDateDesc": ": We regularly update content so you stay current with the latest trends in web development.",
         "practical": "Practical approach",
@@ -240,7 +242,7 @@
         "step4": "Pass the interview",
         "step4Desc": ": Confidently answer questions and solve tasks.",
         "telegram": "Join our Telegram chat",
-        "telegramLink": "Hack Frontend Community",
+        "telegramLink": "ITLead Community",
         "telegramDesc": "— connect with like-minded developers and share experiences!",
         "youtube": "Subscribe to our",
         "youtubeLink": "YouTube channel",
@@ -436,6 +438,8 @@
       "emailPlaceholder": "example@example.com",
       "password": "Password",
       "passwordPlaceholder": "******",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "******",
       "submit": "Create account",
       "or": "or",
       "haveAccount": "Already have an account?"
@@ -444,12 +448,14 @@
       "emailRequired": "Email is required",
       "emailInvalid": "Please enter a valid email address",
       "passwordRequired": "Password is required",
-      "passwordMinLength": "Password must be at least 6 characters",
+      "passwordMinLength": "Password must be at least 8 characters",
       "passwordMinLengthRegister": "Password must be at least 8 characters",
       "passwordComplexity": "Password must contain uppercase, lowercase, and number",
       "nameRequired": "Name is required",
       "nameMinLength": "Name must be at least 2 characters",
       "nameMaxLength": "Name must not exceed 50 characters",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordMismatch": "Passwords do not match",
       "submitting": "Please wait..."
     }
   }

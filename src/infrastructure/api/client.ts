@@ -42,13 +42,20 @@ const processQueue = (error: AxiosError | null, token: string | null = null) => 
 	failedQueue = []
 }
 
+// Auth endpoints that should NOT trigger token refresh on 401
+const AUTH_ENDPOINTS = ['/auth/login', '/auth/register', '/auth/refresh']
+
 apiClient.interceptors.response.use(
 	(response) => response,
 	async (error: AxiosError) => {
 		const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean }
+		const requestUrl = originalRequest?.url || ''
 
-		// If error is 401 and we haven't retried yet
-		if (error.response?.status === 401 && !originalRequest._retry) {
+		// Skip token refresh for auth endpoints - they should return errors directly
+		const isAuthEndpoint = AUTH_ENDPOINTS.some(endpoint => requestUrl.includes(endpoint))
+
+		// If error is 401, we haven't retried yet, and it's NOT an auth endpoint
+		if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
 			if (isRefreshing) {
 				// Queue the request while token is being refreshed
 				return new Promise((resolve, reject) => {
@@ -87,12 +94,9 @@ apiClient.interceptors.response.use(
 			} catch (refreshError) {
 				processQueue(refreshError as AxiosError, null)
 
-				// Clear tokens and redirect to login
+				// Clear tokens - but don't redirect automatically
+				// Let the app handle the redirect through proper auth state
 				Cookies.remove('accessToken')
-
-				if (typeof window !== 'undefined') {
-					window.location.href = '/auth/login'
-				}
 
 				return Promise.reject(refreshError)
 			} finally {

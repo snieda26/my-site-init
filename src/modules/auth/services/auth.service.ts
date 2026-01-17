@@ -38,13 +38,21 @@ export const authService = {
 	},
 
 	async refreshToken(): Promise<{ accessToken: string }> {
-		const response = await apiClient.post<{ accessToken: string }>('/auth/refresh')
+		const refreshToken = Cookies.get('refreshToken')
+		const response = await apiClient.post<{ accessToken: string }>('/auth/refresh', {
+			refreshToken,
+		})
 		Cookies.set('accessToken', response.data.accessToken, { expires: 7 })
 		return response.data
 	},
 
+	async verifyEmail(token: string): Promise<{ message: string }> {
+		const response = await apiClient.get<{ message: string }>(`/auth/verify?token=${token}`)
+		return response.data
+	},
+
 	async getProfile(): Promise<User> {
-		const response = await apiClient.get<User>('/account/me')
+		const response = await apiClient.get<User>('/account/profile')
 		return response.data
 	},
 
@@ -53,8 +61,9 @@ export const authService = {
 		return response.data
 	},
 
-	async changePassword(data: ChangePasswordDto): Promise<void> {
-		await apiClient.patch('/account/password', data)
+	async changePassword(data: ChangePasswordDto): Promise<{ message: string }> {
+		const response = await apiClient.patch<{ message: string }>('/account/password', data)
+		return response.data
 	},
 }
 

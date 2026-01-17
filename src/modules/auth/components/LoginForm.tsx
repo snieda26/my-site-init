@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Input, Button } from '@/common/components/ui'
 import type { LoginFormData } from '../types/auth.types'
 import { useLogin } from '../hooks/use-auth'
+import styles from './AuthForms.module.scss'
 
 interface LoginFormProps {
 	onSubmit?: (data: LoginFormData) => void
@@ -36,8 +37,18 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
 		}
 	}
 
+	// Extract error message from mutation error
+	const errorMessage = login.error?.response?.data?.message 
+		|| login.error?.message
+
 	return (
 		<form className="auth-card__form" onSubmit={handleSubmit(handleFormSubmit)}>
+			{errorMessage && (
+				<div className={styles.formError}>
+					{errorMessage}
+				</div>
+			)}
+
 			<Input
 				label={t('email')}
 				type="email"

@@ -20,7 +20,7 @@ const TESTIMONIALS = [
   {
     initial: 'F',
     name: 'Frontend Engineer',
-    text: 'Hack Frontend fills a preparation gap: everything is structured, straight to the point, and without fluff. Theory is immediately backed by practice—you can solve problems right in a convenient IDE.',
+    text: 'ITLead fills a preparation gap: everything is structured, straight to the point, and without fluff. Theory is immediately backed by practice—you can solve problems right in a convenient IDE.',
   },
   {
     initial: 'E',

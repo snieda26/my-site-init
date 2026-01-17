@@ -25,7 +25,7 @@ export const IntroductionContent = () => {
 
         <div className={styles.typography}>
           <p>
-            Welcome to <strong>Hack Frontend</strong> — {t('welcome')}
+            Welcome to <strong>ITLead</strong> — {t('welcome')}
           </p>
           <p>{t('description')}</p>
           <p>

@@ -1,6 +1,6 @@
-# Hack Frontend Landing Page
+# ITLead Landing Page
 
-A modern, responsive landing page built with Next.js 15, TypeScript, and SCSS. This is a recreation of the Hack Frontend platform - a comprehensive interview preparation platform for frontend developers.
+A modern, responsive landing page built with Next.js 15, TypeScript, and SCSS. This is a recreation of the ITLead platform - a comprehensive interview preparation platform for frontend developers.
 
 ## 🚀 Tech Stack
 
@@ -211,6 +211,6 @@ Built with ❤️ as a technical demonstration of modern web development practic
 
 ## 🙏 Acknowledgments
 
-- Original design inspiration from Hack Frontend platform
+- Original design inspiration from ITLead platform
 - Next.js team for the amazing framework
 - React team for the powerful library

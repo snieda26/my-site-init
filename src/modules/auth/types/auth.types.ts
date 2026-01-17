@@ -2,11 +2,14 @@ export interface User {
 	id: string
 	email: string
 	name?: string
-	emailVerified?: boolean
+	avatarUrl?: string
+	emailVerified: boolean
+	role?: 'USER' | 'ADMIN'
+	createdAt?: string
 }
 
 export interface AuthResponse {
-	user: User
+	account: User
 	accessToken: string
 }
 
@@ -14,6 +17,7 @@ export interface RegisterFormData {
 	name: string
 	email: string
 	password: string
+	confirmPassword: string
 }
 
 export interface LoginFormData {
@@ -22,14 +26,17 @@ export interface LoginFormData {
 }
 
 export interface RegisterDto {
-	name: string
+	name?: string
 	email: string
 	password: string
+	confirmPassword: string
+	recaptchaToken?: string
 }
 
 export interface LoginDto {
 	email: string
 	password: string
+	recaptchaToken?: string
 }
 
 export interface ChangePasswordDto {
@@ -40,5 +47,5 @@ export interface ChangePasswordDto {
 
 export interface UpdateProfileDto {
 	name?: string
-	email?: string
+	avatarUrl?: string | null
 }

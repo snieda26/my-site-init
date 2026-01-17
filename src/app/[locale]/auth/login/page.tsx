@@ -19,7 +19,7 @@ export default function LoginPage() {
 					<div className="auth-card__header">
 						<Link href={`/${locale}`} className="auth-card__logo">
 							<FaCode />
-							<span>Hack Frontend</span>
+							<span>ITLead</span>
 						</Link>
 						<h1 className="auth-card__title">{t('welcome')}</h1>
 						<p className="auth-card__subtitle">{tAuth('signInToAccount')}</p>
