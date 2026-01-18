@@ -32,7 +32,9 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
 
   // Get localized content
   const title = getLocalizedTitle(questionData, locale as 'en' | 'ua');
-  const content = questionData.contentMarkdown; // Markdown content
+  const content = locale === 'ua' 
+    ? questionData.contentMarkdownUa 
+    : questionData.contentMarkdownEn;
 
   return (
     <>

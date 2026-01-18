@@ -178,10 +178,18 @@ npm run lint
 
 ## 📢 Recent Updates
 
+### 🌐 Full Multi-Language Support (Jan 18, 2026) ✅
+All content now available in English and Ukrainian:
+- **6 questions** fully translated (EN/UA)
+- **Complete markdown translations** - every heading, example, comment
+- **Auto language detection** - `/en/` shows English, `/ua/` shows Ukrainian
+- **Professional quality** - technical accuracy maintained
+- **See:** `README_TRANSLATIONS.md` for details
+
 ### ✅ Questions Migrated to Database (Jan 18, 2026)
 Interview questions are now stored in PostgreSQL and served via API:
-- **6 questions** migrated (TypeScript + React)
-- **11 categories** created with UA translations
+- **6 questions** with full EN/UA content
+- **11 categories** with localized names
 - **Markdown rendering fully preserved**
 - **API endpoints:** `/questions`, `/categories`
 - **See:** `QUESTIONS_MIGRATED_FINAL.md` for details

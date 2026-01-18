@@ -27,7 +27,8 @@ export interface Question {
 	titleUa: string
 	descriptionEn?: string
 	descriptionUa?: string
-	contentMarkdown: string // Markdown content (can support both languages)
+	contentMarkdownEn: string // Markdown content in English
+	contentMarkdownUa: string // Markdown content in Ukrainian
 	difficulty: Difficulty
 	order: number
 	prevSlug?: string | null
