@@ -56,12 +56,17 @@ export function useRegister() {
 				})
 			)
 			toast.success('Account created successfully!')
-			// Redirect to onboarding if not completed, otherwise home
-			if (!data.account.onboardingCompleted) {
-				router.push(`/onboarding/${locale}`)
-			} else {
-				router.push(`/${locale}`)
-			}
+			
+			// TEMPORARY: Onboarding is disabled, always redirect to home
+			// TODO: Re-enable onboarding redirect when feature is ready
+			router.push(`/${locale}`)
+			
+			// TEMPORARILY COMMENTED OUT - Onboarding redirect
+			// if (!data.account.onboardingCompleted) {
+			// 	router.push(`/onboarding/${locale}`)
+			// } else {
+			// 	router.push(`/${locale}`)
+			// }
 		},
 		// Error is displayed on the form, no toast needed
 	})
@@ -89,12 +94,17 @@ export function useLogin() {
 				})
 			)
 			toast.success('Logged in successfully!')
-			// Redirect to onboarding if not completed, otherwise home
-			if (!data.account.onboardingCompleted) {
-				router.push(`/onboarding/${locale}`)
-			} else {
-				router.push(`/${locale}`)
-			}
+			
+			// TEMPORARY: Onboarding is disabled, always redirect to home
+			// TODO: Re-enable onboarding redirect when feature is ready
+			router.push(`/${locale}`)
+			
+			// TEMPORARILY COMMENTED OUT - Onboarding redirect
+			// if (!data.account.onboardingCompleted) {
+			// 	router.push(`/onboarding/${locale}`)
+			// } else {
+			// 	router.push(`/${locale}`)
+			// }
 		},
 		// Error is displayed on the form, no toast needed
 	})

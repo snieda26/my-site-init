@@ -1,3 +1,8 @@
+// ============================================================================
+// TEMPORARY: Onboarding types are kept for type safety but functionality is disabled
+// TODO: Re-enable when onboarding feature is ready
+// ============================================================================
+
 // Backend enum types (match Prisma)
 export type ExperienceLevel = 'BEGINNER' | 'JUNIOR' | 'MIDDLE' | 'SENIOR' | 'LEAD';
 export type TargetPosition = 'JUNIOR' | 'MIDDLE' | 'SENIOR' | 'LEAD';

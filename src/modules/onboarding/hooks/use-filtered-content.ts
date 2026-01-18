@@ -1,8 +1,14 @@
+// ============================================================================
+// TEMPORARY: This file is disabled as part of temporarily disabling onboarding
+// TODO: Re-enable this functionality when onboarding feature is ready
+// ============================================================================
+
 'use client';
 
 import { useMemo } from 'react';
-import { useOnboardingProfile } from './use-onboarding';
-import { useAuth } from '@/modules/auth/hooks/use-auth';
+// TEMPORARILY COMMENTED OUT
+// import { useOnboardingProfile } from './use-onboarding';
+// import { useAuth } from '@/modules/auth/hooks/use-auth';
 
 // Mapping from technology IDs to section IDs in docs
 const technologyToSectionMap: Record<string, string[]> = {
@@ -27,80 +33,73 @@ const alwaysVisibleSections = [
 ];
 
 export function useFilteredSections(allSections: string[]) {
-  const { isAuthenticated } = useAuth();
-  const { data: profile, isLoading } = useOnboardingProfile();
-
+  // TEMPORARY: Filtering disabled - always show all sections
+  // TODO: Re-enable when onboarding feature is ready
   return useMemo(() => {
-    // If not authenticated or loading, show all sections
-    if (!isAuthenticated || isLoading) {
-      return { sections: allSections, isFiltering: false };
-    }
-
-    // If no profile or onboarding not completed, show all sections
-    if (!profile || !profile.onboardingCompleted) {
-      return { sections: allSections, isFiltering: false };
-    }
-
-    // If user has no technology preferences, show all sections
-    if (!profile.technologies || profile.technologies.length === 0) {
-      return { sections: allSections, isFiltering: false };
-    }
-
-    // Build set of visible sections based on user's technology preferences
-    const visibleSections = new Set<string>(alwaysVisibleSections);
-
-    profile.technologies.forEach((techId) => {
-      const mappedSections = technologyToSectionMap[techId];
-      if (mappedSections) {
-        mappedSections.forEach((sectionId) => visibleSections.add(sectionId));
-      }
-    });
-
-    // Filter allSections to only include visible ones
-    const filteredSections = allSections.filter((sectionId) =>
-      visibleSections.has(sectionId)
-    );
-
-    return {
-      sections: filteredSections,
-      isFiltering: true,
-      hiddenCount: allSections.length - filteredSections.length,
-    };
-  }, [allSections, isAuthenticated, isLoading, profile]);
+    return { sections: allSections, isFiltering: false, hiddenCount: 0 };
+  }, [allSections]);
+  
+  // TEMPORARILY COMMENTED OUT - Original filtering logic
+  // const { isAuthenticated } = useAuth();
+  // const { data: profile, isLoading } = useOnboardingProfile();
+  //
+  // return useMemo(() => {
+  //   if (!isAuthenticated || isLoading) {
+  //     return { sections: allSections, isFiltering: false };
+  //   }
+  //   if (!profile || !profile.onboardingCompleted) {
+  //     return { sections: allSections, isFiltering: false };
+  //   }
+  //   if (!profile.technologies || profile.technologies.length === 0) {
+  //     return { sections: allSections, isFiltering: false };
+  //   }
+  //   const visibleSections = new Set<string>(alwaysVisibleSections);
+  //   profile.technologies.forEach((techId) => {
+  //     const mappedSections = technologyToSectionMap[techId];
+  //     if (mappedSections) {
+  //       mappedSections.forEach((sectionId) => visibleSections.add(sectionId));
+  //     }
+  //   });
+  //   const filteredSections = allSections.filter((sectionId) =>
+  //     visibleSections.has(sectionId)
+  //   );
+  //   return {
+  //     sections: filteredSections,
+  //     isFiltering: true,
+  //     hiddenCount: allSections.length - filteredSections.length,
+  //   };
+  // }, [allSections, isAuthenticated, isLoading, profile]);
 }
 
 // Hook to check if a specific section should be visible
 export function useSectionVisibility(sectionId: string) {
-  const { isAuthenticated } = useAuth();
-  const { data: profile, isLoading } = useOnboardingProfile();
-
+  // TEMPORARY: Filtering disabled - all sections always visible
+  // TODO: Re-enable when onboarding feature is ready
   return useMemo(() => {
-    // If not authenticated or loading, section is visible
-    if (!isAuthenticated || isLoading) {
-      return { isVisible: true, isFiltering: false };
-    }
-
-    // If no profile or onboarding not completed, section is visible
-    if (!profile || !profile.onboardingCompleted) {
-      return { isVisible: true, isFiltering: false };
-    }
-
-    // If user has no technology preferences, section is visible
-    if (!profile.technologies || profile.technologies.length === 0) {
-      return { isVisible: true, isFiltering: false };
-    }
-
-    // Always visible sections
-    if (alwaysVisibleSections.includes(sectionId)) {
-      return { isVisible: true, isFiltering: true };
-    }
-
-    // Check if section is visible based on user's technologies
-    const isVisible = profile.technologies.some((techId) => {
-      const mappedSections = technologyToSectionMap[techId];
-      return mappedSections && mappedSections.includes(sectionId);
-    });
-
-    return { isVisible, isFiltering: true };
-  }, [sectionId, isAuthenticated, isLoading, profile]);
+    return { isVisible: true, isFiltering: false };
+  }, [sectionId]);
+  
+  // TEMPORARILY COMMENTED OUT - Original visibility logic
+  // const { isAuthenticated } = useAuth();
+  // const { data: profile, isLoading } = useOnboardingProfile();
+  //
+  // return useMemo(() => {
+  //   if (!isAuthenticated || isLoading) {
+  //     return { isVisible: true, isFiltering: false };
+  //   }
+  //   if (!profile || !profile.onboardingCompleted) {
+  //     return { isVisible: true, isFiltering: false };
+  //   }
+  //   if (!profile.technologies || profile.technologies.length === 0) {
+  //     return { isVisible: true, isFiltering: false };
+  //   }
+  //   if (alwaysVisibleSections.includes(sectionId)) {
+  //     return { isVisible: true, isFiltering: true };
+  //   }
+  //   const isVisible = profile.technologies.some((techId) => {
+  //     const mappedSections = technologyToSectionMap[techId];
+  //     return mappedSections && mappedSections.includes(sectionId);
+  //   });
+  //   return { isVisible, isFiltering: true };
+  // }, [sectionId, isAuthenticated, isLoading, profile]);
 }

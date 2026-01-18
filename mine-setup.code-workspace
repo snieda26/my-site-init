@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../yt-clone/frontend"
+		},
+		{
+			"path": "../backend-1"
+		},
+		{
+			"path": "../mine-copy-backend"
+		},
+		{
+			"path": "../docusaurus-2/docs/docs"
+		}
+	],
+	"settings": {}
+}

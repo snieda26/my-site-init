@@ -1,3 +1,8 @@
+// ============================================================================
+// TEMPORARY: Onboarding module is disabled - all exports kept for type safety
+// TODO: Re-enable when onboarding feature is ready
+// ============================================================================
+
 // Types
 export type {
   ExperienceLevel,

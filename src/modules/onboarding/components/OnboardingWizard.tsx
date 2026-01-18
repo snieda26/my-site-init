@@ -1,3 +1,8 @@
+// ============================================================================
+// TEMPORARY: OnboardingWizard component is disabled
+// TODO: Re-enable this component when onboarding feature is ready
+// ============================================================================
+
 'use client';
 
 import { useState } from 'react';

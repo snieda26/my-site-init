@@ -1,3 +1,8 @@
+// ============================================================================
+// TEMPORARY: LearningGoalStep component is disabled as part of onboarding
+// TODO: Re-enable when onboarding feature is ready
+// ============================================================================
+
 'use client';
 
 import { useTranslations } from 'next-intl';

@@ -5,7 +5,9 @@ import { useTranslations } from 'next-intl';
 import { useState, useMemo } from 'react';
 import { useLocale, useLocalePath } from '@/common/hooks';
 import { docsConfig } from '@/content/docs/_config';
-import { useFilteredSections } from '@/modules/onboarding/hooks/use-filtered-content';
+// TEMPORARY: Onboarding filtering is disabled
+// TODO: Re-enable when onboarding feature is ready
+// import { useFilteredSections } from '@/modules/onboarding/hooks/use-filtered-content';
 import styles from './DocumentationSidebar.module.scss';
 
 interface Section {
@@ -43,19 +45,21 @@ export const DocumentationSidebar = () => {
     })),
   })), [locale]);
 
-  // Get all section IDs for filtering
-  const allSectionIds = useMemo(() => docsConfig.map(s => s.id), []);
+  // TEMPORARY: Onboarding-based filtering is disabled - show all sections
+  // TODO: Re-enable when onboarding feature is ready
+  const sections = allSections;
+  const isFiltering = false;
+  const hiddenCount = 0;
   
-  // Use the filtering hook
-  const { sections: visibleSectionIds, isFiltering, hiddenCount } = useFilteredSections(allSectionIds);
-
-  // Filter sections based on user preferences (or show all if showAllSections is true)
-  const sections = useMemo(() => {
-    if (showAllSections || !isFiltering) {
-      return allSections;
-    }
-    return allSections.filter(section => visibleSectionIds.includes(section.id));
-  }, [allSections, visibleSectionIds, isFiltering, showAllSections]);
+  // TEMPORARILY COMMENTED OUT - Onboarding filtering logic
+  // const allSectionIds = useMemo(() => docsConfig.map(s => s.id), []);
+  // const { sections: visibleSectionIds, isFiltering, hiddenCount } = useFilteredSections(allSectionIds);
+  // const sections = useMemo(() => {
+  //   if (showAllSections || !isFiltering) {
+  //     return allSections;
+  //   }
+  //   return allSections.filter(section => visibleSectionIds.includes(section.id));
+  // }, [allSections, visibleSectionIds, isFiltering, showAllSections]);
 
   return (
     <div className={styles.sidebar}>

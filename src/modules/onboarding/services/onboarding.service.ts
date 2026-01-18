@@ -1,3 +1,8 @@
+// ============================================================================
+// TEMPORARY: Onboarding service is disabled
+// TODO: Re-enable this service when onboarding feature is ready
+// ============================================================================
+
 import apiClient from '@/infrastructure/api/client';
 import type {
   UpdateOnboardingDto,

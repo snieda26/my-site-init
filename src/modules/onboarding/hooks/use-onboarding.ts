@@ -1,3 +1,8 @@
+// ============================================================================
+// TEMPORARY: Onboarding hooks are disabled
+// TODO: Re-enable these hooks when onboarding feature is ready
+// ============================================================================
+
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
