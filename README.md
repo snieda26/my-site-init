@@ -176,25 +176,22 @@ npm run start
 npm run lint
 ```
 
-## ⚠️ Temporarily Disabled Features
+## 📢 Recent Updates
 
-### Onboarding/Quiz Feature
-The onboarding and quiz functionality is **temporarily disabled** as of the latest update. This includes:
+### ✅ Questions Migrated to Database (Jan 18, 2026)
+Interview questions are now stored in PostgreSQL and served via API:
+- **6 questions** migrated (TypeScript + React)
+- **11 categories** created with UA translations
+- **Markdown rendering fully preserved**
+- **API endpoints:** `/questions`, `/categories`
+- **See:** `QUESTIONS_MIGRATED_FINAL.md` for details
 
-**Frontend (`/Users/petro/Desktop/mine-copy`):**
-- `/onboarding` page route (redirects to home)
-- Onboarding wizard and all step components
-- Content filtering based on user preferences
-- Auto-redirect to onboarding after registration/login
-
-**Backend (`/Users/petro/Desktop/mine-copy-backend`):**
-- All `/onboarding/*` API routes
-- Onboarding controller endpoints
-- Quiz-related database interactions
-
-**Status:** All code is preserved with clear `TEMPORARY` comments and `TODO` markers for easy re-enabling when ready.
-
-**To re-enable:** Search for comments containing "TEMPORARY: Onboarding" or "TODO: Re-enable when onboarding feature is ready" throughout the codebase.
+### ⚠️ Onboarding Feature Temporarily Disabled
+The onboarding/quiz functionality is temporarily disabled:
+- Redirects to home instead of onboarding wizard
+- Content filtering disabled (all sections visible)
+- All code preserved with `TEMPORARY` comments
+- **To re-enable:** Search for "TEMPORARY: Onboarding"
 
 ---
 

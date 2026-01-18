@@ -1,6 +1,12 @@
+// ============================================================================
+// DEPRECATED: This file is no longer used!
+// Questions are now stored in the database and fetched via API
+// See: /Users/petro/Desktop/mine-copy-backend/prisma/seed-questions.ts
+// ============================================================================
 /**
  * Documentation structure configuration
- * This defines the sidebar structure and navigation
+ * This file is DEPRECATED and kept only for reference
+ * All questions are now in the database
  */
 
 export interface DocSection {

@@ -1,9 +1,11 @@
 export type Difficulty = 'EASY' | 'MEDIUM' | 'HARD'
+export type Locale = 'en' | 'ua'
 
 export interface Category {
 	id: string
 	slug: string
-	name: string
+	nameEn: string
+	nameUa: string
 	description?: string
 	icon?: string
 	color?: string
@@ -21,16 +23,33 @@ export interface Tag {
 export interface Question {
 	id: string
 	slug: string
-	title: string
-	content: string
-	answer: string
+	titleEn: string
+	titleUa: string
+	descriptionEn?: string
+	descriptionUa?: string
+	contentMarkdown: string // Markdown content (can support both languages)
 	difficulty: Difficulty
 	order: number
+	prevSlug?: string | null
+	nextSlug?: string | null
 	categoryId: string
 	category?: Category
 	tags?: Tag[]
 	createdAt: string
 	updatedAt: string
+}
+
+// Helper functions to get localized values
+export function getLocalizedTitle(question: Question, locale: Locale): string {
+	return locale === 'ua' ? question.titleUa : question.titleEn
+}
+
+export function getLocalizedDescription(question: Question, locale: Locale): string | undefined {
+	return locale === 'ua' ? question.descriptionUa : question.descriptionEn
+}
+
+export function getLocalizedCategoryName(category: Category, locale: Locale): string {
+	return locale === 'ua' ? category.nameUa : category.nameEn
 }
 
 export interface PaginatedResult<T> {

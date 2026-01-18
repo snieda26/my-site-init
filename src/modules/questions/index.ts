@@ -1,3 +1,4 @@
 export * from './types/questions.types'
 export * from './services/questions.service'
 export * from './hooks/use-questions'
+export * from './hooks/use-categories-with-questions'

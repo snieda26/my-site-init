@@ -4,10 +4,8 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useState, useMemo } from 'react';
 import { useLocale, useLocalePath } from '@/common/hooks';
-import { docsConfig } from '@/content/docs/_config';
-// TEMPORARY: Onboarding filtering is disabled
-// TODO: Re-enable when onboarding feature is ready
-// import { useFilteredSections } from '@/modules/onboarding/hooks/use-filtered-content';
+import { useCategoriesWithQuestions } from '@/modules/questions';
+import { getLocalizedCategoryName, getLocalizedTitle } from '@/modules/questions/types/questions.types';
 import styles from './DocumentationSidebar.module.scss';
 
 interface Section {
@@ -34,32 +32,48 @@ export const DocumentationSidebar = () => {
     setExpandedSections(newExpanded);
   };
 
-  // Build sections from config
-  const allSections: Section[] = useMemo(() => docsConfig.map(section => ({
-    id: section.id,
-    title: section.title[locale as 'en' | 'ua'] || section.title.en,
-    href: `/interview-questions/${section.id}`,
-    children: section.questions.map(q => ({
-      title: q.title[locale as 'en' | 'ua'] || q.title.en,
-      href: `/interview-questions/${section.id}/${q.slug}`,
-    })),
-  })), [locale]);
+  // Fetch categories with questions from API
+  const { data: categoriesData, isLoading } = useCategoriesWithQuestions();
 
-  // TEMPORARY: Onboarding-based filtering is disabled - show all sections
-  // TODO: Re-enable when onboarding feature is ready
+  // Build sections from API data
+  const allSections: Section[] = useMemo(() => {
+    if (!categoriesData) return [];
+    
+    return categoriesData.map(category => ({
+      id: category.slug,
+      title: getLocalizedCategoryName(category, locale as 'en' | 'ua'),
+      href: `/interview-questions/${category.slug}`,
+      children: category.questions.map(q => ({
+        title: getLocalizedTitle(q, locale as 'en' | 'ua'),
+        href: `/interview-questions/${category.slug}/${q.slug}`,
+      })),
+    }));
+  }, [categoriesData, locale]);
+
+  // For now, show all sections (filtering disabled)
   const sections = allSections;
   const isFiltering = false;
   const hiddenCount = 0;
-  
-  // TEMPORARILY COMMENTED OUT - Onboarding filtering logic
-  // const allSectionIds = useMemo(() => docsConfig.map(s => s.id), []);
-  // const { sections: visibleSectionIds, isFiltering, hiddenCount } = useFilteredSections(allSectionIds);
-  // const sections = useMemo(() => {
-  //   if (showAllSections || !isFiltering) {
-  //     return allSections;
-  //   }
-  //   return allSections.filter(section => visibleSectionIds.includes(section.id));
-  // }, [allSections, visibleSectionIds, isFiltering, showAllSections]);
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className={styles.sidebar}>
+        <div className={styles.scrollArea}>
+          <div className={styles.content}>
+            <div className={styles.section}>
+              <Link href={`/${locale}`} className={styles.brandLink}>
+                {t('brand')}
+              </Link>
+            </div>
+            <div className={styles.section}>
+              <p style={{ padding: '1rem', opacity: 0.6 }}>Loading...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.sidebar}>

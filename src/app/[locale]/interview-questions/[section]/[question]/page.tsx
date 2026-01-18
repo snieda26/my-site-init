@@ -2,8 +2,9 @@ import { Navigation } from '@/components/Navigation/Navigation';
 import { Footer } from '@/components/Footer/Footer';
 import { ArticleLayout } from '@/components/Documentation/ArticleLayout';
 import { QuestionPageContent } from '@/components/Documentation/QuestionPageContent';
-import { getDocBySlug } from '@/lib/docs';
 import { notFound } from 'next/navigation';
+import { questionsService } from '@/modules/questions/services/questions.service';
+import { getLocalizedTitle } from '@/modules/questions/types/questions.types';
 
 interface QuestionPageProps {
   params: Promise<{
@@ -16,13 +17,22 @@ interface QuestionPageProps {
 export default async function QuestionPage({ params }: QuestionPageProps) {
   const { locale, section, question } = await params;
 
-  // Load markdown content from file system
-  const doc = getDocBySlug(section, question);
-
-  // If no markdown file found, show 404
-  if (!doc) {
+  // Fetch question from API
+  let questionData;
+  try {
+    questionData = await questionsService.getQuestionBySlug(question);
+  } catch (error) {
+    // If question not found in API, show 404
     notFound();
   }
+
+  if (!questionData) {
+    notFound();
+  }
+
+  // Get localized content
+  const title = getLocalizedTitle(questionData, locale as 'en' | 'ua');
+  const content = questionData.contentMarkdown; // Markdown content
 
   return (
     <>
@@ -32,10 +42,10 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
           <QuestionPageContent 
             section={section} 
             question={question}
-            title={doc.frontmatter.title}
-            content={doc.content}
-            prev={doc.frontmatter.prev}
-            next={doc.frontmatter.next}
+            title={title}
+            content={content}
+            prev={questionData.prevSlug}
+            next={questionData.nextSlug}
             locale={locale}
           />
         </ArticleLayout>
