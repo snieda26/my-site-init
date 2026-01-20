@@ -83,9 +83,9 @@
 
 .anchor {
   text-decoration: none;
-  color: inherit;
+  color: var(--color-primary);
   margin-right: 0.5rem;
-  opacity: 0;
+  opacity: 0.3;
   transition: opacity 0.2s;
 
   &:hover {

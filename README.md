@@ -27,22 +27,26 @@ A modern, responsive landing page built with Next.js 15, TypeScript, and SCSS. T
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Root layout with metadata
+│   ├── [locale]/            # i18n routing (en/ua)
+│   │   ├── interview-questions/  # Questions pages
+│   │   ├── auth/            # Login/register
+│   │   └── onboarding/      # User onboarding
+│   ├── layout.tsx           # Root layout
 │   └── page.tsx             # Home page
-├── components/
-│   ├── UI/                  # Reusable UI components
-│   │   ├── Button/
-│   │   ├── Badge/
-│   │   └── Card/
-│   ├── Banner/              # Top announcement banner
-│   ├── Navigation/          # Main navigation header
-│   ├── Hero/                # Hero section with code demo
-│   ├── About/               # About creator section
-│   ├── Testimonials/        # User testimonials with marquee
-│   ├── FAQ/                 # FAQ accordion
-│   └── Footer/              # Site footer
+├── modules/                 # Feature modules
+│   ├── auth/                # Authentication
+│   ├── questions/           # Questions (API integration)
+│   ├── problems/            # Coding problems
+│   └── onboarding/          # User onboarding
+├── components/              # UI components
+│   ├── UI/                  # Reusable components
+│   ├── Navigation/          # Header/navigation
+│   ├── Hero/                # Landing hero
+│   └── Documentation/       # Markdown rendering
+├── providers/               # React context providers
+├── stores/                  # Redux store
 └── styles/
-    └── globals.scss         # Global styles and CSS variables
+    └── globals.scss         # Global styles
 ```
 
 ## 🛠️ Getting Started
@@ -178,21 +182,14 @@ npm run lint
 
 ## 📢 Recent Updates
 
-### 🌐 Full Multi-Language Support (Jan 18, 2026) ✅
-All content now available in English and Ukrainian:
-- **6 questions** fully translated (EN/UA)
-- **Complete markdown translations** - every heading, example, comment
-- **Auto language detection** - `/en/` shows English, `/ua/` shows Ukrainian
-- **Professional quality** - technical accuracy maintained
-- **See:** `README_TRANSLATIONS.md` for details
-
-### ✅ Questions Migrated to Database (Jan 18, 2026)
-Interview questions are now stored in PostgreSQL and served via API:
-- **6 questions** with full EN/UA content
+### 🚀 Full API Migration Complete (Jan 18, 2026) ✅
+All questions now served from PostgreSQL via Drizzle ORM:
+- **Backend:** NestJS API with Drizzle ORM (PostgreSQL)
+- **Frontend:** Fetches all content from API endpoints
+- **6 questions** with full EN/UA translations
 - **11 categories** with localized names
-- **Markdown rendering fully preserved**
-- **API endpoints:** `/questions`, `/categories`
-- **See:** `QUESTIONS_MIGRATED_FINAL.md` for details
+- **Real-time updates** - no markdown files needed
+- **API endpoints:** `GET /api/questions`, `GET /api/categories`
 
 ### ⚠️ Onboarding Feature Temporarily Disabled
 The onboarding/quiz functionality is temporarily disabled:

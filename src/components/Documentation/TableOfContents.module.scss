@@ -29,23 +29,25 @@
   flex-direction: column;
   gap: 0.625rem;
   font-size: 0.875rem;
-  color: var(--color-muted-foreground);
 }
 
 .item {
-  color: inherit;
+  color: var(--color-foreground);
   text-decoration: none;
   transition: color var(--transition-base);
   word-break: break-words;
   padding-left: 0;
+  opacity: 0.8;
 
   &:hover {
     color: var(--color-primary);
+    opacity: 1;
   }
 
   &.active {
     color: var(--color-primary);
     font-weight: 500;
+    opacity: 1;
   }
 }
 
