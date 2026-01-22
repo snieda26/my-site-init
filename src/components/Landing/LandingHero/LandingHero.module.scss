@@ -1,0 +1,416 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.hero {
+  position: relative;
+  padding-top: 6rem;
+  padding-bottom: 5rem;
+  overflow: hidden;
+  
+  @include md {
+    padding-top: 12rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.content {
+  max-width: 72rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.badgeWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  animation: blur-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes blur-in {
+  0% { filter: blur(20px); opacity: 0; transform: scale(0.95); }
+  100% { filter: blur(0px); opacity: 1; transform: scale(1); }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid #262626;
+  background: rgba(23, 23, 23, 0.5);
+  backdrop-filter: blur(12px);
+  margin-bottom: 2rem;
+  transition: all 150ms;
+  cursor: pointer;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  @include md {
+    padding: 0.375rem 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  &:hover {
+    border-color: #525252;
+    
+    .badgeArrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.badgeIcon {
+  color: $indigo-400;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.badgeText {
+  font-size: 8px;
+  font-weight: 900;
+  color: #d4d4d4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  
+  @include md {
+    font-size: 10px;
+  }
+}
+
+.badgeArrow {
+  color: #737373;
+  transition: transform 150ms;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin-bottom: 2rem;
+  text-wrap: balance;
+  text-transform: uppercase;
+  animation: blur-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  color: white;
+  
+  @include sm {
+    font-size: 3.75rem;
+  }
+  
+  @include md {
+    font-size: 4.5rem;
+    line-height: 0.9;
+    margin-bottom: 3rem;
+  }
+  
+  @include lg {
+    font-size: 6rem;
+  }
+  
+  @include xl {
+    font-size: 9rem;
+  }
+}
+
+.titleGradient {
+  background: linear-gradient(to right, $indigo-400, $purple-400, $indigo-500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
+}
+
+.descriptionWrapper {
+  max-width: 48rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  
+  @include md {
+    gap: 2rem;
+  }
+}
+
+.description {
+  font-size: 1.125rem;
+  color: #a3a3a3;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  opacity: 0;
+  animation: blur-in 1s ease-out 0.5s forwards;
+  margin: 0;
+  
+  @include md {
+    font-size: 1.5rem;
+    line-height: 1.25;
+  }
+}
+
+.highlight {
+  color: white;
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  opacity: 0;
+  animation: blur-in 1s ease-out 0.7s forwards;
+  
+  @include sm {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+}
+
+.primaryBtn {
+  width: 100%;
+  padding: 1.25rem 2rem;
+  background: white;
+  color: black;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 10px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 150ms;
+  box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  
+  @include sm {
+    width: auto;
+  }
+  
+  @include md {
+    padding: 1.5rem 3rem;
+    font-size: 12px;
+  }
+  
+  &:hover {
+    background: #e5e5e5;
+    
+    .btnArrow {
+      transform: translateX(4px);
+    }
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.btnArrow {
+  transition: transform 150ms;
+}
+
+.secondaryBtn {
+  width: 100%;
+  padding: 1.25rem 2rem;
+  background: transparent;
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 10px;
+  border-radius: 9999px;
+  border: 1px solid #262626;
+  cursor: pointer;
+  transition: all 150ms;
+  
+  @include sm {
+    width: auto;
+  }
+  
+  @include md {
+    padding: 1.5rem 3rem;
+    font-size: 12px;
+  }
+  
+  &:hover {
+    background: rgba(23, 23, 23, 0.5);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.cards {
+  margin-top: 4rem;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  animation: blur-in 1.5s ease-out 1s forwards;
+  
+  @include md {
+    margin-top: 8rem;
+  }
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  
+  @include lg {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.pulseCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(38, 38, 38, 0.6);
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: all 500ms;
+  cursor: default;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  animation: float 8s ease-in-out infinite;
+  
+  @include sm {
+    border-radius: 2rem;
+  }
+  
+  @include md {
+    padding: 3rem;
+    border-radius: 4rem;
+    gap: 1.5rem;
+  }
+  
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    background: rgba(255, 255, 255, 0.03);
+    
+    .pulseCardIcon {
+      transform: scale(1.1);
+    }
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+.pulseCardIcon {
+  background: #0a0a0a;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(38, 38, 38, 0.8);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  transition: transform 700ms;
+  
+  @include md {
+    padding: 1.25rem;
+    border-radius: 1rem;
+  }
+}
+
+.iconIndigo {
+  color: $indigo-400;
+}
+
+.iconPurple {
+  color: $purple-400;
+}
+
+.iconYellow {
+  color: $yellow-400;
+}
+
+.iconPink {
+  color: $pink-400;
+}
+
+.pulseCardContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pulseCardLabel {
+  display: block;
+  font-size: 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #737373;
+  transition: color 150ms;
+  
+  @include md {
+    letter-spacing: 0.3em;
+    font-size: 10px;
+  }
+  
+  .pulseCard:hover & {
+    color: #d4d4d4;
+  }
+}
+
+.pulseCardMetric {
+  display: block;
+  font-size: 1rem;
+  font-weight: 900;
+  color: white;
+  letter-spacing: -0.025em;
+  
+  @include md {
+    font-size: 1.5rem;
+  }
+}
+
+.glow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(to bottom, rgba(99, 102, 241, 0.1), transparent, transparent);
+  filter: blur(80px);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: -1;
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  @include md {
+    height: 500px;
+    filter: blur(120px);
+  }
+}

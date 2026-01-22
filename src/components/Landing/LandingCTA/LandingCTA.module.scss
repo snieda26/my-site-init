@@ -1,0 +1,73 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.section {
+  padding: 8rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  margin-bottom: 2rem;
+  text-wrap: balance;
+  color: white;
+  
+  @include md {
+    font-size: 3.75rem;
+  }
+}
+
+.highlight {
+  color: $indigo-500;
+}
+
+.button {
+  position: relative;
+  padding: 1.25rem 2.5rem;
+  background: white;
+  color: black;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 300ms;
+  transform-origin: center;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1);
+  
+  &:hover {
+    background: #e5e5e5;
+    
+    .shimmer {
+      animation: shimmer 2.5s linear infinite;
+    }
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.buttonText {
+  position: relative;
+  z-index: 10;
+}
+
+.shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: translateX(-100%);
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}

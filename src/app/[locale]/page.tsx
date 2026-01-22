@@ -1,25 +1,55 @@
 'use client';
 
-import { Navigation } from '@/components/Navigation/Navigation';
-// import { Banner } from '@/components/Banner/Banner';
-import { Hero } from '@/components/Hero/Hero';
-import { About } from '@/components/About/About';
-import { Testimonials } from '@/components/Testimonials/Testimonials';
-import { FAQ } from '@/components/FAQ/FAQ';
-import { Footer } from '@/components/Footer/Footer';
+import {
+  AnimatedBackground,
+  LandingNavbar,
+  LandingHero,
+  PlatformPreview,
+  QuestionVault,
+  Reviews,
+  LandingFAQ,
+  LandingFooter,
+  LandingCTA,
+  Reveal,
+} from '@/components/Landing';
+import styles from './page.module.scss';
 
 export default function HomePage() {
   return (
-    <>
-      {/* <Banner /> */}
-      <Navigation />
-      <main>
-        <Hero />
-        <About />
-        <Testimonials />
-        <FAQ />
-      </main>
-      <Footer />
-    </>
+    <div className={styles.page}>
+      <AnimatedBackground />
+      
+      <div className={styles.content}>
+        <LandingNavbar />
+        
+        <main>
+          <LandingHero />
+          
+          <Reveal delay={200}>
+            <PlatformPreview />
+          </Reveal>
+
+          <Reveal delay={300}>
+            <QuestionVault />
+          </Reveal>
+          
+          <Reveal delay={100}>
+            <Reviews />
+          </Reveal>
+          
+          <Reveal>
+            <div className={styles.faqSection}>
+              <LandingFAQ />
+            </div>
+          </Reveal>
+          
+          <Reveal>
+            <LandingCTA />
+          </Reveal>
+        </main>
+        
+        <LandingFooter />
+      </div>
+    </div>
   );
 }

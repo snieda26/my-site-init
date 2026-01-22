@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import { Poppins } from 'next/font/google'
+import { Poppins, Inter } from 'next/font/google'
 import { AppProviders } from '@/providers/app-providers'
 import { locales, type Locale } from '@/i18n/config'
 import '@/styles/globals.scss'
@@ -13,6 +13,13 @@ const poppins = Poppins({
 	weight: ['400', '500', '600', '700'],
 	display: 'swap',
 	variable: '--font-poppins',
+})
+
+const inter = Inter({
+	subsets: ['latin', 'cyrillic'],
+	weight: ['400', '500', '600', '700', '800', '900'],
+	display: 'swap',
+	variable: '--font-inter',
 })
 
 type Props = {
@@ -67,7 +74,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 	const messages = await getMessages({ locale })
 
 	return (
-		<html lang={locale} className={poppins.variable} suppressHydrationWarning>
+		<html lang={locale} className={`${poppins.variable} ${inter.variable}`} suppressHydrationWarning>
 			<head>
 				<script
 					dangerouslySetInnerHTML={{

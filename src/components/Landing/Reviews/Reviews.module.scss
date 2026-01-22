@@ -1,0 +1,322 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.section {
+  padding: 5rem 0;
+  overflow: hidden;
+  background: black;
+  position: relative;
+  
+  @include md {
+    padding: 8rem 0;
+  }
+}
+
+.header {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  margin-bottom: 3rem;
+  
+  @include md {
+    margin-bottom: 5rem;
+  }
+}
+
+.headerContent {
+  max-width: 48rem;
+}
+
+.sectionLabel {
+  color: $indigo-500;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 10px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  @include md {
+    letter-spacing: 0.3em;
+    margin-bottom: 2rem;
+  }
+}
+
+.starIcon {
+  fill: $indigo-500;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+  color: white;
+  
+  @include md {
+    font-size: 6rem;
+    line-height: 0.95;
+    margin-bottom: 2rem;
+  }
+}
+
+.titleMuted {
+  color: #737373;
+  font-style: italic;
+}
+
+.carouselWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  
+  @include md {
+    gap: 2.5rem;
+  }
+}
+
+.carouselRow {
+  display: flex;
+  overflow: hidden;
+  
+  &:hover .marquee,
+  &:hover .marqueeReverse {
+    animation-play-state: paused;
+  }
+}
+
+.marquee {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  white-space: nowrap;
+  animation: marquee 45s linear infinite;
+  
+  @include md {
+    gap: 2.5rem;
+  }
+}
+
+.marqueeReverse {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  white-space: nowrap;
+  animation: marqueeReverse 45s linear infinite;
+  
+  @include md {
+    gap: 2.5rem;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-33.33% - 1.25rem)); }
+}
+
+@keyframes marqueeReverse {
+  0% { transform: translateX(calc(-33.33% - 1.25rem)); }
+  100% { transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+  .marquee, .marqueeReverse {
+    animation-duration: 30s;
+  }
+  
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-33.33% - 0.75rem)); }
+  }
+  
+  @keyframes marqueeReverse {
+    0% { transform: translateX(calc(-33.33% - 0.75rem)); }
+    100% { transform: translateX(0); }
+  }
+}
+
+.reviewCard {
+  display: inline-block;
+  width: 300px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(38, 38, 38, 0.4);
+  padding: 2rem;
+  border-radius: 2.5rem;
+  transition: all 700ms;
+  cursor: default;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  @include md {
+    width: 480px;
+    padding: 3rem;
+    border-radius: 3.5rem;
+  }
+  
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    background: rgba(23, 23, 23, 0.4);
+    
+    .avatar {
+      transform: scale(1.1);
+    }
+    
+    .quoteIcon {
+      opacity: 1;
+    }
+  }
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  
+  @include md {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.reviewAuthor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  @include md {
+    gap: 1.25rem;
+  }
+}
+
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1rem;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  transition: transform 500ms;
+  
+  @include md {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1.5rem;
+    font-size: 1.25rem;
+  }
+  
+  span {
+    background: linear-gradient(to bottom right, white, #a3a3a3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-weight: 900;
+  color: white;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin: 0;
+  
+  @include md {
+    font-size: 1.25rem;
+  }
+}
+
+.authorRole {
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #737373;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  
+  @include md {
+    font-size: 11px;
+  }
+}
+
+.separator {
+  margin: 0 0.5rem;
+  opacity: 0.2;
+}
+
+.company {
+  color: rgba(163, 163, 163, 0.8);
+}
+
+.quoteIcon {
+  display: none;
+  color: rgba(99, 102, 241, 0.2);
+  opacity: 0;
+  transition: opacity 700ms;
+  
+  @include sm {
+    display: block;
+  }
+}
+
+.reviewText {
+  color: #d4d4d4;
+  font-weight: 500;
+  line-height: 1.6;
+  text-wrap: balance;
+  white-space: normal;
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0;
+  
+  @include md {
+    font-size: 1.25rem;
+  }
+}
+
+.fadeLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 6rem;
+  background: linear-gradient(to right, black, rgba(0, 0, 0, 0.6), transparent);
+  z-index: 10;
+  pointer-events: none;
+  
+  @include md {
+    width: 16rem;
+  }
+}
+
+.fadeRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 6rem;
+  background: linear-gradient(to left, black, rgba(0, 0, 0, 0.6), transparent);
+  z-index: 10;
+  pointer-events: none;
+  
+  @include md {
+    width: 16rem;
+  }
+}

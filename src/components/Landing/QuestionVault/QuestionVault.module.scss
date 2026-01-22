@@ -1,0 +1,513 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.section {
+  padding: 6rem 0;
+  position: relative;
+  border-top: 1px solid rgba(23, 23, 23, 0.5);
+  
+  @include md {
+    padding: 8rem 0;
+  }
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+  gap: 3rem;
+  
+  @include md {
+    margin-bottom: 6rem;
+  }
+  
+  @include lg {
+    flex-direction: row;
+    gap: 4rem;
+  }
+}
+
+.headerLeft {
+  max-width: 42rem;
+}
+
+.sectionLabel {
+  color: $indigo-500;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 10px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  margin-bottom: 2rem;
+  color: white;
+  
+  @include md {
+    font-size: 6rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.titleMuted {
+  color: #737373;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #a3a3a3;
+  font-weight: 500;
+  line-height: 1.6;
+  max-width: 36rem;
+  margin: 0;
+  
+  @include md {
+    font-size: 1.25rem;
+  }
+}
+
+.subtitleHighlight {
+  color: white;
+  font-style: italic;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+  
+  @include sm {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include lg {
+    width: auto;
+  }
+}
+
+.statCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(38, 38, 38, 0.6);
+  padding: 1.5rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 150ms;
+  
+  @include md {
+    padding: 2rem;
+    border-radius: 2.5rem;
+  }
+  
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+}
+
+.statHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.statIconIndigo {
+  padding: 0.75rem;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 1rem;
+  color: $indigo-400;
+}
+
+.statIconPurple {
+  padding: 0.75rem;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 1rem;
+  color: $purple-400;
+}
+
+.statLabel {
+  font-size: 10px;
+  font-weight: 900;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.statValue {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNumber {
+  font-size: 1.875rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  color: white;
+  
+  @include md {
+    font-size: 2.25rem;
+  }
+}
+
+.statDesc {
+  font-size: 10px;
+  font-weight: 700;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}
+
+.companiesCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(38, 38, 38, 0.6);
+  padding: 1.5rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 150ms;
+  
+  @include sm {
+    grid-column: span 2;
+  }
+  
+  @include md {
+    padding: 2rem;
+    border-radius: 2.5rem;
+  }
+  
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.companiesHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.companiesIcon {
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  color: #a3a3a3;
+}
+
+.companiesLabel {
+  font-size: 10px;
+  font-weight: 900;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.companiesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.companyTag {
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  background: #171717;
+  border: 1px solid #262626;
+  font-size: 9px;
+  font-weight: 700;
+  color: #a3a3a3;
+  transition: all 150ms;
+  cursor: default;
+  
+  @include md {
+    font-size: 10px;
+  }
+  
+  &:hover {
+    color: white;
+    border-color: #525252;
+  }
+}
+
+.questionsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  
+  @include md {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+.questionCard {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  border: 1px solid #262626;
+  padding: 2rem;
+  border-radius: 2rem;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  transition: all 700ms;
+  cursor: pointer;
+  
+  @include md {
+    padding: 3rem;
+    border-radius: 3.5rem;
+  }
+  
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(
+      400px circle at var(--mouse-x) var(--mouse-y),
+      rgba(99, 102, 241, 0.15),
+      transparent 40%
+    );
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.5s;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.2);
+    
+    &::before {
+      opacity: 1;
+    }
+    
+    .questionArrow {
+      background: white;
+      color: black;
+      transform: rotate(45deg);
+    }
+    
+    .questionTags {
+      opacity: 1;
+    }
+    
+    .lockIcon {
+      color: rgba(99, 102, 241, 0.1);
+      transform: scale(1.1);
+    }
+  }
+}
+
+.questionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  
+  @include md {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.questionMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.questionLoop {
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(99, 102, 241, 0.8);
+  
+  @include md {
+    font-size: 10px;
+  }
+}
+
+.questionFirm {
+  font-size: 10px;
+  font-weight: 700;
+  color: #737373;
+  letter-spacing: -0.025em;
+  
+  @include md {
+    font-size: 12px;
+  }
+}
+
+.questionArrow {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid #262626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 300ms;
+  flex-shrink: 0;
+  
+  @include md {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.questionText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  
+  @include md {
+    font-size: 1.5rem;
+  }
+  
+  @include lg {
+    font-size: 1.875rem;
+  }
+}
+
+.questionTags {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  opacity: 0;
+  transition: opacity 500ms;
+  position: relative;
+  z-index: 1;
+}
+
+.tagPrimary {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(99, 102, 241, 0.1);
+  color: $indigo-400;
+  font-size: 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  
+  @include md {
+    font-size: 9px;
+  }
+}
+
+.tagSecondary {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: #262626;
+  color: #a3a3a3;
+  font-size: 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid #404040;
+  
+  @include md {
+    font-size: 9px;
+  }
+}
+
+.lockIcon {
+  position: absolute;
+  bottom: -1.5rem;
+  right: -1.5rem;
+  width: 6rem;
+  height: 6rem;
+  color: rgba(255, 255, 255, 0.05);
+  transition: all 700ms;
+  
+  @include md {
+    width: 8rem;
+    height: 8rem;
+  }
+}
+
+.cta {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  @include md {
+    margin-top: 5rem;
+  }
+}
+
+.ctaText {
+  font-size: 9px;
+  font-weight: 900;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  padding: 0 1rem;
+  
+  @include md {
+    font-size: 10px;
+    margin-bottom: 2rem;
+  }
+}
+
+.ctaButton {
+  padding: 1.25rem 2.5rem;
+  background: white;
+  color: black;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 9px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 150ms;
+  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.1);
+  
+  @include md {
+    padding: 1.5rem 3.5rem;
+    font-size: 10px;
+  }
+  
+  &:hover {
+    background: #e5e5e5;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}

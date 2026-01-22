@@ -1,0 +1,13 @@
+.reveal {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(30px);
+  transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.active {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0);
+}
