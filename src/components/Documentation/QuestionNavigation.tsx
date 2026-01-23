@@ -8,18 +8,24 @@ interface QuestionNavigationProps {
   section: string;
   prev?: string | null;
   next?: string | null;
+  prevCategorySlug?: string | null;
+  nextCategorySlug?: string | null;
   locale: string;
 }
 
-export const QuestionNavigation = ({ section, prev, next, locale }: QuestionNavigationProps) => {
+export const QuestionNavigation = ({ section, prev, next, prevCategorySlug, nextCategorySlug, locale }: QuestionNavigationProps) => {
   const t = useTranslations('docs.questions');
+
+  // Use provided category slugs, fallback to current section
+  const prevCategory = prevCategorySlug || section;
+  const nextCategory = nextCategorySlug || section;
 
   return (
     <div className={styles.container}>
       <div className={styles.navGroup}>
         {prev ? (
           <Link
-            href={`/interview-questions/${section}/${prev}/${locale}`}
+            href={`/interview-questions/${prevCategory}/${prev}/${locale}`}
             className={styles.navButton}
           >
             <svg
@@ -55,7 +61,7 @@ export const QuestionNavigation = ({ section, prev, next, locale }: QuestionNavi
       <div className={styles.navGroup}>
         {next ? (
           <Link
-            href={`/interview-questions/${section}/${next}/${locale}`}
+            href={`/interview-questions/${nextCategory}/${next}/${locale}`}
             className={styles.navButton}
           >
             <p>{t('navigation.forward')}</p>

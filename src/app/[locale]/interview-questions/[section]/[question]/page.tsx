@@ -48,6 +48,8 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
             content={content}
             prev={questionData.prevSlug}
             next={questionData.nextSlug}
+            prevCategorySlug={questionData.prevCategorySlug}
+            nextCategorySlug={questionData.nextCategorySlug}
             locale={locale}
           />
         </ArticleLayout>

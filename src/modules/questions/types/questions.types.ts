@@ -33,6 +33,8 @@ export interface Question {
 	order: number
 	prevSlug?: string | null
 	nextSlug?: string | null
+	prevCategorySlug?: string | null
+	nextCategorySlug?: string | null
 	categoryId: string
 	category?: Category
 	tags?: Tag[]

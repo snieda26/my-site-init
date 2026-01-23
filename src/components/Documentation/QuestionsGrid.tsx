@@ -26,7 +26,7 @@ export const QuestionsGrid = () => {
         title: getLocalizedTitle(q, locale as 'en' | 'ua'),
         href: `/interview-questions/${category.slug}/${q.slug}`,
       })),
-    })).filter(section => section.questions.length > 0);
+    }));
   }, [categoriesData, locale]);
 
   // Show loading state
@@ -67,31 +67,32 @@ export const QuestionsGrid = () => {
                   {section.title}
                 </Link>
               </div>
-              <ul className={styles.listSub}>
-                {section.questions.map((question) => (
-                  <li key={question.href} className={styles.listSubItem}>
-                    <div className={styles.listSubTitle}>
-                      <Link href={localePath(question.href)} className={styles.listSubLink}>
-                        {question.title}
-                      </Link>
+              {section.questions.length > 0 ? (
+                <ul className={styles.listSub}>
+                  {section.questions.map((question) => (
+                    <li key={question.href} className={styles.listSubItem}>
+                      <div className={styles.listSubTitle}>
+                        <Link href={localePath(question.href)} className={styles.listSubLink}>
+                          {question.title}
+                        </Link>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul className={styles.listSub}>
+                  <li className={styles.listSubItem}>
+                    <div className={styles.listSubTitle} style={{ opacity: 0.5, fontStyle: 'italic' }}>
+                      {locale === 'ua' ? 'Питання скоро будуть додані...' : 'Questions coming soon...'}
                     </div>
                   </li>
-                ))}
-              </ul>
+                </ul>
+              )}
             </div>
           ))}
         </div>
       </div>
 
-      {sections.length === 0 && (
-        <div className={styles.empty}>
-          <p>
-            {locale === 'ua' 
-              ? 'Питання скоро будуть додані...'
-              : 'Questions coming soon...'}
-          </p>
-        </div>
-      )}
     </div>
   );
 };

@@ -14,6 +14,8 @@ interface QuestionPageContentProps {
   content: string;
   prev?: string | null;
   next?: string | null;
+  prevCategorySlug?: string | null;
+  nextCategorySlug?: string | null;
   locale: string;
 }
 
@@ -24,6 +26,8 @@ export const QuestionPageContent = ({
   content,
   prev,
   next,
+  prevCategorySlug,
+  nextCategorySlug,
   locale,
 }: QuestionPageContentProps) => {
   const t = useTranslations('docs.questions');
@@ -61,6 +65,8 @@ export const QuestionPageContent = ({
         section={section} 
         prev={prev} 
         next={next}
+        prevCategorySlug={prevCategorySlug}
+        nextCategorySlug={nextCategorySlug}
         locale={locale}
       />
     </div>

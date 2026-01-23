@@ -1,12 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { LuMenu, LuX, LuChevronDown, LuSearch } from 'react-icons/lu';
+import Link from 'next/link';
+import { LuMenu, LuX, LuSearch } from 'react-icons/lu';
+import { useLocale, useLocalePath } from '@/common/hooks';
 import styles from './LandingNavbar.module.scss';
 
 export const LandingNavbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const locale = useLocale();
+  const localePath = useLocalePath();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -14,23 +18,29 @@ export const LandingNavbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <div className={styles.left}>
-          <a href="#" className={styles.logo}>
+          <Link href={`/${locale}`} className={styles.logo}>
             <div className={styles.logoIcon}>
               <span>D</span>
             </div>
             <span className={styles.logoText}>DevPrep</span>
-          </a>
+          </Link>
           
           <div className={styles.desktopMenu}>
-            <NavLink label="Courses" hasDropdown />
-            <NavLink label="Questions" hasDropdown />
-            <NavLink label="Practice" />
-            <NavLink label="Coaching" hasDropdown />
-            <NavLink label="Pricing" />
+            <Link href={localePath('/interview-questions')} className={styles.navLink}>
+              Питання
+            </Link>
+            <Link href={localePath('/problems')} className={styles.navLink}>
+              Задачі
+            </Link>
+            <Link href={localePath('/check-knowledge')} className={styles.navLink}>
+              Перевірка знань
+            </Link>
           </div>
         </div>
 
@@ -38,10 +48,12 @@ export const LandingNavbar: React.FC = () => {
           <button className={styles.searchBtn}>
             <LuSearch size={20} />
           </button>
-          <a href="#" className={styles.loginLink}>Log in</a>
-          <a href="#" className={styles.signupBtn}>
-            Sign up
-          </a>
+          <Link href={localePath('/auth/login')} className={styles.loginLink}>
+            Увійти
+          </Link>
+          <Link href={localePath('/auth/register')} className={styles.signupBtn}>
+            Реєстрація
+          </Link>
         </div>
 
         <button 
@@ -55,29 +67,24 @@ export const LandingNavbar: React.FC = () => {
       {/* Mobile Menu Overlay */}
       <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
         <div className={styles.mobileMenuContent}>
-          <MobileNavLink label="Courses" />
-          <MobileNavLink label="Questions" />
-          <MobileNavLink label="Practice" />
-          <MobileNavLink label="Coaching" />
-          <MobileNavLink label="Pricing" />
+          <Link href={localePath('/interview-questions')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+            Питання
+          </Link>
+          <Link href={localePath('/problems')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+            Задачі
+          </Link>
+          <Link href={localePath('/check-knowledge')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+            Перевірка знань
+          </Link>
           <hr className={styles.divider} />
-          <a href="#" className={styles.mobileLoginLink}>Log in</a>
-          <a href="#" className={styles.mobileSignupBtn}>Sign up</a>
+          <Link href={localePath('/auth/login')} className={styles.mobileLoginLink} onClick={closeMobileMenu}>
+            Увійти
+          </Link>
+          <Link href={localePath('/auth/register')} className={styles.mobileSignupBtn} onClick={closeMobileMenu}>
+            Реєстрація
+          </Link>
         </div>
       </div>
     </nav>
   );
 };
-
-const NavLink: React.FC<{ label: string; hasDropdown?: boolean }> = ({ label, hasDropdown }) => (
-  <a href="#" className={styles.navLink}>
-    <span>{label}</span>
-    {hasDropdown && <LuChevronDown size={14} className={styles.chevron} />}
-  </a>
-);
-
-const MobileNavLink: React.FC<{ label: string }> = ({ label }) => (
-  <a href="#" className={styles.mobileNavLink}>
-    {label}
-  </a>
-);
