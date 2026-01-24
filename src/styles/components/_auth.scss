@@ -2,8 +2,10 @@
 @use '../mixins' as *;
 
 .auth-page {
-  min-height: 80vh;
-  @include flex-center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: radial-gradient(ellipse at top, rgba($primary, 0.15) 0%, transparent 50%);
   padding: $spacing-8 $spacing-4;
 }

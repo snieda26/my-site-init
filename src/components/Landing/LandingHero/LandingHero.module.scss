@@ -3,7 +3,7 @@
 
 .hero {
   position: relative;
-  padding-top: 4rem;
+  padding-top: 8rem;
   padding-bottom: 3.5rem;
   overflow: hidden;
   
@@ -31,10 +31,14 @@
 }
 
 .badgeWrapper {
-  display: flex;
+  display: none;
   justify-content: center;
   width: 100%;
   animation: blur-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  
+  @include md {
+    display: flex;
+  }
 }
 
 @keyframes blur-in {
@@ -46,20 +50,15 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.375rem 0.75rem;
+  padding: 0.375rem 1rem;
   border-radius: 9999px;
   border: 1px solid #262626;
   background: rgba(23, 23, 23, 0.5);
   backdrop-filter: blur(12px);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   transition: all 150ms;
   cursor: pointer;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  
-  @include md {
-    padding: 0.375rem 1rem;
-    margin-bottom: 3rem;
-  }
   
   &:hover {
     border-color: #525252;
@@ -149,7 +148,7 @@
 }
 
 .description {
-  font-size: 1.125rem;
+  font-size: 0.95rem;
   color: #a3a3a3;
   font-weight: 500;
   line-height: 1.4;
@@ -186,14 +185,14 @@
 }
 
 .primaryBtn {
-  width: 100%;
-  padding: 1.25rem 2rem;
+  width: auto;
+  padding: 1rem 2rem;
   background: white;
   color: black;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 10px;
+  font-size: 9px;
   border-radius: 9999px;
   border: none;
   cursor: pointer;
@@ -205,7 +204,8 @@
   gap: 0.75rem;
   
   @include sm {
-    width: auto;
+    padding: 1.25rem 2rem;
+    font-size: 10px;
   }
   
   @include md {
@@ -231,21 +231,22 @@
 }
 
 .secondaryBtn {
-  width: 100%;
-  padding: 1.25rem 2rem;
+  width: auto;
+  padding: 1rem 2rem;
   background: transparent;
   color: white;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 10px;
+  font-size: 9px;
   border-radius: 9999px;
   border: 1px solid #262626;
   cursor: pointer;
   transition: all 150ms;
   
   @include sm {
-    width: auto;
+    padding: 1.25rem 2rem;
+    font-size: 10px;
   }
   
   @include md {
