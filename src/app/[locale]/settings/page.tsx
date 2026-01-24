@@ -143,7 +143,7 @@ export default function SettingsPage() {
 				)}
 
 				{/* Settings Grid */}
-				<div className={styles.grid}>
+				<div className={styles.settingsGrid}>
 					{/* Profile Section */}
 					<section className={styles.section}>
 						<div className={styles.sectionHeader}>
