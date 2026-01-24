@@ -34,7 +34,7 @@
   display: none;
   justify-content: center;
   width: 100%;
-  animation: blur-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: blur-in 0.93s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   
   @include md {
     display: flex;
@@ -103,7 +103,7 @@
   line-height: 1;
   margin-bottom: 2rem;
   text-transform: uppercase;
-  animation: blur-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: blur-in 0.93s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   color: white;
   
   @include sm {
@@ -155,7 +155,7 @@
   letter-spacing: -0.025em;
   text-wrap: balance;
   opacity: 0;
-  animation: blur-in 1s ease-out 0.5s forwards;
+  animation: blur-in 0.67s ease-out 0.33s forwards;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -188,7 +188,7 @@
   justify-content: center;
   gap: 1rem;
   opacity: 0;
-  animation: blur-in 1s ease-out 0.7s forwards;
+  animation: blur-in 0.67s ease-out 0.47s forwards;
   
   @include sm {
     flex-direction: row;
@@ -281,7 +281,7 @@
   margin-left: auto;
   margin-right: auto;
   opacity: 0;
-  animation: blur-in 1.5s ease-out 1s forwards;
+  animation: blur-in 1s ease-out 0.67s forwards;
   
   @include md {
     margin-top: 5.5rem;
