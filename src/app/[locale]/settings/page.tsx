@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from './Settings.module.scss'
 import apiClient from '@/infrastructure/api/client'
-import { Camera, Lock, Mail, User, CheckCircle, XCircle } from 'lucide-react'
+import { FiCamera, FiLock, FiMail, FiUser, FiCheckCircle, FiXCircle } from 'react-icons/fi'
 
 interface UserProfile {
 	id: string
@@ -137,7 +137,7 @@ export default function SettingsPage() {
 				{/* Message */}
 				{message && (
 					<div className={`${styles.message} ${styles[message.type]}`}>
-						{message.type === 'success' ? <CheckCircle size={18} /> : <XCircle size={18} />}
+						{message.type === 'success' ? <FiCheckCircle size={18} /> : <FiXCircle size={18} />}
 						<span>{message.text}</span>
 					</div>
 				)}
@@ -159,11 +159,11 @@ export default function SettingsPage() {
 										<img src={avatarUrl} alt="Profile" className={styles.avatar} />
 									) : (
 										<div className={styles.avatarPlaceholder}>
-											<User size={40} />
+											<FiUser size={40} />
 										</div>
 									)}
 									<div className={styles.avatarOverlay}>
-										<Camera size={20} />
+										<FiCamera size={20} />
 									</div>
 								</div>
 								<div className={styles.avatarInfo}>
@@ -195,7 +195,7 @@ export default function SettingsPage() {
 									Full Name
 								</label>
 								<div className={styles.inputWrapper}>
-									<User className={styles.inputIcon} size={18} />
+									<FiUser className={styles.inputIcon} size={18} />
 									<input
 										id="name"
 										type="text"
@@ -233,7 +233,7 @@ export default function SettingsPage() {
 									Email Address
 								</label>
 								<div className={styles.inputWrapper}>
-									<Mail className={styles.inputIcon} size={18} />
+									<FiMail className={styles.inputIcon} size={18} />
 									<input
 										id="email"
 										type="email"
@@ -244,12 +244,12 @@ export default function SettingsPage() {
 									<div className={styles.inputBadge}>
 										{profile?.emailVerified ? (
 											<>
-												<CheckCircle size={14} />
+												<FiCheckCircle size={14} />
 												<span>Verified</span>
 											</>
 										) : (
 											<>
-												<XCircle size={14} />
+												<FiXCircle size={14} />
 												<span>Not Verified</span>
 											</>
 										)}
@@ -286,7 +286,7 @@ export default function SettingsPage() {
 									Current Password
 								</label>
 								<div className={styles.inputWrapper}>
-									<Lock className={styles.inputIcon} size={18} />
+									<FiLock className={styles.inputIcon} size={18} />
 									<input
 										id="currentPassword"
 										type="password"
@@ -305,7 +305,7 @@ export default function SettingsPage() {
 									New Password
 								</label>
 								<div className={styles.inputWrapper}>
-									<Lock className={styles.inputIcon} size={18} />
+									<FiLock className={styles.inputIcon} size={18} />
 									<input
 										id="newPassword"
 										type="password"
@@ -326,7 +326,7 @@ export default function SettingsPage() {
 									Confirm New Password
 								</label>
 								<div className={styles.inputWrapper}>
-									<Lock className={styles.inputIcon} size={18} />
+									<FiLock className={styles.inputIcon} size={18} />
 									<input
 										id="confirmPassword"
 										type="password"
@@ -349,7 +349,7 @@ export default function SettingsPage() {
 									</>
 								) : (
 									<>
-										<Lock size={16} />
+										<FiLock size={16} />
 										<span>Change Password</span>
 									</>
 								)}
