@@ -59,34 +59,31 @@ export const QuestionsGrid = () => {
       </div>
 
       <div className={styles.content}>
-        <div className={styles.list}>
-          {sections.map((section) => (
-            <div key={section.id} className={styles.listItem}>
-              <div className={styles.listTitle}>
-                <Link href={localePath(section.href)} className={styles.listLink}>
+        <div className={styles.sections}>
+          {sections.map((section, sectionIndex) => (
+            <div key={section.id} className={styles.section}>
+              <div className={styles.sectionHeader}>
+                <Link href={localePath(section.href)} className={styles.sectionTitle}>
                   {section.title}
                 </Link>
               </div>
               {section.questions.length > 0 ? (
-                <ul className={styles.listSub}>
-                  {section.questions.map((question) => (
-                    <li key={question.href} className={styles.listSubItem}>
-                      <div className={styles.listSubTitle}>
-                        <Link href={localePath(question.href)} className={styles.listSubLink}>
-                          {question.title}
-                        </Link>
-                      </div>
-                    </li>
+                <div className={styles.questionsGrid}>
+                  {section.questions.map((question, qIndex) => (
+                    <Link 
+                      key={question.href} 
+                      href={localePath(question.href)} 
+                      className={styles.questionItem}
+                    >
+                      <span className={styles.questionNumber}>{sectionIndex + 1}.{qIndex + 1}</span>
+                      <span className={styles.questionTitle}>{question.title}</span>
+                    </Link>
                   ))}
-                </ul>
+                </div>
               ) : (
-                <ul className={styles.listSub}>
-                  <li className={styles.listSubItem}>
-                    <div className={styles.listSubTitle} style={{ opacity: 0.5, fontStyle: 'italic' }}>
-                      {locale === 'ua' ? 'Питання скоро будуть додані...' : 'Questions coming soon...'}
-                    </div>
-                  </li>
-                </ul>
+                <div className={styles.emptySection}>
+                  {locale === 'ua' ? 'Питання скоро будуть додані...' : 'Questions coming soon...'}
+                </div>
               )}
             </div>
           ))}
