@@ -6,8 +6,7 @@ import { LuMenu, LuX, LuSearch } from 'react-icons/lu';
 import { FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
 import { useLocale, useLocalePath } from '@/common/hooks';
-// import { useTheme } from '@/common/hooks';
-// import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth';
+import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
 import styles from './LandingNavbar.module.scss';
 
@@ -17,13 +16,10 @@ export const LandingNavbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const locale = useLocale();
   const localePath = useLocalePath();
-  
-  // Commented out for now - uncomment when needed
-  // const { theme, toggleTheme } = useTheme();
-  // const { user, isAuthenticated, isLoading } = useAuth();
-  // const logout = useLogout();
-  // const [userMenuOpen, setUserMenuOpen] = useState(false);
-  // const userMenuRef = useRef<HTMLDivElement>(null);
+  const { user, isAuthenticated, isLoading } = useAuth();
+  const logout = useLogout();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -31,16 +27,15 @@ export const LandingNavbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Commented out - uncomment when user menu is needed
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
-  //       setUserMenuOpen(false);
-  //     }
-  //   };
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => document.removeEventListener('mousedown', handleClickOutside);
-  // }, []);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
@@ -69,26 +64,11 @@ export const LandingNavbar: React.FC = () => {
         </div>
 
         <div className={styles.right}>
-          {/* Search - hidden for now */}
-          {/* <button className={styles.searchBtn}>
-            <LuSearch size={20} />
-          </button> */}
-
           {/* Language Switcher */}
           <LanguageSwitcher />
 
-          {/* Theme Toggle - Commented out for now */}
-          {/* <button
-            className={styles.iconBtn}
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-          >
-            {theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}
-          </button> */}
-
-          {/* User Menu - Commented out for now */}
-          {/* {isLoading ? (
+          {/* User Menu */}
+          {isLoading ? (
             <div className={styles.avatarSkeleton} />
           ) : isAuthenticated ? (
             <div className={styles.userMenu} ref={userMenuRef}>
@@ -106,14 +86,22 @@ export const LandingNavbar: React.FC = () => {
               
               {userMenuOpen && (
                 <div className={styles.dropdown}>
+                  <div className={styles.dropdownHeader}>
+                    <div className={styles.userInfo}>
+                      <span className={styles.userName}>{user?.name}</span>
+                      <span className={styles.userEmail}>{user?.email}</span>
+                    </div>
+                  </div>
+                  <div className={styles.dropdownDivider} />
                   <Link
                     href={localePath('/dashboard')}
                     className={styles.dropdownItem}
                     onClick={() => setUserMenuOpen(false)}
                   >
                     <FiBarChart2 size={18} />
-                    <span>Dashboard</span>
+                    <span>{locale === 'ua' ? 'Панель керування' : 'Dashboard'}</span>
                   </Link>
+                  <div className={styles.dropdownDivider} />
                   <button
                     className={styles.dropdownItem}
                     onClick={() => {
@@ -122,19 +110,21 @@ export const LandingNavbar: React.FC = () => {
                     }}
                   >
                     <FiLogOut size={18} />
-                    <span>Logout</span>
+                    <span>{locale === 'ua' ? 'Вийти' : 'Logout'}</span>
                   </button>
                 </div>
               )}
             </div>
-          ) : ( */}
-            <Link href={localePath('/auth/login')} className={styles.loginLink}>
-              {t('login')}
-            </Link>
-            <Link href={localePath('/auth/register')} className={styles.signupBtn}>
-              {t('signup')}
-            </Link>
-          {/* )} */}
+          ) : (
+            <>
+              <Link href={localePath('/auth/login')} className={styles.loginLink}>
+                {t('login')}
+              </Link>
+              <Link href={localePath('/auth/register')} className={styles.signupBtn}>
+                {t('signup')}
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile controls: Language Switcher + Burger Menu */}
@@ -169,10 +159,25 @@ export const LandingNavbar: React.FC = () => {
           {/* Mobile Menu - Auth or User Links */}
           <div className={styles.mobileMenuAuth}>
             <hr className={styles.divider} />
-            {/* {isAuthenticated ? (
+            {isAuthenticated ? (
               <>
+                {user && (
+                  <div className={styles.mobileUserInfo}>
+                    <div className={styles.mobileAvatar}>
+                      <img
+                        src={user.avatarUrl || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&s=128'}
+                        alt={user.name || 'User'}
+                      />
+                    </div>
+                    <div className={styles.mobileUserDetails}>
+                      <span className={styles.mobileUserName}>{user.name}</span>
+                      <span className={styles.mobileUserEmail}>{user.email}</span>
+                    </div>
+                  </div>
+                )}
                 <Link href={localePath('/dashboard')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
-                  Dashboard
+                  <FiBarChart2 size={20} />
+                  <span>{locale === 'ua' ? 'Панель керування' : 'Dashboard'}</span>
                 </Link>
                 <button
                   className={styles.mobileNavLink}
@@ -181,10 +186,11 @@ export const LandingNavbar: React.FC = () => {
                     closeMobileMenu();
                   }}
                 >
-                  Logout
+                  <FiLogOut size={20} />
+                  <span>{locale === 'ua' ? 'Вийти' : 'Logout'}</span>
                 </button>
               </>
-            ) : ( */}
+            ) : (
               <>
                 <Link href={localePath('/auth/login')} className={styles.mobileLoginLink} onClick={closeMobileMenu}>
                   {t('login')}
@@ -193,7 +199,7 @@ export const LandingNavbar: React.FC = () => {
                   {t('signup')}
                 </Link>
               </>
-            {/* )} */}
+            )}
           </div>
         </div>
       </div>

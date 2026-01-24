@@ -35,9 +35,11 @@ export const TableOfContents = () => {
       if (!heading.id) {
         heading.id = id;
       }
+      // Remove hashtag from text content for display in sidebar
+      const text = (heading.textContent || '').replace(/^#\s*/, '').trim();
       tocItems.push({
         id,
-        text: heading.textContent || '',
+        text,
         level: parseInt(heading.tagName.charAt(1)) - 2, // h2 = 0, h3 = 1
       });
     });
@@ -82,22 +84,18 @@ export const TableOfContents = () => {
   return (
     <>
       <div className={styles.toc}>
-        <h3 className={styles.title}>{locale === 'ua' ? 'Зміст' : 'Content'}</h3>
+        <h3 className={styles.title}>{locale === 'ua' ? 'ЗМІСТ' : 'CONTENT'}</h3>
         <div className={styles.scrollArea}>
           <div className={styles.items}>
             {items.map((item) => (
-              <a
+              <button
                 key={item.id}
-                href={`#${item.id}`}
                 className={`${styles.item} ${activeId === item.id ? styles.active : ''}`}
-                style={{ paddingLeft: `${item.level * 12}px` }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToHeading(item.id);
-                }}
+                style={{ paddingLeft: `${item.level * 12 + 12}px` }}
+                onClick={() => scrollToHeading(item.id)}
               >
                 {item.text}
-              </a>
+              </button>
             ))}
           </div>
         </div>

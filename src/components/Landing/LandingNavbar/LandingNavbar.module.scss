@@ -237,12 +237,24 @@
 }
 
 .mobileNavLink {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.025em;
   padding: 0.5rem 0;
   border-bottom: 1px solid #171717;
   color: white;
+  background: transparent;
+  border: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  
+  svg {
+    flex-shrink: 0;
+  }
 }
 
 .divider {
@@ -267,6 +279,55 @@
   font-weight: 700;
   border-radius: 0.75rem;
   display: block;
+}
+
+.mobileUserInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.mobileAvatar {
+  flex-shrink: 0;
+  
+  img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(99, 102, 241, 0.3);
+  }
+}
+
+.mobileUserDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.mobileUserName {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobileUserEmail {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 
@@ -315,15 +376,57 @@
 
 .dropdown {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 0.75rem);
   right: 0;
-  min-width: 200px;
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.75rem;
+  min-width: 260px;
+  background: rgba(17, 24, 39, 0.98);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 12px;
   padding: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
   z-index: 50;
+  backdrop-filter: blur(16px);
+  animation: dropdownFadeIn 200ms ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownHeader {
+  padding: 0.75rem 1rem;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.userName {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: white;
+  line-height: 1.2;
+}
+
+.userEmail {
+  font-size: 0.8125rem;
+  color: #9ca3af;
+  line-height: 1.2;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0.5rem 0;
 }
 
 .dropdownItem {
@@ -333,15 +436,30 @@
   width: 100%;
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
-  color: white;
+  font-weight: 500;
+  color: #e5e7eb;
   background: transparent;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 150ms;
+  transition: all 150ms ease;
   text-align: left;
   
+  svg {
+    color: #9ca3af;
+    transition: color 150ms ease;
+  }
+  
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(99, 102, 241, 0.1);
+    color: white;
+    
+    svg {
+      color: $indigo-400;
+    }
+  }
+  
+  &:active {
+    transform: scale(0.98);
   }
 }
