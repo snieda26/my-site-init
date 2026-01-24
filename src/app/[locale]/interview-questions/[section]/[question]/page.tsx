@@ -1,4 +1,4 @@
-import { LandingNavbar } from '@/components/Landing/LandingNavbar/LandingNavbar';
+import { Header } from '@/components/Header';
 import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
 import { ArticleLayout } from '@/components/Documentation/ArticleLayout';
 import { QuestionPageContent } from '@/components/Documentation/QuestionPageContent';
@@ -38,7 +38,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
 
   return (
     <>
-      <LandingNavbar />
+      <Header />
       <main className="flex-1 w-full" style={{ paddingTop: '80px' }}>
         <ArticleLayout>
           <QuestionPageContent 

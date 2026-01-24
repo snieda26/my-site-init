@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from './Settings.module.scss'
 import apiClient from '@/infrastructure/api/client'
-import { FiCamera, FiLock, FiMail, FiUser, FiCheckCircle, FiXCircle } from 'react-icons/fi'
+import { FiCamera, FiLock, FiMail, FiUser, FiCheckCircle, FiXCircle, FiUpload } from 'react-icons/fi'
+import { Header } from '@/components/Header'
 
 interface UserProfile {
 	id: string
@@ -20,15 +21,23 @@ export default function SettingsPage() {
 	const [profile, setProfile] = useState<UserProfile | null>(null)
 	const [loading, setLoading] = useState(true)
 	const [saving, setSaving] = useState(false)
+	const [uploading, setUploading] = useState(false)
 	const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+	const fileInputRef = useRef<HTMLInputElement>(null)
 
 	// Form states
 	const [name, setName] = useState('')
 	const [username, setUsername] = useState('')
 	const [avatarUrl, setAvatarUrl] = useState('')
+	const [avatarFile, setAvatarFile] = useState<File | null>(null)
 	const [currentPassword, setCurrentPassword] = useState('')
 	const [newPassword, setNewPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
+
+	// Original values for comparison
+	const [originalName, setOriginalName] = useState('')
+	const [originalUsername, setOriginalUsername] = useState('')
+	const [originalAvatarUrl, setOriginalAvatarUrl] = useState('')
 
 	useEffect(() => {
 		loadProfile()
@@ -38,15 +47,63 @@ export default function SettingsPage() {
 		try {
 			const response = await apiClient.get('/account/profile')
 			setProfile(response.data)
-			setName(response.data.name || '')
-			setUsername(response.data.username || '')
-			setAvatarUrl(response.data.avatarUrl || '')
+			const profileName = response.data.name || ''
+			const profileUsername = response.data.username || ''
+			const profileAvatarUrl = response.data.avatarUrl || ''
+			
+			setName(profileName)
+			setUsername(profileUsername)
+			setAvatarUrl(profileAvatarUrl)
+			
+			// Store original values
+			setOriginalName(profileName)
+			setOriginalUsername(profileUsername)
+			setOriginalAvatarUrl(profileAvatarUrl)
 		} catch (error: any) {
 			if (error.response?.status === 401) {
 				router.push('/auth/login')
 			}
 		} finally {
 			setLoading(false)
+		}
+	}
+
+	const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0]
+		if (!file) return
+
+		// Validate file size (2MB)
+		if (file.size > 2 * 1024 * 1024) {
+			setMessage({ type: 'error', text: 'File size must be less than 2MB' })
+			return
+		}
+
+		// Validate file type
+		if (!file.type.startsWith('image/')) {
+			setMessage({ type: 'error', text: 'Please select an image file' })
+			return
+		}
+
+		setUploading(true)
+		setMessage(null)
+
+		try {
+			const formData = new FormData()
+			formData.append('file', file)
+
+			const response = await apiClient.post('/upload/avatar', formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			})
+
+			setAvatarUrl(response.data.url)
+			setAvatarFile(file)
+			setMessage({ type: 'success', text: 'Avatar uploaded successfully! Click "Save Changes" to apply.' })
+		} catch (error: any) {
+			setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to upload avatar' })
+		} finally {
+			setUploading(false)
 		}
 	}
 
@@ -62,6 +119,7 @@ export default function SettingsPage() {
 				avatarUrl: avatarUrl || null,
 			})
 			setMessage({ type: 'success', text: 'Profile updated successfully!' })
+			setAvatarFile(null)
 			await loadProfile()
 		} catch (error: any) {
 			setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to update profile' })
@@ -69,6 +127,17 @@ export default function SettingsPage() {
 			setSaving(false)
 		}
 	}
+
+	// Check if profile form has changes
+	const hasProfileChanges =
+		name !== originalName || username !== originalUsername || avatarUrl !== originalAvatarUrl
+
+	// Check if password form is valid
+	const isPasswordValid =
+		currentPassword.length > 0 &&
+		newPassword.length >= 8 &&
+		confirmPassword.length >= 8 &&
+		newPassword === confirmPassword
 
 	const handleChangePassword = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -107,33 +176,27 @@ export default function SettingsPage() {
 	}
 
 	return (
-		<div className={styles.settingsPage}>
-			{/* Animated Background */}
-			<div className={styles.background}>
-				<div className={styles.grid} />
-				<div className={styles.orbitalPrimary} />
-				<div className={styles.orbitalSecondary} />
-				{[...Array(3)].map((_, i) => (
-					<div
-						key={i}
-						className={styles.beam}
-						style={{
-							left: `${20 + i * 30}%`,
-							animationDelay: `${i * 2.5}s`,
-						}}
-					/>
-				))}
-			</div>
-
-			<div className={styles.container}>
-				{/* Header */}
-				<div className={styles.header}>
-					<div className={styles.titleGroup}>
-						<h1 className={styles.title}>Settings</h1>
-						<p className={styles.subtitle}>Manage your account settings and preferences</p>
-					</div>
+		<>
+			<Header />
+			<div className={styles.settingsPage}>
+				{/* Animated Background */}
+				<div className={styles.background}>
+					<div className={styles.grid} />
+					<div className={styles.orbitalPrimary} />
+					<div className={styles.orbitalSecondary} />
+					{[...Array(3)].map((_, i) => (
+						<div
+							key={i}
+							className={styles.beam}
+							style={{
+								left: `${20 + i * 30}%`,
+								animationDelay: `${i * 2.5}s`,
+							}}
+						/>
+					))}
 				</div>
 
+				<div className={styles.container}>
 				{/* Message */}
 				{message && (
 					<div className={`${styles.message} ${styles[message.type]}`}>
@@ -154,7 +217,11 @@ export default function SettingsPage() {
 						<form onSubmit={handleUpdateProfile} className={styles.form}>
 							{/* Avatar */}
 							<div className={styles.avatarSection}>
-								<div className={styles.avatarWrapper}>
+								<div
+									className={styles.avatarWrapper}
+									onClick={() => fileInputRef.current?.click()}
+									style={{ cursor: uploading ? 'wait' : 'pointer' }}
+								>
 									{avatarUrl ? (
 										<img src={avatarUrl} alt="Profile" className={styles.avatar} />
 									) : (
@@ -163,29 +230,32 @@ export default function SettingsPage() {
 										</div>
 									)}
 									<div className={styles.avatarOverlay}>
-										<FiCamera size={20} />
+										{uploading ? (
+											<div className={styles.buttonSpinner} />
+										) : (
+											<FiCamera size={20} />
+										)}
 									</div>
 								</div>
 								<div className={styles.avatarInfo}>
-									<label htmlFor="avatarUrl" className={styles.avatarLabel}>
-										Profile Photo
-									</label>
+									<label className={styles.avatarLabel}>Profile Photo</label>
 									<p className={styles.avatarHint}>JPG, PNG or GIF. Max size 2MB.</p>
+									<button
+										type="button"
+										onClick={() => fileInputRef.current?.click()}
+										disabled={uploading}
+										className={styles.uploadButton}
+									>
+										<FiUpload size={16} />
+										<span>{uploading ? 'Uploading...' : 'Upload Photo'}</span>
+									</button>
 								</div>
-							</div>
-
-							{/* Avatar URL Input */}
-							<div className={styles.inputGroup}>
-								<label htmlFor="avatarUrl" className={styles.label}>
-									Avatar URL
-								</label>
 								<input
-									id="avatarUrl"
-									type="url"
-									value={avatarUrl}
-									onChange={e => setAvatarUrl(e.target.value)}
-									placeholder="https://example.com/avatar.jpg"
-									className={styles.input}
+									ref={fileInputRef}
+									type="file"
+									accept="image/*"
+									onChange={handleFileSelect}
+									style={{ display: 'none' }}
 								/>
 							</div>
 
@@ -259,7 +329,11 @@ export default function SettingsPage() {
 							</div>
 
 							{/* Submit Button */}
-							<button type="submit" disabled={saving} className={styles.button}>
+							<button
+								type="submit"
+								disabled={saving || !hasProfileChanges || uploading}
+								className={styles.button}
+							>
 								{saving ? (
 									<>
 										<div className={styles.buttonSpinner} />
@@ -341,7 +415,11 @@ export default function SettingsPage() {
 							</div>
 
 							{/* Submit Button */}
-							<button type="submit" disabled={saving} className={`${styles.button} ${styles.buttonSecondary}`}>
+							<button
+								type="submit"
+								disabled={saving || !isPasswordValid}
+								className={`${styles.button} ${styles.buttonSecondary}`}
+							>
 								{saving ? (
 									<>
 										<div className={styles.buttonSpinner} />
@@ -359,5 +437,6 @@ export default function SettingsPage() {
 				</div>
 			</div>
 		</div>
+		</>
 	)
 }

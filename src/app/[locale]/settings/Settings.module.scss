@@ -12,7 +12,7 @@
 	overflow: hidden;
 
 	@include md {
-		padding: 8rem 0 6rem;
+		padding: 7rem 0 6rem;
 	}
 }
 
@@ -147,17 +147,8 @@
 }
 
 // ============================================
-// HEADER (PROGRESSIVE REVEAL)
+// ANIMATIONS
 // ============================================
-
-.header {
-	margin-bottom: 3rem;
-	animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-
-	@include md {
-		margin-bottom: 4rem;
-	}
-}
 
 @keyframes fade-up {
 	0% {
@@ -168,37 +159,6 @@
 		opacity: 1;
 		transform: translateY(0);
 	}
-}
-
-.titleGroup {
-	text-align: center;
-
-	@include md {
-		text-align: left;
-	}
-}
-
-.title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	line-height: 1.1;
-	letter-spacing: -0.03em;
-	margin-bottom: 0.75rem;
-	background: linear-gradient(to bottom, #fff 40%, #999 100%);
-	background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-
-	@include md {
-		font-size: 3.5rem;
-	}
-}
-
-.subtitle {
-	font-size: 1.125rem;
-	color: #a3a3a3;
-	font-weight: 400;
-	line-height: 1.6;
 }
 
 // ============================================
@@ -412,6 +372,34 @@
 	font-size: 0.875rem;
 	color: #737373;
 	line-height: 1.5;
+	margin-bottom: 0.75rem;
+}
+
+.uploadButton {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: rgba(99, 102, 241, 0.1);
+	border: 1px solid rgba(99, 102, 241, 0.3);
+	border-radius: 8px;
+	color: $indigo-400;
+	font-size: 0.875rem;
+	font-weight: 500;
+	font-family: inherit;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: rgba(99, 102, 241, 0.2);
+		border-color: $indigo-500;
+		color: $indigo-400;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
 }
 
 // ============================================

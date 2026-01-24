@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { LuMenu, LuX, LuSearch } from 'react-icons/lu';
-import { FiSun, FiMoon, FiBarChart2, FiLogOut, FiSettings } from 'react-icons/fi';
+import { LuMenu, LuX } from 'react-icons/lu';
+import { FiBarChart2, FiLogOut, FiSettings } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
 import { useLocale, useLocalePath } from '@/common/hooks';
 import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
-import styles from './LandingNavbar.module.scss';
+import styles from './Header.module.scss';
 
-export const LandingNavbar: React.FC = () => {
+export const Header: React.FC = () => {
   const t = useTranslations('landing.navbar');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -105,6 +105,14 @@ export const LandingNavbar: React.FC = () => {
                     <FiBarChart2 size={18} />
                     <span>{locale === 'ua' ? 'Панель керування' : 'Dashboard'}</span>
                   </Link>
+                  <Link
+                    href={localePath('/settings')}
+                    className={styles.dropdownItem}
+                    onClick={() => setUserMenuOpen(false)}
+                  >
+                    <FiSettings size={18} />
+                    <span>{locale === 'ua' ? 'Налаштування' : 'Settings'}</span>
+                  </Link>
                   <div className={styles.dropdownDivider} />
                   <button
                     className={styles.dropdownItem}
@@ -116,15 +124,6 @@ export const LandingNavbar: React.FC = () => {
                     <FiLogOut size={18} />
                     <span>{locale === 'ua' ? 'Вийти' : 'Logout'}</span>
                   </button>
-                  <Link
-									href={localePath('/settings')}
-									className={styles.dropdownItem}
-									onClick={() => setUserMenuOpen(false)}
-								>
-									<FiSettings size={18} />
-									{/* <span>{t('settings')}</span> */}
-                  Settings
-								</Link>
                 </div>
               )}
             </div>
@@ -191,6 +190,10 @@ export const LandingNavbar: React.FC = () => {
                 <Link href={localePath('/dashboard')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
                   <FiBarChart2 size={20} />
                   <span>{locale === 'ua' ? 'Панель керування' : 'Dashboard'}</span>
+                </Link>
+                <Link href={localePath('/settings')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+                  <FiSettings size={20} />
+                  <span>{locale === 'ua' ? 'Налаштування' : 'Settings'}</span>
                 </Link>
                 <button
                   className={styles.mobileNavLink}

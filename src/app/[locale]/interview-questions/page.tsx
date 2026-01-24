@@ -1,4 +1,4 @@
-import { LandingNavbar } from '@/components/Landing/LandingNavbar/LandingNavbar';
+import { Header } from '@/components/Header';
 import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
 import { AnimatedBackground } from '@/components/Landing';
 import { QuestionsGrid } from '@/components/Documentation/QuestionsGrid';
@@ -9,7 +9,7 @@ export default function InterviewQuestionsPage() {
     <div className={styles.page}>
       <AnimatedBackground />
       <div className={styles.content}>
-        <LandingNavbar />
+        <Header />
         <main className={styles.main}>
           <QuestionsGrid />
         </main>

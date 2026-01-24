@@ -2,7 +2,6 @@
 
 import {
   AnimatedBackground,
-  LandingNavbar,
   LandingHero,
   PlatformPreview,
   QuestionVault,
@@ -12,6 +11,7 @@ import {
   LandingCTA,
   Reveal,
 } from '@/components/Landing';
+import { Header } from '@/components/Header';
 import styles from './page.module.scss';
 
 export default function HomePage() {
@@ -20,7 +20,7 @@ export default function HomePage() {
       <AnimatedBackground />
       
       <div className={styles.content}>
-        <LandingNavbar />
+        <Header />
         
         <main>
           <LandingHero />

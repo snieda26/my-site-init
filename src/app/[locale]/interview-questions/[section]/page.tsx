@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { LandingNavbar } from '@/components/Landing/LandingNavbar/LandingNavbar';
+import { Header } from '@/components/Header';
 import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
 import { AnimatedBackground } from '@/components/Landing';
 import { Spinner } from '@/components/Spinner';
@@ -47,7 +47,7 @@ export default function SectionPage() {
       <div className={styles.page}>
         <AnimatedBackground />
         <div className={styles.content}>
-          <LandingNavbar />
+          <Header />
           <main className={styles.main}>
             <div className={styles.loading}>
               <Spinner size="lg" />
@@ -65,7 +65,7 @@ export default function SectionPage() {
       <div className={styles.page}>
         <AnimatedBackground />
         <div className={styles.content}>
-          <LandingNavbar />
+          <Header />
           <main className={styles.main}>
             <div className={styles.container}>
               <div className={styles.error}>
@@ -94,7 +94,7 @@ export default function SectionPage() {
     <div className={styles.page}>
       <AnimatedBackground />
       <div className={styles.content}>
-        <LandingNavbar />
+        <Header />
         <main className={styles.main}>
           <div className={styles.container}>
             {/* Breadcrumb */}
