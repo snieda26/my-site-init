@@ -568,5 +568,162 @@
         "confirmationMessage": "We'll customize your dashboard and recommendations based on your profile. You can always update these preferences later."
       }
     }
+  },
+  "landing": {
+    "navbar": {
+      "questions": "Questions",
+      "problems": "Problems",
+      "knowledgeCheck": "Knowledge Check",
+      "login": "Login",
+      "signup": "Sign Up"
+    },
+    "hero": {
+      "badge": "Built for the Top 1% Developers",
+      "title": {
+        "line1": "PREPARE FOR",
+        "line2": "INTERVIEWS LIKE THE",
+        "highlight": "TOP 1%"
+      },
+      "description": {
+        "line1": "Stop preparing blindly. Get access to the",
+        "highlight": "Smart Interview Hub",
+        "line2": "Master thousands of real technical questions with expert feedback."
+      },
+      "cta": "Open Vault",
+      "cards": {
+        "questions": {
+          "label": "Technical Questions",
+          "metric": "5,200+"
+        },
+        "tasks": {
+          "label": "Coding Tasks",
+          "metric": "150+ Middle+"
+        },
+        "cases": {
+          "label": "Arch. Cases",
+          "metric": "80+ Scenarios"
+        },
+        "mock": {
+          "label": "AI Mock Loops",
+          "metric": "Unlimited"
+        }
+      }
+    },
+    "platformPreview": {
+      "sandbox": "Sandbox",
+      "aiFeedback": "AI Feedback",
+      "execute": "Execute Sandbox",
+      "environment": "Node.js 20.x Environment",
+      "feedback": {
+        "debounce": {
+          "primary": "Correct use of 'this' context and closures. How would you modify this to handle an 'immediate' execution flag?",
+          "secondary": "Good that you're clearing the timeout. Remember some interviewers will ask about memory leaks if 'fn' holds large references."
+        },
+        "throttle": {
+          "primary": "Clean implementation using a boolean flag. How would you ensure the last call always executes after the limit ends?",
+          "secondary": "Good use of closures for state preservation. Think about trade-offs between leading and trailing execution."
+        },
+        "memoize": {
+          "primary": "Map is a great choice for cache. Be careful with JSON.stringify on complex objects or circular references.",
+          "secondary": "Efficient lookup. In a real scenario, how would you implement an LRU eviction policy to prevent memory overflow?"
+        }
+      }
+    },
+    "questionVault": {
+      "label": "Middle+ Knowledge Base",
+      "title": "Relevant",
+      "titleMuted": "Questions.",
+      "subtitle": "We've selected the most popular questions asked in interviews for",
+      "subtitleHighlight": "Middle and Middle+",
+      "subtitleEnd": "developers.",
+      "stats": {
+        "questions": {
+          "label": "Questions",
+          "number": "5,200+",
+          "desc": "Tasks"
+        },
+        "impact": {
+          "label": "Impact",
+          "number": "240+",
+          "desc": "UA Companies"
+        },
+        "companies": {
+          "label": "Top UA Ecosystems"
+        }
+      },
+      "questions": {
+        "react": {
+          "firm": "Frontend Engineer",
+          "loop": "React Hooks",
+          "query": "Explain the difference between useMemo and useCallback. In what cases can their usage actually degrade performance?"
+        },
+        "js": {
+          "firm": "JavaScript Developer",
+          "loop": "JS Core",
+          "query": "What are closures and how do they help encapsulate data in JavaScript? Give a practical example."
+        },
+        "backend": {
+          "firm": "Backend Developer",
+          "loop": "Node.js / Express",
+          "query": "How to implement centralized error handling in Express.js through middleware for async operations?"
+        },
+        "fullstack": {
+          "firm": "Fullstack Engineer",
+          "loop": "NestJS / Architecture",
+          "query": "Explain the Dependency Injection concept in NestJS. How to properly organize module interaction through providers?"
+        }
+      },
+      "tags": {
+        "middlePlus": "Middle+",
+        "practice": "Practice"
+      },
+      "cta": {
+        "text": "Want to become Middle+ faster?",
+        "button": "Get All Answers"
+      }
+    },
+    "faq": {
+      "badge": "SUPPORT",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Didn't find what you were looking for? Contact our technical support team anytime.",
+      "items": {
+        "beginners": {
+          "question": "Is ITLead suitable for beginners or experienced developers?",
+          "answer": "Both. We have basic algorithmic tracks for entry-level candidates and in-depth modules on distributed systems specifically for Senior, Staff, and Principal interviews."
+        },
+        "aiMock": {
+          "question": "How does AI Mock interview work?",
+          "answer": "Our engine uses fast speech-to-text conversion and LLM-based evaluation to simulate a real interviewer. It assesses your logic, ability to explain trade-offs, and 'soft skills' under pressure."
+        },
+        "cancel": {
+          "question": "Can I cancel my subscription at any time?",
+          "answer": "Absolutely. We offer a transparent monthly plan with no lock-in periods. You can manage your billing directly from the dashboard."
+        },
+        "relevant": {
+          "question": "Are the interview questions up-to-date?",
+          "answer": "Yes. Our question database is updated weekly based on verified community reports about recent interviews at companies like Meta, OpenAI, and Stripe."
+        },
+        "referrals": {
+          "question": "Does ITLead provide referral opportunities?",
+          "answer": "Active participants at our 'Pro' level get access to an exclusive referral network, where verified mentors can recommend candidates directly to their internal hiring pipelines."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to land your",
+      "highlight": "dream job?",
+      "button": "Join — It's Free!"
+    },
+    "footer": {
+      "description": "Inspiring the next generation of engineers to build a better future, one interview at a time!",
+      "products": "Products",
+      "questions": "Questions",
+      "problems": "Problems",
+      "knowledgeCheck": "Knowledge Check",
+      "copyright": "© 2024 ITLead Inc. All rights reserved.",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "security": "Security"
+    }
   }
 }

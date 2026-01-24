@@ -1,36 +1,38 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { LuLock, LuArrowUpRight, LuCpu, LuUsers, LuBuilding2, LuLayers } from 'react-icons/lu';
 import styles from './QuestionVault.module.scss';
-
-const DEEP_LOOPS = [
-  { 
-    firm: 'Frontend Engineer', 
-    loop: 'React Hooks', 
-    query: 'Поясніть різницю між useMemo та useCallback. У яких випадках їх використання може навпаки погіршити продуктивність?' 
-  },
-  { 
-    firm: 'JavaScript Developer', 
-    loop: 'JS Core', 
-    query: 'Що таке замикання (closures) і як вони допомагають інкапсулювати дані в JavaScript? Наведіть приклад з практики.' 
-  },
-  { 
-    firm: 'Backend Developer', 
-    loop: 'Node.js / Express', 
-    query: 'Як реалізувати централізовану обробку помилок в Express.js через middleware для асинхронних операцій?' 
-  },
-  { 
-    firm: 'Fullstack Engineer', 
-    loop: 'NestJS / Architecture', 
-    query: 'Поясніть концепцію Dependency Injection у NestJS. Як правильно організувати взаємодію між модулями через провайдери?' 
-  },
-];
 
 const TOP_COMPANIES = ["Preply", "Grammarly", "MacPaw", "Ajax", "Genesis", "SoftServe"];
 
 export const QuestionVault: React.FC = () => {
+  const t = useTranslations('landing.questionVault');
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  const DEEP_LOOPS = [
+    { 
+      firm: t('questions.react.firm'),
+      loop: t('questions.react.loop'),
+      query: t('questions.react.query')
+    },
+    { 
+      firm: t('questions.js.firm'),
+      loop: t('questions.js.loop'),
+      query: t('questions.js.query')
+    },
+    { 
+      firm: t('questions.backend.firm'),
+      loop: t('questions.backend.loop'),
+      query: t('questions.backend.query')
+    },
+    { 
+      firm: t('questions.fullstack.firm'),
+      loop: t('questions.fullstack.loop'),
+      query: t('questions.fullstack.query')
+    },
+  ];
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -57,13 +59,13 @@ export const QuestionVault: React.FC = () => {
           <div className={styles.headerLeft}>
             <h3 className={styles.sectionLabel}>
               <LuCpu size={12} />
-              База знань Middle+
+              {t('label')}
             </h3>
             <h2 className={styles.title}>
-              Актуальні <br /><span className={styles.titleMuted}>Запитання.</span>
+              {t('title')} <br /><span className={styles.titleMuted}>{t('titleMuted')}</span>
             </h2>
             <p className={styles.subtitle}>
-              Ми відібрали найпопулярніші запитання, які ставлять на інтерв'ю для <span className={styles.subtitleHighlight}>Middle та Middle+</span> розробників.
+              {t('subtitle')} <span className={styles.subtitleHighlight}>{t('subtitleHighlight')}</span> {t('subtitleEnd')}
             </p>
           </div>
           
@@ -73,11 +75,11 @@ export const QuestionVault: React.FC = () => {
                 <div className={styles.statIconIndigo}>
                   <LuLayers size={18} />
                 </div>
-                <span className={styles.statLabel}>Питання</span>
+                <span className={styles.statLabel}>{t('stats.questions.label')}</span>
               </div>
               <div className={styles.statValue}>
-                <div className={styles.statNumber}>5,200+</div>
-                <div className={styles.statDesc}>Задач</div>
+                <div className={styles.statNumber}>{t('stats.questions.number')}</div>
+                <div className={styles.statDesc}>{t('stats.questions.desc')}</div>
               </div>
             </div>
 
@@ -86,11 +88,11 @@ export const QuestionVault: React.FC = () => {
                 <div className={styles.statIconPurple}>
                   <LuBuilding2 size={18} />
                 </div>
-                <span className={styles.statLabel}>Вплив</span>
+                <span className={styles.statLabel}>{t('stats.impact.label')}</span>
               </div>
               <div className={styles.statValue}>
-                <div className={styles.statNumber}>240+</div>
-                <div className={styles.statDesc}>UA Компаній</div>
+                <div className={styles.statNumber}>{t('stats.impact.number')}</div>
+                <div className={styles.statDesc}>{t('stats.impact.desc')}</div>
               </div>
             </div>
 
@@ -99,7 +101,7 @@ export const QuestionVault: React.FC = () => {
                 <div className={styles.companiesIcon}>
                   <LuUsers size={14} />
                 </div>
-                <span className={styles.companiesLabel}>Топові UA Екосистеми</span>
+                <span className={styles.companiesLabel}>{t('stats.companies.label')}</span>
               </div>
               <div className={styles.companiesList}>
                 {TOP_COMPANIES.map(company => (
@@ -131,8 +133,8 @@ export const QuestionVault: React.FC = () => {
                 "{item.query}"
               </h4>
               <div className={styles.questionTags}>
-                <span className={styles.tagPrimary}>Middle+</span>
-                <span className={styles.tagSecondary}>Практика</span>
+                <span className={styles.tagPrimary}>{t('tags.middlePlus')}</span>
+                <span className={styles.tagSecondary}>{t('tags.practice')}</span>
               </div>
               
               <LuLock className={styles.lockIcon} />
@@ -141,9 +143,9 @@ export const QuestionVault: React.FC = () => {
         </div>
 
         <div className={styles.cta}>
-          <p className={styles.ctaText}>Прагнеш стати Middle+ швидше?</p>
+          <p className={styles.ctaText}>{t('cta.text')}</p>
           <button className={styles.ctaButton}>
-            Отримати всі відповіді
+            {t('cta.button')}
           </button>
         </div>
       </div>

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { LuMenu, LuX, LuSearch } from 'react-icons/lu';
 import { FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi';
+import { useTranslations } from 'next-intl';
 import { useLocale, useLocalePath } from '@/common/hooks';
 // import { useTheme } from '@/common/hooks';
 // import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth';
@@ -11,6 +12,7 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher
 import styles from './LandingNavbar.module.scss';
 
 export const LandingNavbar: React.FC = () => {
+  const t = useTranslations('landing.navbar');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const locale = useLocale();
@@ -55,21 +57,22 @@ export const LandingNavbar: React.FC = () => {
           
           <div className={styles.desktopMenu}>
             <Link href={localePath('/interview-questions')} className={styles.navLink}>
-              Питання
+              {t('questions')}
             </Link>
             <Link href={localePath('/problems')} className={styles.navLink}>
-              Задачі
+              {t('problems')}
             </Link>
             <Link href={localePath('/check-knowledge')} className={styles.navLink}>
-              Перевірка знань
+              {t('knowledgeCheck')}
             </Link>
           </div>
         </div>
 
         <div className={styles.right}>
-          <button className={styles.searchBtn}>
+          {/* Search - hidden for now */}
+          {/* <button className={styles.searchBtn}>
             <LuSearch size={20} />
-          </button>
+          </button> */}
 
           {/* Language Switcher */}
           <LanguageSwitcher />
@@ -126,10 +129,10 @@ export const LandingNavbar: React.FC = () => {
             </div>
           ) : ( */}
             <Link href={localePath('/auth/login')} className={styles.loginLink}>
-              Увійти
+              {t('login')}
             </Link>
             <Link href={localePath('/auth/register')} className={styles.signupBtn}>
-              Реєстрація
+              {t('signup')}
             </Link>
           {/* )} */}
         </div>
@@ -153,13 +156,13 @@ export const LandingNavbar: React.FC = () => {
         <div className={styles.mobileMenuContent}>
           <div className={styles.mobileMenuNav}>
             <Link href={localePath('/interview-questions')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
-              Питання
+              {t('questions')}
             </Link>
             <Link href={localePath('/problems')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
-              Задачі
+              {t('problems')}
             </Link>
             <Link href={localePath('/check-knowledge')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
-              Перевірка знань
+              {t('knowledgeCheck')}
             </Link>
           </div>
 
@@ -184,10 +187,10 @@ export const LandingNavbar: React.FC = () => {
             ) : ( */}
               <>
                 <Link href={localePath('/auth/login')} className={styles.mobileLoginLink} onClick={closeMobileMenu}>
-                  Увійти
+                  {t('login')}
                 </Link>
                 <Link href={localePath('/auth/register')} className={styles.mobileSignupBtn} onClick={closeMobileMenu}>
-                  Реєстрація
+                  {t('signup')}
                 </Link>
               </>
             {/* )} */}

@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../mine-copy-backend"
+		},
+		{
+			"path": "../rkdwns"
 		}
 	],
 	"settings": {}

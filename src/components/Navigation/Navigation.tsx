@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { FiMenu, FiSearch, FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi'
+import { FiMenu, /* FiSearch, */ FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi'
 import { useTheme, useLocale, useLocalePath } from '@/common/hooks'
 import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth'
 import { Button } from '@/common/components/ui'
@@ -18,7 +18,7 @@ export const Navigation = () => {
 	const { user, isAuthenticated, isLoading } = useAuth()
 	const logout = useLogout()
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-	const [searchOpen, setSearchOpen] = useState(false)
+	// const [searchOpen, setSearchOpen] = useState(false)
 	const [userMenuOpen, setUserMenuOpen] = useState(false)
 	const userMenuRef = useRef<HTMLDivElement>(null)
 
@@ -69,8 +69,8 @@ export const Navigation = () => {
 
 				{/* Right side - Actions */}
 				<div className={styles.right}>
-					{/* Search */}
-					<div className={styles.search}>
+					{/* Search - hidden for now */}
+					{/* <div className={styles.search}>
 						<button
 							className={styles.searchBtnMobile}
 							onClick={() => setSearchOpen(!searchOpen)}
@@ -86,7 +86,7 @@ export const Navigation = () => {
 								className={styles.searchInput}
 							/>
 						</div>
-					</div>
+					</div> */}
 
 					{/* Add button - hidden for now */}
 					{/* <button className={styles.iconBtn} aria-label="Add">

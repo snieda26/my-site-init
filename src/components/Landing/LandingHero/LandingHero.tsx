@@ -1,10 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { LuArrowRight, LuSparkles, LuDatabase, LuCode, LuZap, LuMessageSquare } from 'react-icons/lu';
 import styles from './LandingHero.module.scss';
 
 export const LandingHero: React.FC = () => {
+  const t = useTranslations('landing.hero');
+  
   return (
     <section className={styles.hero}>
       <div className={styles.container}>
@@ -12,25 +15,25 @@ export const LandingHero: React.FC = () => {
           <div className={styles.badgeWrapper}>
             <div className={styles.badge}>
               <LuSparkles size={12} className={styles.badgeIcon} />
-              <span className={styles.badgeText}>Створено для Топ 1% розробників</span>
+              <span className={styles.badgeText}>{t('badge')}</span>
               <LuArrowRight size={12} className={styles.badgeArrow} />
             </div>
           </div>
           
           <h1 className={styles.title}>
-            ГОТУЙСЯ ДО <br />
-            СПІВБЕСІД ЯК <span className={styles.titleGradient}>ТОП 1%</span>
+            {t('title.line1')} <br />
+            {t('title.line2')} <span className={styles.titleGradient}>{t('title.highlight')}</span>
           </h1>
           
           <div className={styles.descriptionWrapper}>
             <p className={styles.description}>
-              <span className={styles.descriptionLine}>Досить готуватися наосліп. Отримай доступ до <span className={styles.highlight}>Інтелектуального хабу інтерв'ю</span>.</span>
-              <span className={styles.descriptionLine}>Опануй тисячі реальних технічних запитань з фідбеком від експертів.</span>
+              <span className={styles.descriptionLine}>{t('description.line1')} <span className={styles.highlight}>{t('description.highlight')}</span>.</span>
+              <span className={styles.descriptionLine}>{t('description.line2')}</span>
             </p>
             
             <div className={styles.actions}>
               <button className={styles.primaryBtn}>
-                Відкрити сховище
+                {t('cta')}
                 <LuArrowRight className={styles.btnArrow} size={16} />
               </button>
               {/* <button className={styles.secondaryBtn}>
@@ -44,29 +47,29 @@ export const LandingHero: React.FC = () => {
           <div className={styles.cardsGrid}>
             <PulseCard 
               icon={<LuCode size={18}/>} 
-              label="Технічних питань" 
-              metric="5,200+"
+              label={t('cards.questions.label')}
+              metric={t('cards.questions.metric')}
               color="indigo" 
               delay="0s" 
             />
             <PulseCard 
               icon={<LuDatabase size={18}/>} 
-              label="Кодинг тасків" 
-              metric="150+ Middle+"
+              label={t('cards.tasks.label')}
+              metric={t('cards.tasks.metric')}
               color="purple" 
               delay="0.2s" 
             />
             <PulseCard 
               icon={<LuZap size={18}/>} 
-              label="Арх. кейсів" 
-              metric="80+ Сценаріїв"
+              label={t('cards.cases.label')}
+              metric={t('cards.cases.metric')}
               color="yellow" 
               delay="0.4s" 
             />
             <PulseCard 
               icon={<LuMessageSquare size={18}/>} 
-              label="AI Mock Loops" 
-              metric="Безлімітно"
+              label={t('cards.mock.label')}
+              metric={t('cards.mock.metric')}
               color="pink" 
               delay="0.6s" 
             />

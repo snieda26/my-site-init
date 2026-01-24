@@ -180,6 +180,13 @@
   font-style: italic;
 }
 
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
 .empty {
   text-align: center;
   padding: 4rem 2rem;

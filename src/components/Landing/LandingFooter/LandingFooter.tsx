@@ -2,11 +2,13 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { FiTwitter, FiYoutube, FiLinkedin, FiGithub } from 'react-icons/fi';
 import { useLocale, useLocalePath } from '@/common/hooks';
 import styles from './LandingFooter.module.scss';
 
 export const LandingFooter: React.FC = () => {
+  const t = useTranslations('landing.footer');
   const locale = useLocale();
   const localePath = useLocalePath();
 
@@ -22,7 +24,7 @@ export const LandingFooter: React.FC = () => {
               <span className={styles.logoText}>ITLead</span>
             </Link>
             <p className={styles.brandDescription}>
-              Надихаємо нове покоління інженерів будувати краще майбутнє, одна співбесіда за раз!
+              {t('description')}
             </p>
             <div className={styles.socials}>
               <SocialIcon icon={<FiTwitter size={20} />} />
@@ -33,21 +35,21 @@ export const LandingFooter: React.FC = () => {
           </div>
           
           <div className={styles.linksColumn}>
-            <h4 className={styles.columnTitle}>Продукти</h4>
+            <h4 className={styles.columnTitle}>{t('products')}</h4>
             <ul className={styles.linksList}>
               <li>
                 <Link href={localePath('/interview-questions')} className={styles.link}>
-                  Питання
+                  {t('questions')}
                 </Link>
               </li>
               <li>
                 <Link href={localePath('/problems')} className={styles.link}>
-                  Задачі
+                  {t('problems')}
                 </Link>
               </li>
               <li>
                 <Link href={localePath('/check-knowledge')} className={styles.link}>
-                  Перевірка знань
+                  {t('knowledgeCheck')}
                 </Link>
               </li>
             </ul>
@@ -55,11 +57,11 @@ export const LandingFooter: React.FC = () => {
         </div>
         
         <div className={styles.bottom}>
-          <p className={styles.copyright}>© 2024 ITLead Inc. Всі права захищені.</p>
+          <p className={styles.copyright}>{t('copyright')}</p>
           <div className={styles.legalLinks}>
-            <a href="#" className={styles.legalLink}>Умови використання</a>
-            <a href="#" className={styles.legalLink}>Політика конфіденційності</a>
-            <a href="#" className={styles.legalLink}>Безпека</a>
+            <a href="#" className={styles.legalLink}>{t('terms')}</a>
+            <a href="#" className={styles.legalLink}>{t('privacy')}</a>
+            <a href="#" className={styles.legalLink}>{t('security')}</a>
           </div>
         </div>
       </div>

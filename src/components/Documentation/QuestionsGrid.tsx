@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { useLocale, useLocalePath } from '@/common/hooks';
 import { useCategoriesWithQuestions } from '@/modules/questions';
 import { getLocalizedCategoryName, getLocalizedTitle } from '@/modules/questions/types/questions.types';
+import { Spinner } from '@/components/Spinner';
 import styles from './QuestionsGrid.module.scss';
 
 export const QuestionsGrid = () => {
@@ -33,13 +34,8 @@ export const QuestionsGrid = () => {
   if (isLoading) {
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>
-            {locale === 'ua' ? 'Питання для співбесіди' : 'Interview Questions'}
-          </h1>
-          <p className={styles.subtitle}>
-            {locale === 'ua' ? 'Завантаження...' : 'Loading...'}
-          </p>
+        <div className={styles.loading}>
+          <Spinner size="lg" />
         </div>
       </div>
     );

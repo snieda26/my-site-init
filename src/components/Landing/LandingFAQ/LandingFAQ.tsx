@@ -1,39 +1,41 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { LuPlus, LuMinus } from 'react-icons/lu';
 import styles from './LandingFAQ.module.scss';
 
-const FAQ_DATA = [
-  {
-    id: 1,
-    question: "Чи підходить ITLead для початківців або досвідчених розробників?",
-    answer: "Для обох. У нас є базові алгоритмічні треки для кандидатів початкового рівня та поглиблені модулі з розподілених систем спеціально для співбесід на позиції Senior, Staff та Principal."
-  },
-  {
-    id: 2,
-    question: "Як працює AI Mock співбесіда?",
-    answer: "Наш движок використовує швидке перетворення мови в текст та оцінку на базі LLM для симуляції реального інтерв'юера. Він оцінює вашу логіку, здатність пояснювати компроміси та 'м'які навички' під тиском."
-  },
-  {
-    id: 3,
-    question: "Чи можу я скасувати підписку в будь-який час?",
-    answer: "Абсолютно. Ми пропонуємо прозорий помісячний план без періодів блокування. Ви можете керувати своїм біллінгом безпосередньо з панелі керування."
-  },
-  {
-    id: 4,
-    question: "Чи актуальні питання для співбесід?",
-    answer: "Так. Наша база питань оновлюється щотижня на основі перевірених звітів спільноти про нещодавні співбесіди в таких компаніях, як Meta, OpenAI та Stripe."
-  },
-  {
-    id: 5,
-    question: "Чи надає ITLead можливості для рефералів?",
-    answer: "Активні учасники нашого 'Pro' рівня отримують доступ до ексклюзивної реферальної мережі, де перевірені ментори можуть рекомендувати кандидатів безпосередньо у свої внутрішні конвеєри найму."
-  }
-];
-
 export const LandingFAQ: React.FC = () => {
+  const t = useTranslations('landing.faq');
   const [openId, setOpenId] = useState<number | null>(null);
+  
+  const FAQ_DATA = [
+    {
+      id: 1,
+      question: t('items.beginners.question'),
+      answer: t('items.beginners.answer')
+    },
+    {
+      id: 2,
+      question: t('items.aiMock.question'),
+      answer: t('items.aiMock.answer')
+    },
+    {
+      id: 3,
+      question: t('items.cancel.question'),
+      answer: t('items.cancel.answer')
+    },
+    {
+      id: 4,
+      question: t('items.relevant.question'),
+      answer: t('items.relevant.answer')
+    },
+    {
+      id: 5,
+      question: t('items.referrals.question'),
+      answer: t('items.referrals.answer')
+    }
+  ];
 
   const toggleItem = (id: number) => {
     setOpenId(openId === id ? null : id);
@@ -47,15 +49,15 @@ export const LandingFAQ: React.FC = () => {
           <div className={styles.leftColumn}>
             <div className={styles.badge}>
               <div className={styles.badgeDot}></div>
-              <span>ПІДТРИМКА</span>
+              <span>{t('badge')}</span>
             </div>
             
             <h2 className={styles.title}>
-              Поширені питання
+              {t('title')}
             </h2>
             
             <p className={styles.subtitle}>
-              Не знайшли те, що шукали? Зверніться до нашої команди технічної підтримки в будь-який час.
+              {t('subtitle')}
             </p>
           </div>
           
