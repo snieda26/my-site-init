@@ -71,7 +71,7 @@ export const QuestionsGrid = () => {
                       href={localePath(question.href)} 
                       className={styles.questionItem}
                     >
-                      <span className={styles.questionNumber}>{sectionIndex + 1}.{qIndex + 1}</span>
+                      <span className={styles.questionNumber}>{qIndex + 1}</span>
                       <span className={styles.questionTitle}>{question.title}</span>
                     </Link>
                   ))}

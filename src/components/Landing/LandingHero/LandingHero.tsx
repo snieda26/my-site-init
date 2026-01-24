@@ -1,23 +1,37 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { LuArrowRight, LuSparkles, LuDatabase, LuCode, LuZap, LuMessageSquare } from 'react-icons/lu';
+import { useLocalePath } from '@/common/hooks';
+import { useAuth } from '@/modules/auth/hooks/use-auth';
 import styles from './LandingHero.module.scss';
 
 export const LandingHero: React.FC = () => {
   const t = useTranslations('landing.hero');
+  const router = useRouter();
+  const localePath = useLocalePath();
+  const { isAuthenticated } = useAuth();
   
   return (
     <section className={styles.hero}>
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.badgeWrapper}>
-            <div className={styles.badge}>
+            <button 
+              className={styles.badge}
+              onClick={() => {
+                const destination = isAuthenticated 
+                  ? localePath('/interview-questions') 
+                  : localePath('/auth/login');
+                router.push(destination);
+              }}
+            >
               <LuSparkles size={12} className={styles.badgeIcon} />
               <span className={styles.badgeText}>{t('badge')}</span>
               <LuArrowRight size={12} className={styles.badgeArrow} />
-            </div>
+            </button>
           </div>
           
           <h1 className={styles.title}>
@@ -32,7 +46,15 @@ export const LandingHero: React.FC = () => {
             </p>
             
             <div className={styles.actions}>
-              <button className={styles.primaryBtn}>
+              <button 
+                className={styles.primaryBtn}
+                onClick={() => {
+                  const destination = isAuthenticated 
+                    ? localePath('/interview-questions') 
+                    : localePath('/auth/login');
+                  router.push(destination);
+                }}
+              >
                 {t('cta')}
                 <LuArrowRight className={styles.btnArrow} size={16} />
               </button>

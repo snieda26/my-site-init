@@ -13,7 +13,18 @@ interface TOCItem {
 export const TableOfContents = () => {
   const [items, setItems] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>('');
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const locale = useLocale();
+
+  // Track scroll position for back to top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const headings = document.querySelectorAll('h2, h3');
@@ -69,28 +80,32 @@ export const TableOfContents = () => {
   };
 
   return (
-    <div className={styles.toc}>
-      <h3 className={styles.title}>{locale === 'ua' ? 'Зміст' : 'Content'}</h3>
-      <div className={styles.scrollArea}>
-        <div className={styles.items}>
-          {items.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={`${styles.item} ${activeId === item.id ? styles.active : ''}`}
-              style={{ paddingLeft: `${item.level * 12}px` }}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToHeading(item.id);
-              }}
-            >
-              {item.text}
-            </a>
-          ))}
+    <>
+      <div className={styles.toc}>
+        <h3 className={styles.title}>{locale === 'ua' ? 'Зміст' : 'Content'}</h3>
+        <div className={styles.scrollArea}>
+          <div className={styles.items}>
+            {items.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`${styles.item} ${activeId === item.id ? styles.active : ''}`}
+                style={{ paddingLeft: `${item.level * 12}px` }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToHeading(item.id);
+                }}
+              >
+                {item.text}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
+      
+      {/* Fixed Back to Top button */}
       <button
-        className={styles.backToTop}
+        className={`${styles.backToTop} ${showBackToTop ? styles.visible : ''}`}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       >
         <svg
@@ -105,6 +120,6 @@ export const TableOfContents = () => {
         </svg>
         <span>{locale === 'ua' ? 'На початок' : 'Back to Top'}</span>
       </button>
-    </div>
+    </>
   );
 };

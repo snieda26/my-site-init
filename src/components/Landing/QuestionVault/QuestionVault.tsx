@@ -1,14 +1,20 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { LuLock, LuArrowUpRight, LuCpu, LuUsers, LuBuilding2, LuLayers } from 'react-icons/lu';
+import { useLocalePath } from '@/common/hooks';
+import { useAuth } from '@/modules/auth/hooks/use-auth';
 import styles from './QuestionVault.module.scss';
 
 const TOP_COMPANIES = ["Preply", "Grammarly", "MacPaw", "Ajax", "Genesis", "SoftServe"];
 
 export const QuestionVault: React.FC = () => {
   const t = useTranslations('landing.questionVault');
+  const router = useRouter();
+  const localePath = useLocalePath();
+  const { isAuthenticated } = useAuth();
   const containerRef = useRef<HTMLDivElement>(null);
   
   const DEEP_LOOPS = [
@@ -119,6 +125,13 @@ export const QuestionVault: React.FC = () => {
             <div 
               key={i} 
               className={styles.questionCard}
+              onClick={() => {
+                const destination = isAuthenticated 
+                  ? localePath('/interview-questions') 
+                  : localePath('/auth/login');
+                router.push(destination);
+              }}
+              style={{ cursor: 'pointer' }}
             >
               <div className={styles.questionHeader}>
                 <div className={styles.questionMeta}>
@@ -144,7 +157,15 @@ export const QuestionVault: React.FC = () => {
 
         <div className={styles.cta}>
           <p className={styles.ctaText}>{t('cta.text')}</p>
-          <button className={styles.ctaButton}>
+          <button 
+            className={styles.ctaButton}
+            onClick={() => {
+              const destination = isAuthenticated 
+                ? localePath('/interview-questions') 
+                : localePath('/auth/login');
+              router.push(destination);
+            }}
+          >
             {t('cta.button')}
           </button>
         </div>
