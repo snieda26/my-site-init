@@ -1,15 +1,20 @@
 import { LandingNavbar } from '@/components/Landing/LandingNavbar/LandingNavbar';
 import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
+import { AnimatedBackground } from '@/components/Landing';
 import { QuestionsGrid } from '@/components/Documentation/QuestionsGrid';
+import styles from './interview-questions.module.scss';
 
 export default function InterviewQuestionsPage() {
   return (
-    <>
-      <LandingNavbar />
-      <main className="flex-1 w-full" style={{ paddingTop: '80px' }}>
-        <QuestionsGrid />
-      </main>
-      <LandingFooter />
-    </>
+    <div className={styles.page}>
+      <AnimatedBackground />
+      <div className={styles.content}>
+        <LandingNavbar />
+        <main className={styles.main}>
+          <QuestionsGrid />
+        </main>
+        <LandingFooter />
+      </div>
+    </div>
   );
 }

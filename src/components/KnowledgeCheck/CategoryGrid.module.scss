@@ -1,13 +1,21 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-
-  @media (min-width: 768px) {
+  gap: 1.5rem;
+  
+  @include sm {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  @media (min-width: 1024px) {
+  
+  @include lg {
     grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  @include xl {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

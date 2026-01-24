@@ -1,10 +1,17 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
 .container {
   display: flex;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
   min-height: calc(100vh - 200px);
   gap: 2rem;
+  
+  @include md {
+    padding: 0 2rem;
+  }
 }
 
 .tocSidebar {
@@ -16,6 +23,23 @@
   height: fit-content;
   max-height: calc(100vh - 100px);
   overflow-y: auto;
+  
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+  
+  @include lg {
+    display: block;
+  }
   
   @media (max-width: 1024px) {
     display: none;

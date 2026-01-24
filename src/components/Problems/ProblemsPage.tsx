@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Reveal, AnimatedBackground } from '@/components/Landing';
 import { ProblemsHeader } from './ProblemsHeader';
 import { TabNavigation } from './TabNavigation';
 import { ProblemsFilters } from './ProblemsFilters';
@@ -23,31 +24,49 @@ export const ProblemsPage = () => {
   const totalPages = getTotalPages(activeTab, statusFilter, companyFilter, itemsPerPage);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <ProblemsHeader />
-        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-        <div className={styles.divider}></div>
-        <ProblemsFilters
-          statusFilter={statusFilter}
-          companyFilter={companyFilter}
-          onStatusChange={setStatusFilter}
-          onCompanyChange={setCompanyFilter}
-        />
-        <ProblemList
-          activeTab={activeTab}
-          statusFilter={statusFilter}
-          companyFilter={companyFilter}
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-        />
-        <ProblemsPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          itemsPerPage={itemsPerPage}
-          onPageChange={setCurrentPage}
-          onItemsPerPageChange={setItemsPerPage}
-        />
+    <div className={styles.page}>
+      <AnimatedBackground />
+      <div className={styles.pageContent}>
+        <div className={styles.container}>
+          <div className={styles.content}>
+            <ProblemsHeader />
+            
+            <Reveal delay={100}>
+              <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+            </Reveal>
+            
+            <div className={styles.divider}></div>
+            
+            <Reveal delay={200}>
+              <ProblemsFilters
+                statusFilter={statusFilter}
+                companyFilter={companyFilter}
+                onStatusChange={setStatusFilter}
+                onCompanyChange={setCompanyFilter}
+              />
+            </Reveal>
+            
+            <Reveal delay={300}>
+              <ProblemList
+                activeTab={activeTab}
+                statusFilter={statusFilter}
+                companyFilter={companyFilter}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+              />
+            </Reveal>
+            
+            <Reveal delay={400}>
+              <ProblemsPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                itemsPerPage={itemsPerPage}
+                onPageChange={setCurrentPage}
+                onItemsPerPageChange={setItemsPerPage}
+              />
+            </Reveal>
+          </div>
+        </div>
       </div>
     </div>
   );

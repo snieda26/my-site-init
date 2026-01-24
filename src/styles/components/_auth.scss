@@ -6,53 +6,91 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(ellipse at top, rgba($primary, 0.15) 0%, transparent 50%);
+  background: #000;
   padding: $spacing-8 $spacing-4;
+  position: relative;
+  z-index: 10;
 }
 
 .auth-card {
-  @include card;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(38, 38, 38, 0.6);
+  border-radius: 2rem;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   padding: 0;
   overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: blur-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  
+  @include md {
+    border-radius: 2.5rem;
+  }
+  
+  @keyframes blur-in {
+    0% { 
+      filter: blur(20px); 
+      opacity: 0; 
+      transform: scale(0.95) translateY(20px); 
+    }
+    100% { 
+      filter: blur(0px); 
+      opacity: 1; 
+      transform: scale(1) translateY(0); 
+    }
+  }
   
   &__header {
     @include flex-column;
     align-items: center;
     gap: $spacing-3;
-    padding: $spacing-6;
+    padding: $spacing-8 $spacing-6 $spacing-4;
     text-align: center;
   }
   
   &__logo {
     @include flex-center;
     gap: $spacing-2;
-    font-size: $text-2xl;
-    font-weight: $font-bold;
-    color: $text-primary;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: white;
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 150ms;
     
     svg {
-      color: $primary;
+      color: $indigo-400;
+      font-size: 1.5rem;
+    }
+    
+    &:hover {
+      color: $indigo-400;
     }
   }
   
   &__title {
-    font-size: $text-xl;
-    font-weight: $font-semibold;
-    color: $text-primary;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: white;
     margin: 0;
+    letter-spacing: -0.025em;
+    
+    @include md {
+      font-size: 1.75rem;
+    }
   }
   
   &__subtitle {
-    font-size: $text-sm;
-    color: $text-secondary;
+    font-size: 0.875rem;
+    color: #a3a3a3;
     margin: 0;
+    font-weight: 500;
   }
   
   &__content {
-    padding: 0 $spacing-6;
+    padding: $spacing-4 $spacing-6 $spacing-6;
   }
   
   &__form {
@@ -63,18 +101,20 @@
   &__divider {
     @include flex-center;
     gap: $spacing-3;
-    margin: $spacing-4 0;
+    margin: $spacing-5 0;
     
     &-line {
       flex: 1;
       height: 1px;
-      background: $border-default;
+      background: rgba(38, 38, 38, 0.6);
     }
     
     &-text {
-      font-size: $text-xs;
-      color: $text-muted;
+      font-size: 0.6875rem;
+      color: #737373;
       text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.1em;
     }
   }
   
@@ -86,39 +126,116 @@
   &__google-btn {
     @include button-base;
     width: 100%;
-    height: 40px;
-    background: $bg-tertiary;
-    border: 1px solid $border-default;
-    border-radius: $radius-md;
-    color: $text-primary;
-    font-size: $text-sm;
+    height: 2.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(38, 38, 38, 0.6);
+    border-radius: 9999px;
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    transition: all 150ms;
     
     &:hover:not(:disabled) {
-      background: $bg-hover;
-      border-color: $border-hover;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(99, 102, 241, 0.4);
     }
     
     svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       margin-right: $spacing-2;
     }
   }
   
   &__footer {
     @include flex-center;
-    padding: $spacing-6;
-    font-size: $text-sm;
-    color: $text-secondary;
+    padding: $spacing-5 $spacing-6;
+    font-size: 0.8125rem;
+    color: #a3a3a3;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(38, 38, 38, 0.6);
     
     a {
-      color: $primary;
+      color: $indigo-400;
       text-decoration: none;
       margin-left: $spacing-1;
+      font-weight: 600;
+      transition: color 150ms;
       
       &:hover {
-        text-decoration: underline;
+        color: white;
       }
     }
+  }
+}
+
+// Form inputs for auth pages
+.auth-card__content {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(38, 38, 38, 0.6);
+    border-radius: 0.75rem;
+    color: white;
+    font-family: inherit;
+    font-size: 0.875rem;
+    transition: all 150ms;
+    
+    &::placeholder {
+      color: #737373;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: $indigo-400;
+      background: rgba(99, 102, 241, 0.05);
+    }
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: white;
+    color: black;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: all 150ms;
+    box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1);
+    
+    @include md {
+      font-size: 0.8125rem;
+    }
+    
+    &:hover:not(:disabled) {
+      background: #e5e5e5;
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: scale(0.98);
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  
+  label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #a3a3a3;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 }
