@@ -1,12 +1,10 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { Badge } from '@/components/UI/Badge/Badge';
-import { Button } from '@/components/UI/Button/Button';
-import { Card } from '@/components/UI/Card/Card';
-import { useTranslations } from 'next-intl';
-import { useLocalePath } from '@/common/hooks';
-import styles from './Hero.module.scss';
+import Link from 'next/link'
+import { Badge, Button, Card } from '@/common/components/ui'
+import { useTranslations } from 'next-intl'
+import { useLocalePath } from '@/common/hooks'
+import styles from './Hero.module.scss'
 
 export const Hero = () => {
   const t = useTranslations('hero');

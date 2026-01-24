@@ -1,0 +1,30 @@
+{
+  "banner": {
+    "announcement": "🎉 First video:",
+    "video": "Interview with Meta Developer"
+  },
+  "nav": {
+    "logo": "ITLead",
+    "links": {
+      "questions": "Interview Questions",
+      "problems": "Problems",
+      "knowledgeCheck": "Knowledge Check"
+    },
+    "search": "Search...",
+    "notifications": "Notifications",
+    "login": "Log in",
+    "logout": "Log out",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "theme": {
+      "toggle": "Toggle theme",
+      "switchTo": "Switch to {theme} theme"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} ITLead",
+    "community": "ITLead Community",
+    "youtube": "YouTube Channel",
+    "support": "Support"
+  }
+}

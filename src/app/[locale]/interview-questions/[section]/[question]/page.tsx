@@ -1,10 +1,12 @@
-import { Header } from '@/components/Header';
-import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
-import { ArticleLayout } from '@/components/Documentation/ArticleLayout';
-import { QuestionPageContent } from '@/components/Documentation/QuestionPageContent';
-import { notFound } from 'next/navigation';
-import { questionsService } from '@/modules/questions/services/questions.service';
-import { getLocalizedTitle } from '@/modules/questions/types/questions.types';
+import { Header } from '@/components/Header'
+import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter'
+import { notFound } from 'next/navigation'
+import {
+  ArticleLayout,
+  QuestionPageContent,
+  questionsService,
+  getLocalizedTitle,
+} from '@/modules/questions'
 
 interface QuestionPageProps {
   params: Promise<{

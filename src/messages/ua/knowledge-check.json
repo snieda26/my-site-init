@@ -1,0 +1,106 @@
+{
+  "knowledgeCheck": {
+    "title": "Перевірте свої знання",
+    "description": "Тестуйте та розширюйте свої знання програмування за допомогою наших інтерактивних категорій питань. Відстежуйте свій прогрес, визначайте області для покращення та оволодівайте новими концепціями у власному темпі.",
+    "loginPrompt": {
+      "title": "Увійдіть, щоб відстежувати свій прогрес.",
+      "button": "Увійти для збереження прогресу",
+      "trackProgress": "Увійдіть для відстеження прогресу"
+    },
+    "howItWorks": {
+      "title": "Як це працює",
+      "step1": {
+        "title": "Виберіть категорію",
+        "description": "Оберіть тему, яка вас цікавить або відповідає вашим навчальним цілям"
+      },
+      "step2": {
+        "title": "Відповідайте на питання",
+        "description": "Працюйте з питаннями у власному темпі з детальними поясненнями"
+      },
+      "step3": {
+        "title": "Відстежуйте прогрес",
+        "description": "Слідкуйте за своїм навчальним шляхом та визначайте області для покращення"
+      }
+    },
+    "categories": {
+      "htmlAndCss": {
+        "name": "HTML та CSS",
+        "description": "HTML та CSS"
+      },
+      "javascript": {
+        "name": "JavaScript",
+        "description": "JavaScript"
+      },
+      "react": {
+        "name": "React",
+        "description": "React"
+      },
+      "typescript": {
+        "name": "TypeScript",
+        "description": "TypeScript"
+      },
+      "vue": {
+        "name": "Vue",
+        "description": "Vue"
+      },
+      "angular": {
+        "name": "Angular",
+        "description": "Angular"
+      },
+      "redux": {
+        "name": "Redux",
+        "description": "Redux"
+      },
+      "generalQuestions": {
+        "name": "Загальні питання",
+        "description": "Загальні питання"
+      }
+    },
+    "questions": "питань",
+    "categoryPage": {
+      "title": "Питання за розділом {category}",
+      "loginPrompt": {
+        "title": "Увійдіть для відстеження прогресу",
+        "description": "Зберігайте статистику навчання та синхронізуйте прогрес на всіх пристроях",
+        "button": "Увійти або зареєструватися"
+      },
+      "navigation": {
+        "back": "Назад",
+        "backToCategories": "Назад до категорій",
+        "of": "з"
+      },
+      "question": {
+        "trackButton": "Увійти для відстеження",
+        "trackButtonShort": "Увійти",
+        "viewAnswer": "Переглянути відповідь та пояснення",
+        "answerPlaceholder": "Тут буде відображено відповідь..."
+      },
+      "categories": {
+        "html-and-css": {
+          "name": "HTML та CSS"
+        },
+        "javascript": {
+          "name": "JavaScript"
+        },
+        "react": {
+          "name": "React"
+        },
+        "typescript": {
+          "name": "TypeScript"
+        },
+        "vue": {
+          "name": "Vue"
+        },
+        "angular": {
+          "name": "Angular"
+        },
+        "redux": {
+          "name": "Redux"
+        },
+        "general-questions": {
+          "name": "Загальні питання"
+        }
+      }
+    }
+  }
+}

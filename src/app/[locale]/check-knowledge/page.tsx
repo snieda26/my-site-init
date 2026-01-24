@@ -1,6 +1,6 @@
-import { Header } from '@/components/Header';
-import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
-import { KnowledgeCheckPage } from '@/components/KnowledgeCheck/KnowledgeCheckPage';
+import { Header } from '@/components/Header'
+import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter'
+import { KnowledgeCheckPage } from '@/modules/knowledge-check'
 
 export default function CheckKnowledgePage() {
   return (

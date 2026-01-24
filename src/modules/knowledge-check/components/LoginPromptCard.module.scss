@@ -1,0 +1,88 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(38, 38, 38, 0.6);
+  border-radius: 2rem;
+  padding: 2rem;
+  max-width: 28rem;
+  margin: 0 auto 4rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: all 500ms;
+  
+  @include md {
+    padding: 2.5rem;
+    border-radius: 2.5rem;
+  }
+  
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.5rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0;
+  letter-spacing: -0.025em;
+  
+  @include md {
+    font-size: 1.5rem;
+  }
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: white;
+  color: black;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 10px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 150ms;
+  box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  
+  @include md {
+    padding: 1.25rem 2.5rem;
+    font-size: 11px;
+  }
+  
+  &:hover {
+    background: #e5e5e5;
+    transform: translateY(-2px);
+    
+    .icon {
+      transform: translateX(4px);
+    }
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.icon {
+  height: 1rem;
+  width: 1rem;
+  transition: transform 150ms;
+}

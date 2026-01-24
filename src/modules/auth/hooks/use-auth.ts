@@ -56,18 +56,8 @@ export function useRegister() {
 				})
 			)
 			toast.success('Account created successfully!')
-			
-			// Redirect to interview questions page after registration
 			router.push(`/${locale}/interview-questions`)
-			
-			// TEMPORARILY COMMENTED OUT - Onboarding redirect
-			// if (!data.account.onboardingCompleted) {
-			// 	router.push(`/onboarding/${locale}`)
-			// } else {
-			// 	router.push(`/${locale}/interview-questions`)
-			// }
 		},
-		// Error is displayed on the form, no toast needed
 	})
 }
 
@@ -93,18 +83,8 @@ export function useLogin() {
 				})
 			)
 			toast.success('Logged in successfully!')
-			
-			// Redirect to interview questions page after login
 			router.push(`/${locale}/interview-questions`)
-			
-			// TEMPORARILY COMMENTED OUT - Onboarding redirect
-			// if (!data.account.onboardingCompleted) {
-			// 	router.push(`/onboarding/${locale}`)
-			// } else {
-			// 	router.push(`/${locale}/interview-questions`)
-			// }
 		},
-		// Error is displayed on the form, no toast needed
 	})
 }
 

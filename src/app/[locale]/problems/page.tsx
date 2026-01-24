@@ -1,6 +1,6 @@
-import { Header } from '@/components/Header';
-import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
-import { ProblemsPage } from '@/components/Problems/ProblemsPage';
+import { Header } from '@/components/Header'
+import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter'
+import { ProblemsPage } from '@/modules/problems'
 
 export default function ProblemsPageRoute() {
   return (

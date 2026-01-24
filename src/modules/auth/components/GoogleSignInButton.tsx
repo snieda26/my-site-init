@@ -11,12 +11,7 @@ export function GoogleSignInButton({ onClick }: GoogleSignInButtonProps) {
 	const t = useTranslations('auth')
 
 	const handleClick = () => {
-		if (onClick) {
-			onClick()
-		} else {
-			// TODO: Implement Google OAuth
-			console.log('Google Sign In clicked')
-		}
+		onClick?.()
 	}
 
 	return (

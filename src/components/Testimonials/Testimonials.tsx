@@ -1,10 +1,9 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { Button } from '@/components/UI/Button/Button';
-import { Card } from '@/components/UI/Card/Card';
-import { useTranslations } from 'next-intl';
-import styles from './Testimonials.module.scss';
+import Link from 'next/link'
+import { Button, Card } from '@/common/components/ui'
+import { useTranslations } from 'next-intl'
+import styles from './Testimonials.module.scss'
 
 const TESTIMONIALS = [
   {
@@ -93,24 +92,20 @@ export const Testimonials = () => {
         </div>
 
         <div className={styles.actions}>
-          <Button asChild>
-            <Link
-              href="https://t.me/frontend_hackers"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t('allReviews')}
-            </Link>
-          </Button>
-          <Button variant="outline" asChild>
-            <Link
-              href="https://t.me/frontend_hackers"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t('leaveReview')}
-            </Link>
-          </Button>
+          <Link
+            href="https://t.me/frontend_hackers"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button>{t('allReviews')}</Button>
+          </Link>
+          <Link
+            href="https://t.me/frontend_hackers"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="outline">{t('leaveReview')}</Button>
+          </Link>
         </div>
       </div>
     </section>

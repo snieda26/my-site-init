@@ -1,0 +1,27 @@
+{
+  "problems": {
+    "title": "Problems",
+    "description": "Solve interview problems from top IT companies",
+    "tabs": {
+      "problems": "Problems",
+      "reactProblems": "React Problems",
+      "quizzes": "Console Output Quiz"
+    },
+    "filters": {
+      "status": {
+        "label": "Status",
+        "all": "All",
+        "solved": "Solved",
+        "unsolved": "Unsolved"
+      },
+      "company": {
+        "label": "Company",
+        "all": "All"
+      }
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  }
+}

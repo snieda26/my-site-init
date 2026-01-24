@@ -2,17 +2,20 @@
   "name": "hack-frontend-landing",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "yarn@4.6.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx,scss}\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.11.0",
     "@tanstack/react-query": "^5.90.12",
-    "@types/react-syntax-highlighter": "^15.5.13",
     "axios": "^1.13.2",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -38,6 +41,7 @@
     "@tanstack/react-query-devtools": "^5.91.1",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^25.0.8",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "@typescript-eslint/eslint-plugin": "^8.19.1",

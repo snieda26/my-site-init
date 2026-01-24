@@ -1,6 +1,6 @@
-import { Header } from '@/components/Header';
-import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
-import { CategoryQuestionsPage } from '@/components/KnowledgeCheck/CategoryQuestionsPage';
+import { Header } from '@/components/Header'
+import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter'
+import { CategoryQuestionsPage } from '@/modules/knowledge-check'
 
 interface CategoryPageProps {
   params: Promise<{

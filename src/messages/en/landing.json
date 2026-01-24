@@ -1,0 +1,275 @@
+{
+  "hero": {
+    "badge": "Everything for frontend interview preparation",
+    "title": {
+      "line1": "Prepare for interviews",
+      "line2": "and land your dream offer"
+    },
+    "description": "ITLead is where theory meets practice. Learn key topics, solve problems, and feel confident before any interview.",
+    "cta": "Start preparing",
+    "features": {
+      "theory": "Study theory, questions and answers only from real interviews",
+      "code": "Write code directly in the browser with automatic checking",
+      "problems": "Solve problems from real interviews",
+      "progress": "View statistics and achievements"
+    },
+    "stats": "Over {count} developers have prepared for interviews with ITLead",
+    "card": {
+      "label": "Test task",
+      "title": "Implement flattenArray function",
+      "badge": "JavaScript",
+      "results": "Check results"
+    }
+  },
+  "about": {
+    "badge": "About the creator",
+    "title": "Created with ❤️ by a developer for developers",
+    "subtitle": "The story of how one person turned their experience into a platform for thousands",
+    "creator": {
+      "name": "Dastan Salmurzaev",
+      "role": "Frontend Developer in London",
+      "location": "Bishkek, Kyrgyzstan",
+      "bio1": "I went through a large number of interviews for a frontend developer position myself. I know how difficult it is to prepare when information is scattered across different sources.",
+      "bio2": "That's why on January 26, 2025 I launched ITLead — a platform that brings everything you need in one place.",
+      "bio3": "Today the platform is used by {count}+ users from CIS countries, and I continue to develop it every day.",
+      "linkedin": "Connect on LinkedIn",
+      "telegram": "Telegram community"
+    },
+    "stats": {
+      "users": {
+        "count": "2300+",
+        "label": "Registered users"
+      },
+      "articles": {
+        "count": "200+",
+        "label": "Questions and breakdowns from real interviews"
+      },
+      "visitors": {
+        "count": "~500",
+        "label": "Daily visitors"
+      },
+      "organic": "100% organic growth without advertising budget"
+    },
+    "why": "Why did I create this platform? Because I know what it's like to prepare for interviews while working full-time. ITLead is the tool I wish I had at the start of my career."
+  },
+  "features": {
+    "knowledge": {
+      "title": "Knowledge Base",
+      "description": "Questions and their breakdowns on theory and practice from real interviews."
+    },
+    "ide": {
+      "title": "Online IDE",
+      "description": "Write and check code directly in the browser with automatic checking."
+    },
+    "problems": {
+      "title": "Problems from real companies",
+      "description": "Practice on problems from EPAM, SoftServe, GlobalLogic and other top companies."
+    },
+    "progress": {
+      "title": "Progress tracking",
+      "description": "See how your skills and achievements grow."
+    }
+  },
+  "testimonials": {
+    "title": "What users say",
+    "subtitle": "Over 2300 developers have already improved their skills",
+    "readReview": "Read review",
+    "allReviews": "All reviews",
+    "leaveReview": "Leave a review"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about ITLead",
+    "items": {
+      "what": {
+        "question": "What is ITLead?",
+        "answer": "ITLead is a free platform for frontend interview preparation. We offer a structured knowledge base, practical tasks, and code checking tools."
+      },
+      "different": {
+        "question": "What makes ITLead different from other interview prep platforms?",
+        "answer": "We focus exclusively on real interview questions from top companies. All content is structured with detailed explanations and the ability to practice directly in the browser."
+      },
+      "register": {
+        "question": "Do I need to register to use ITLead?",
+        "answer": "You can view a lot of content without registration, but to track progress, save completed tasks, and access all features, we recommend creating a free account."
+      },
+      "companies": {
+        "question": "Which companies' interview questions are included?",
+        "answer": "We include questions from interviews at companies like Google, Meta, EPAM, SoftServe, GlobalLogic, and many other top IT companies."
+      },
+      "practice": {
+        "question": "Can I practice coding online?",
+        "answer": "Yes! We have a built-in IDE where you can write and run code directly in the browser with automatic solution checking."
+      },
+      "updates": {
+        "question": "How often is new content added?",
+        "answer": "We add new content regularly - new questions, tasks, and articles appear every week."
+      },
+      "beginners": {
+        "question": "Is ITLead suitable for beginners?",
+        "answer": "Yes! We have content for all levels - from junior to senior developers. Material is structured from simple to complex."
+      },
+      "ai": {
+        "question": "Why is this platform needed if there are different resources like AI?",
+        "answer": "AI is a great tool, but our platform provides verified, structured content specifically from real interviews. We know what they ask and how best to prepare."
+      }
+    }
+  },
+  "landing": {
+    "navbar": {
+      "questions": "Questions",
+      "problems": "Problems",
+      "knowledgeCheck": "Knowledge Check",
+      "login": "Login",
+      "signup": "Sign Up"
+    },
+    "hero": {
+      "badge": "Built for the Top 1% Developers",
+      "title": {
+        "line1": "PREPARE FOR",
+        "line2": "INTERVIEWS LIKE THE",
+        "highlight": "TOP 1%"
+      },
+      "description": {
+        "line1": "Stop preparing blindly. Get access to the",
+        "highlight": "Smart Interview Hub",
+        "line2": "Master thousands of real technical questions with expert feedback."
+      },
+      "cta": "Open Vault",
+      "cards": {
+        "questions": {
+          "label": "Technical Questions",
+          "metric": "5,200+"
+        },
+        "tasks": {
+          "label": "Coding Tasks",
+          "metric": "150+ Middle+"
+        },
+        "cases": {
+          "label": "Arch. Cases",
+          "metric": "80+ Scenarios"
+        },
+        "mock": {
+          "label": "AI Mock Loops",
+          "metric": "Unlimited"
+        }
+      }
+    },
+    "platformPreview": {
+      "sandbox": "Sandbox",
+      "aiFeedback": "AI Feedback",
+      "execute": "Execute Sandbox",
+      "environment": "Node.js 20.x Environment",
+      "feedback": {
+        "debounce": {
+          "primary": "Correct use of 'this' context and closures. How would you modify this to handle an 'immediate' execution flag?",
+          "secondary": "Good that you're clearing the timeout. Remember some interviewers will ask about memory leaks if 'fn' holds large references."
+        },
+        "throttle": {
+          "primary": "Clean implementation using a boolean flag. How would you ensure the last call always executes after the limit ends?",
+          "secondary": "Good use of closures for state preservation. Think about trade-offs between leading and trailing execution."
+        },
+        "memoize": {
+          "primary": "Map is a great choice for cache. Be careful with JSON.stringify on complex objects or circular references.",
+          "secondary": "Efficient lookup. In a real scenario, how would you implement an LRU eviction policy to prevent memory overflow?"
+        }
+      }
+    },
+    "questionVault": {
+      "label": "Middle+ Knowledge Base",
+      "title": "Relevant",
+      "titleMuted": "Questions.",
+      "subtitle": "We've selected the most popular questions asked in interviews for",
+      "subtitleHighlight": "Middle and Middle+",
+      "subtitleEnd": "developers.",
+      "stats": {
+        "questions": {
+          "label": "Questions",
+          "number": "5,200+",
+          "desc": "Tasks"
+        },
+        "impact": {
+          "label": "Impact",
+          "number": "240+",
+          "desc": "UA Companies"
+        },
+        "companies": {
+          "label": "Top UA Ecosystems"
+        }
+      },
+      "questions": {
+        "react": {
+          "firm": "Frontend Engineer",
+          "loop": "React Hooks",
+          "query": "Explain the difference between useMemo and useCallback. In what cases can their usage actually degrade performance?"
+        },
+        "js": {
+          "firm": "JavaScript Developer",
+          "loop": "JS Core",
+          "query": "What are closures and how do they help encapsulate data in JavaScript? Give a practical example."
+        },
+        "backend": {
+          "firm": "Backend Developer",
+          "loop": "Node.js / Express",
+          "query": "How to implement centralized error handling in Express.js through middleware for async operations?"
+        },
+        "fullstack": {
+          "firm": "Fullstack Engineer",
+          "loop": "NestJS / Architecture",
+          "query": "Explain the Dependency Injection concept in NestJS. How to properly organize module interaction through providers?"
+        }
+      },
+      "tags": {
+        "middlePlus": "Middle+",
+        "practice": "Practice"
+      },
+      "cta": {
+        "text": "Want to become Middle+ faster?",
+        "button": "Get All Answers"
+      }
+    },
+    "faq": {
+      "badge": "SUPPORT",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Didn't find what you were looking for? Contact our technical support team anytime.",
+      "items": {
+        "beginners": {
+          "question": "Is ITLead suitable for beginners or experienced developers?",
+          "answer": "Both. We have basic algorithmic tracks for entry-level candidates and in-depth modules on distributed systems specifically for Senior, Staff, and Principal interviews."
+        },
+        "aiMock": {
+          "question": "How does AI Mock interview work?",
+          "answer": "Our engine uses fast speech-to-text conversion and LLM-based evaluation to simulate a real interviewer. It assesses your logic, ability to explain trade-offs, and 'soft skills' under pressure."
+        },
+        "cancel": {
+          "question": "Can I cancel my subscription at any time?",
+          "answer": "Absolutely. We offer a transparent monthly plan with no lock-in periods. You can manage your billing directly from the dashboard."
+        },
+        "relevant": {
+          "question": "Are the interview questions up-to-date?",
+          "answer": "Yes. Our question database is updated weekly based on verified community reports about recent interviews at companies like Meta, OpenAI, and Stripe."
+        },
+        "referrals": {
+          "question": "Does ITLead provide referral opportunities?",
+          "answer": "Active participants at our 'Pro' level get access to an exclusive referral network, where verified mentors can recommend candidates directly to their internal hiring pipelines."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to land your",
+      "highlight": "dream job?",
+      "button": "Join — It's Free!"
+    },
+    "footer": {
+      "description": "Inspiring the next generation of engineers to build a better future, one interview at a time!",
+      "products": "Products",
+      "questions": "Questions",
+      "problems": "Problems",
+      "knowledgeCheck": "Knowledge Check",
+      "copyright": "© 2024 ITLead Inc. All rights reserved.",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "security": "Security"
+    }
+  }
+}

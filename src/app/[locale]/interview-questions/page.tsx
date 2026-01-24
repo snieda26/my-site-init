@@ -1,8 +1,8 @@
-import { Header } from '@/components/Header';
-import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
-import { AnimatedBackground } from '@/components/Landing';
-import { QuestionsGrid } from '@/components/Documentation/QuestionsGrid';
-import styles from './interview-questions.module.scss';
+import { Header } from '@/components/Header'
+import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter'
+import { AnimatedBackground } from '@/components/Landing'
+import { QuestionsGrid } from '@/modules/questions'
+import styles from './interview-questions.module.scss'
 
 export default function InterviewQuestionsPage() {
   return (

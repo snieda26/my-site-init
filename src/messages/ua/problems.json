@@ -1,0 +1,27 @@
+{
+  "problems": {
+    "title": "Завдання",
+    "description": "Вирішуйте завдання зі співбесід у топових IT-компаніях",
+    "tabs": {
+      "problems": "Завдання",
+      "reactProblems": "React Завдання",
+      "quizzes": "Що виведеться в консоль?"
+    },
+    "filters": {
+      "status": {
+        "label": "Статус",
+        "all": "Всі",
+        "solved": "Вирішені",
+        "unsolved": "Невірішені"
+      },
+      "company": {
+        "label": "Компанія",
+        "all": "Всі"
+      }
+    },
+    "pagination": {
+      "previous": "Попередня",
+      "next": "Наступна"
+    }
+  }
+}

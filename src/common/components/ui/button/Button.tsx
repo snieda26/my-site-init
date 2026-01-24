@@ -1,61 +1,58 @@
-import clsx from 'clsx'
 import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react'
-import { FaSpinner } from 'react-icons/fa'
+import clsx from 'clsx'
+import styles from './Button.module.scss'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline'
-	size?: 'sm' | 'md' | 'lg'
-	isLoading?: boolean
-	isIcon?: boolean
-	fullWidth?: boolean
-	children: ReactNode
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline'
+  size?: 'sm' | 'md' | 'lg'
+  fullWidth?: boolean
+  isLoading?: boolean
+  leftIcon?: ReactNode
+  rightIcon?: ReactNode
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	(
-		{
-			variant = 'primary',
-			size = 'md',
-			isLoading = false,
-			isIcon = false,
-			fullWidth = false,
-			className,
-			children,
-			disabled,
-			...props
-		},
-		ref
-	) => {
-		return (
-			<button
-				ref={ref}
-				className={clsx(
-					'button',
-					`button--${variant}`,
-					`button--${size}`,
-					{
-						'button--loading': isLoading,
-						'button--icon': isIcon,
-						'button--full': fullWidth,
-					},
-					className
-				)}
-				disabled={disabled || isLoading}
-				{...props}
-			>
-				{isLoading ? (
-					<>
-						<FaSpinner className="button__spinner" />
-						{children}
-					</>
-				) : (
-					children
-				)}
-			</button>
-		)
-	}
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      className,
+      variant = 'primary',
+      size = 'md',
+      fullWidth = false,
+      isLoading = false,
+      disabled,
+      leftIcon,
+      rightIcon,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <button
+        ref={ref}
+        className={clsx(
+          styles.button,
+          styles[variant],
+          styles[size],
+          fullWidth && styles.fullWidth,
+          (disabled || isLoading) && styles.disabled,
+          className
+        )}
+        disabled={disabled || isLoading}
+        {...props}
+      >
+        {isLoading ? (
+          <span className={styles.spinner} />
+        ) : (
+          <>
+            {leftIcon && <span className={styles.icon}>{leftIcon}</span>}
+            {children}
+            {rightIcon && <span className={styles.icon}>{rightIcon}</span>}
+          </>
+        )}
+      </button>
+    )
+  }
 )
 
 Button.displayName = 'Button'
-
-export default Button
