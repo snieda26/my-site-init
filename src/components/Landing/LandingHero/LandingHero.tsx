@@ -24,7 +24,8 @@ export const LandingHero: React.FC = () => {
           
           <div className={styles.descriptionWrapper}>
             <p className={styles.description}>
-              Досить готуватися наосліп. Отримай доступ до <span className={styles.highlight}>Інтелектуального хабу інтерв'ю</span>. Опануй тисячі реальних технічних запитань з фідбеком від експертів.
+              <span className={styles.descriptionLine}>Досить готуватися наосліп. Отримай доступ до <span className={styles.highlight}>Інтелектуального хабу інтерв'ю</span>.</span>
+              <span className={styles.descriptionLine}>Опануй тисячі реальних технічних запитань з фідбеком від експертів.</span>
             </p>
             
             <div className={styles.actions}>
