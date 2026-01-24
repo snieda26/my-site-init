@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { LuMenu, LuX, LuSearch } from 'react-icons/lu';
-import { FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi';
+import { FiSun, FiMoon, FiBarChart2, FiLogOut, FiSettings } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
 import { useLocale, useLocalePath } from '@/common/hooks';
 import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth';
@@ -23,6 +23,10 @@ export const LandingNavbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
+    
+    // Check initial scroll position on mount
+    handleScroll();
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -112,6 +116,15 @@ export const LandingNavbar: React.FC = () => {
                     <FiLogOut size={18} />
                     <span>{locale === 'ua' ? 'Вийти' : 'Logout'}</span>
                   </button>
+                  <Link
+									href={localePath('/settings')}
+									className={styles.dropdownItem}
+									onClick={() => setUserMenuOpen(false)}
+								>
+									<FiSettings size={18} />
+									{/* <span>{t('settings')}</span> */}
+                  Settings
+								</Link>
                 </div>
               )}
             </div>

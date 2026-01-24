@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { FiMenu, /* FiSearch, */ FiSun, FiMoon, FiBarChart2, FiLogOut } from 'react-icons/fi'
+import { FiMenu, /* FiSearch, */ FiSun, FiMoon, FiBarChart2, FiLogOut, FiSettings } from 'react-icons/fi'
 import { useTheme, useLocale, useLocalePath } from '@/common/hooks'
 import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth'
 import { Button } from '@/common/components/ui'
@@ -139,6 +139,7 @@ export const Navigation = () => {
 									<FiBarChart2 size={18} />
 									<span>{t('dashboard')}</span>
 								</Link>
+								
 								<button
 									className={styles.dropdownItem}
 									onClick={() => {
