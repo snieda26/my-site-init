@@ -151,43 +151,47 @@ export const LandingNavbar: React.FC = () => {
       {/* Mobile Menu Overlay */}
       <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
         <div className={styles.mobileMenuContent}>
-          <Link href={localePath('/interview-questions')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
-            Питання
-          </Link>
-          <Link href={localePath('/problems')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
-            Задачі
-          </Link>
-          <Link href={localePath('/check-knowledge')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
-            Перевірка знань
-          </Link>
-          <hr className={styles.divider} />
+          <div className={styles.mobileMenuNav}>
+            <Link href={localePath('/interview-questions')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+              Питання
+            </Link>
+            <Link href={localePath('/problems')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+              Задачі
+            </Link>
+            <Link href={localePath('/check-knowledge')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+              Перевірка знань
+            </Link>
+          </div>
 
           {/* Mobile Menu - Auth or User Links */}
-          {/* {isAuthenticated ? (
-            <>
-              <Link href={localePath('/dashboard')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
-                Dashboard
-              </Link>
-              <button
-                className={styles.mobileNavLink}
-                onClick={() => {
-                  logout.mutate();
-                  closeMobileMenu();
-                }}
-              >
-                Logout
-              </button>
-            </>
-          ) : ( */}
-            <>
-              <Link href={localePath('/auth/login')} className={styles.mobileLoginLink} onClick={closeMobileMenu}>
-                Увійти
-              </Link>
-              <Link href={localePath('/auth/register')} className={styles.mobileSignupBtn} onClick={closeMobileMenu}>
-                Реєстрація
-              </Link>
-            </>
-          {/* )} */}
+          <div className={styles.mobileMenuAuth}>
+            <hr className={styles.divider} />
+            {/* {isAuthenticated ? (
+              <>
+                <Link href={localePath('/dashboard')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+                  Dashboard
+                </Link>
+                <button
+                  className={styles.mobileNavLink}
+                  onClick={() => {
+                    logout.mutate();
+                    closeMobileMenu();
+                  }}
+                >
+                  Logout
+                </button>
+              </>
+            ) : ( */}
+              <>
+                <Link href={localePath('/auth/login')} className={styles.mobileLoginLink} onClick={closeMobileMenu}>
+                  Увійти
+                </Link>
+                <Link href={localePath('/auth/register')} className={styles.mobileSignupBtn} onClick={closeMobileMenu}>
+                  Реєстрація
+                </Link>
+              </>
+            {/* )} */}
+          </div>
         </div>
       </div>
     </nav>
