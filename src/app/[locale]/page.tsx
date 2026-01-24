@@ -33,9 +33,9 @@ export default function HomePage() {
             <QuestionVault />
           </Reveal>
           
-          <Reveal delay={100}>
+          {/* <Reveal delay={100}>
             <Reviews />
-          </Reveal>
+          </Reveal> */}
           
           <Reveal>
             <div className={styles.faqSection}>

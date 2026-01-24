@@ -11,12 +11,6 @@
 		},
 		{
 			"path": "../mine-copy-backend"
-		},
-		{
-			"path": "../docusaurus-2/docs/docs"
-		},
-		{
-			"path": "../home-page-finished"
 		}
 	],
 	"settings": {}

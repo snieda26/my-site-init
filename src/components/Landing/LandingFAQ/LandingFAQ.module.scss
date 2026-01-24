@@ -2,10 +2,10 @@
 @use '../../../styles/mixins' as *;
 
 .section {
-  padding: 6rem 0;
+  padding: 4rem 0;
   
   @include md {
-    padding: 8rem 0;
+    padding: 5.5rem 0;
   }
 }
 
@@ -188,7 +188,7 @@
     height: 2.5rem;
   }
   
-  .faqButton:hover & {
+  .faqButton:hover &:not(.faqIconOpen) {
     border-color: #404040;
     color: white;
   }
@@ -199,6 +199,10 @@
   border-color: white;
   color: black;
   transform: rotate(0deg);
+  
+  .faqButton:hover & {
+    background: #f5f5f5;
+  }
 }
 
 .faqContent {

@@ -32,9 +32,9 @@ export const LandingHero: React.FC = () => {
                 Відкрити сховище
                 <LuArrowRight className={styles.btnArrow} size={16} />
               </button>
-              <button className={styles.secondaryBtn}>
+              {/* <button className={styles.secondaryBtn}>
                 Симуляція інтерв'ю
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@ export const LandingHero: React.FC = () => {
             />
             <PulseCard 
               icon={<LuDatabase size={18}/>} 
-              label="Coding тасків" 
+              label="Кодинг тасків" 
               metric="150+ Middle+"
               color="purple" 
               delay="0.2s" 

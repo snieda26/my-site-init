@@ -73,7 +73,7 @@ export const QuestionVault: React.FC = () => {
                 <div className={styles.statIconIndigo}>
                   <LuLayers size={18} />
                 </div>
-                <span className={styles.statLabel}>Questions</span>
+                <span className={styles.statLabel}>Питання</span>
               </div>
               <div className={styles.statValue}>
                 <div className={styles.statNumber}>5,200+</div>
@@ -86,7 +86,7 @@ export const QuestionVault: React.FC = () => {
                 <div className={styles.statIconPurple}>
                   <LuBuilding2 size={18} />
                 </div>
-                <span className={styles.statLabel}>Impact</span>
+                <span className={styles.statLabel}>Вплив</span>
               </div>
               <div className={styles.statValue}>
                 <div className={styles.statNumber}>240+</div>
@@ -132,7 +132,7 @@ export const QuestionVault: React.FC = () => {
               </h4>
               <div className={styles.questionTags}>
                 <span className={styles.tagPrimary}>Middle+</span>
-                <span className={styles.tagSecondary}>Practice</span>
+                <span className={styles.tagSecondary}>Практика</span>
               </div>
               
               <LuLock className={styles.lockIcon} />

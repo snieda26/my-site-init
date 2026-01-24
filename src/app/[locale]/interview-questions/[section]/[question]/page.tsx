@@ -1,5 +1,5 @@
-import { Navigation } from '@/components/Navigation/Navigation';
-import { Footer } from '@/components/Footer/Footer';
+import { LandingNavbar } from '@/components/Landing/LandingNavbar/LandingNavbar';
+import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
 import { ArticleLayout } from '@/components/Documentation/ArticleLayout';
 import { QuestionPageContent } from '@/components/Documentation/QuestionPageContent';
 import { notFound } from 'next/navigation';
@@ -38,8 +38,8 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
 
   return (
     <>
-      <Navigation />
-      <main className="flex-1 w-full">
+      <LandingNavbar />
+      <main className="flex-1 w-full" style={{ paddingTop: '80px' }}>
         <ArticleLayout>
           <QuestionPageContent 
             section={section} 
@@ -54,7 +54,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
           />
         </ArticleLayout>
       </main>
-      <Footer />
+      <LandingFooter />
     </>
   );
 }

@@ -125,6 +125,22 @@
   }
 }
 
+.iconBtn {
+  padding: 0.5rem;
+  color: #a3a3a3;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 150ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    color: white;
+  }
+}
+
 .loginLink {
   font-size: 0.875rem;
   font-weight: 500;
@@ -156,6 +172,21 @@
   }
 }
 
+.mobileControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  
+  @include md {
+    display: none;
+  }
+}
+
+.mobileLanguageSwitcher {
+  display: flex;
+  align-items: center;
+}
+
 .mobileMenuBtn {
   display: flex;
   padding: 0.5rem;
@@ -163,10 +194,6 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  
-  @include md {
-    display: none;
-  }
 }
 
 .mobileMenu {
@@ -223,4 +250,81 @@
   color: black;
   font-weight: 700;
   border-radius: 0.75rem;
+}
+
+
+// User menu styles (for when authentication is enabled)
+.userMenu {
+  position: relative;
+}
+
+.avatarBtn {
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: opacity 150ms;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatarSkeleton {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 200px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: white;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 150ms;
+  text-align: left;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
 }

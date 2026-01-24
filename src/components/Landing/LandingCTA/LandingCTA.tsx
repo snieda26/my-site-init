@@ -7,10 +7,10 @@ export const LandingCTA: React.FC = () => {
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>
-        Ready to land your <span className={styles.highlight}>dream job?</span>
+        Готовий отримати <span className={styles.highlight}>роботу мрії?</span>
       </h2>
       <button className={styles.button}>
-        <span className={styles.buttonText}>Start Your Journey — It's Free</span>
+        <span className={styles.buttonText}>Приєднюйся — Це безкоштовно!</span>
         <div className={styles.shimmer}></div>
       </button>
     </section>

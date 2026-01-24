@@ -3,13 +3,13 @@
 
 .hero {
   position: relative;
-  padding-top: 6rem;
-  padding-bottom: 5rem;
+  padding-top: 4rem;
+  padding-bottom: 3.5rem;
   overflow: hidden;
   
   @include md {
-    padding-top: 12rem;
-    padding-bottom: 8rem;
+    padding-top: 8rem;
+    padding-bottom: 5.5rem;
   }
 }
 
@@ -263,7 +263,7 @@
 }
 
 .cards {
-  margin-top: 4rem;
+  margin-top: 2.5rem;
   max-width: 72rem;
   margin-left: auto;
   margin-right: auto;
@@ -271,7 +271,7 @@
   animation: blur-in 1.5s ease-out 1s forwards;
   
   @include md {
-    margin-top: 8rem;
+    margin-top: 5.5rem;
   }
 }
 

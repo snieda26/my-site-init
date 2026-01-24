@@ -25,8 +25,8 @@ const FILES: Record<FileKey, FileData> = {
       <p key="9">{'}'}</p>
     ],
     feedback: [
-      { text: '"Correct use of the \'this\' context and closure. How would you modify this to handle an \'immediate\' execution flag?"', primary: true },
-      { text: '"Good call on clearing the timeout. Remember that some interviewers will ask about memory leaks if \'fn\' holds large references."' }
+      { text: '"Правильне використання контексту \'this\' та замикання. Як би ви модифікували це для обробки прапорця \'immediate\' виконання?"', primary: true },
+      { text: '"Добре, що очищаєте таймаут. Пам\'ятайте, що деякі інтерв\'юери запитають про витоки пам\'яті, якщо \'fn\' зберігає великі посилання."' }
     ]
   },
   'throttle.ts': {
@@ -43,8 +43,8 @@ const FILES: Record<FileKey, FileData> = {
       <p key="10">{'}'}</p>
     ],
     feedback: [
-      { text: '"Clean implementation using a boolean flag. How would you ensure the last call is always executed after the limit expires?"', primary: true },
-      { text: '"Good use of closure to maintain state. Think about the trade-offs between leading and trailing edge execution."' }
+      { text: '"Чиста реалізація з використанням булевого прапорця. Як би ви забезпечили, що останній виклик завжди виконується після закінчення ліміту?"', primary: true },
+      { text: '"Добре використання замикання для збереження стану. Подумайте про компроміси між виконанням на початку та в кінці."' }
     ]
   },
   'memoize.ts': {
@@ -61,8 +61,8 @@ const FILES: Record<FileKey, FileData> = {
       <p key="10">{'}'}</p>
     ],
     feedback: [
-      { text: '"Map is a great choice for the cache. Be careful with JSON.stringify on complex objects or circular references."', primary: true },
-      { text: '"Efficient lookup. In a real-world scenario, how would you implement an LRU eviction policy to prevent memory overflow?"' }
+      { text: '"Map - чудовий вибір для кешу. Будьте обережні з JSON.stringify на складних об\'єктах або циклічних посиланнях."', primary: true },
+      { text: '"Ефективний пошук. У реальному сценарії, як би ви реалізували політику витіснення LRU для запобігання переповнення пам\'яті?"' }
     ]
   }
 };
@@ -86,26 +86,29 @@ export const PlatformPreview: React.FC = () => {
               </div>
               <div className={styles.windowTitle}>
                 <LuShield size={10} className={styles.shieldIcon} />
-                DevPrep.io / Sandbox
+                ITLead.io / Sandbox
               </div>
               <div className={styles.spacer}></div>
             </div>
 
             {/* Tab Bar */}
             <div className={styles.tabBar}>
-              {(Object.keys(FILES) as FileKey[]).map((fileName) => (
-                <button
-                  key={fileName}
-                  onClick={() => setActiveFile(fileName)}
-                  className={`${styles.tab} ${activeFile === fileName ? styles.tabActive : ''}`}
-                >
-                  <LuFileCode size={12} className={activeFile === fileName ? styles.tabIconActive : styles.tabIcon} />
-                  <span>{fileName}</span>
-                  {activeFile === fileName && (
-                    <span className={styles.tabIndicator}></span>
-                  )}
-                </button>
-              ))}
+              {(Object.keys(FILES) as FileKey[]).map((fileName) => {
+                const isActive = activeFile === fileName;
+                return (
+                  <button
+                    key={fileName}
+                    onClick={() => setActiveFile(fileName)}
+                    className={`${styles.tab} ${isActive ? styles.tabActive : ''}`}
+                  >
+                    <LuFileCode size={12} className={isActive ? styles.tabIconActive : styles.tabIcon} />
+                    <span>{fileName}</span>
+                    {isActive && (
+                      <span className={styles.tabIndicator}></span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Main Workspace */}
@@ -119,9 +122,9 @@ export const PlatformPreview: React.FC = () => {
                 </div>
 
                 <div className={styles.codeArea}>
-                  <div key={activeFile} className={styles.codeContent}>
+                  <div className={styles.codeContent}>
                     {FILES[activeFile].codeLines.map((line, idx) => (
-                      <div key={idx} className={styles.codeLine}>
+                      <div key={`${activeFile}-${idx}`} className={styles.codeLine}>
                         {line}
                       </div>
                     ))}
@@ -138,17 +141,16 @@ export const PlatformPreview: React.FC = () => {
                 <div className={styles.sidebarHeader}>
                   <div className={styles.sidebarTitle}>
                     <div className={styles.sidebarDot}></div>
-                    <span>AI Feedback</span>
+                    <span>AI Фідбек</span>
                   </div>
                   <LuZap size={14} className={styles.zapIcon} />
                 </div>
                 
-                <div className={styles.feedbackList} key={`${activeFile}-feedback`}>
+                <div className={styles.feedbackList}>
                   {FILES[activeFile].feedback.map((f, i) => (
                     <div 
-                      key={i} 
+                      key={`${activeFile}-feedback-${i}`}
                       className={`${styles.feedbackCard} ${f.primary ? styles.feedbackPrimary : ''}`}
-                      style={{ animationDelay: `${i * 150}ms` }}
                     >
                       <p className={styles.feedbackText}>
                         {f.text}
@@ -160,9 +162,9 @@ export const PlatformPreview: React.FC = () => {
                 <div className={styles.sidebarFooter}>
                   <button className={styles.executeBtn}>
                     <LuPlay size={12} fill="currentColor" />
-                    <span>Execute Sandbox</span>
+                    <span>Виконати Sandbox</span>
                   </button>
-                  <p className={styles.envLabel}>Node.js 20.x Environment</p>
+                  <p className={styles.envLabel}>Node.js 20.x Середовище</p>
                 </div>
               </div>
             </div>

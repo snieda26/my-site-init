@@ -2,13 +2,13 @@
 @use '../../../styles/mixins' as *;
 
 .section {
-  padding: 3rem 0;
+  padding: 2rem 0;
   position: relative;
   overflow: hidden;
   background: black;
   
   @include md {
-    padding: 6rem 0;
+    padding: 4rem 0;
   }
 }
 
@@ -167,11 +167,11 @@
   font-weight: 700;
   letter-spacing: -0.025em;
   border-radius: 0.5rem;
-  transition: all 150ms;
+  transition: all 200ms ease-in-out;
   position: relative;
   flex-shrink: 0;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
   color: #737373;
   
@@ -182,7 +182,7 @@
     font-size: 11px;
   }
   
-  &:hover {
+  &:hover:not(.tabActive) {
     color: #d4d4d4;
   }
 }
@@ -190,12 +190,18 @@
 .tabActive {
   background: #171717;
   color: white;
-  border: 1px solid #262626;
+  border-color: #262626;
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
-.tabIcon { color: #525252; }
-.tabIconActive { color: $indigo-400; }
+.tabIcon { 
+  color: #525252;
+  transition: color 200ms ease-in-out;
+}
+
+.tabIconActive { 
+  color: $indigo-400;
+}
 
 .tabIndicator {
   position: absolute;
@@ -204,6 +210,8 @@
   right: 0.75rem;
   height: 1px;
   background: linear-gradient(to right, transparent, $indigo-500, transparent);
+  opacity: 1;
+  transition: opacity 200ms ease-in-out;
 }
 
 .workspace {
@@ -279,12 +287,8 @@
 }
 
 .codeContent {
-  animation: blur-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes blur-in {
-  0% { filter: blur(20px); opacity: 0; transform: scale(0.95); }
-  100% { filter: blur(0px); opacity: 1; transform: scale(1); }
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .codeLine {
@@ -292,7 +296,7 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
-  transition: background-color 150ms;
+  transition: all 150ms ease-in-out;
   
   @include md {
     height: 1.5rem;
@@ -438,8 +442,7 @@
   background: rgba(23, 23, 23, 0.6);
   color: #a3a3a3;
   transform: translateY(0);
-  transition: all 150ms;
-  animation: blur-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: all 200ms ease-in-out;
   
   @include md {
     padding: 1.5rem;

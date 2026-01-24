@@ -7,28 +7,28 @@ import styles from './LandingFAQ.module.scss';
 const FAQ_DATA = [
   {
     id: 1,
-    question: "Is DevPrep for beginners or experienced developers?",
-    answer: "Both. We have foundational algorithmic tracks for entry-level candidates and deep-dive distributed systems modules specifically for Senior, Staff, and Principal engineering interviews."
+    question: "Чи підходить ITLead для початківців або досвідчених розробників?",
+    answer: "Для обох. У нас є базові алгоритмічні треки для кандидатів початкового рівня та поглиблені модулі з розподілених систем спеціально для співбесід на позиції Senior, Staff та Principal."
   },
   {
     id: 2,
-    question: "How does the AI Mock Interview work?",
-    answer: "Our engine uses low-latency speech-to-text and LLM-based evaluation to simulate a real interviewer. It assesses your logic, your ability to explain trade-offs, and your 'soft skills' under pressure."
+    question: "Як працює AI Mock співбесіда?",
+    answer: "Наш движок використовує швидке перетворення мови в текст та оцінку на базі LLM для симуляції реального інтерв'юера. Він оцінює вашу логіку, здатність пояснювати компроміси та 'м'які навички' під тиском."
   },
   {
     id: 3,
-    question: "Can I cancel my subscription at any time?",
-    answer: "Absolutely. We offer a transparent month-to-month plan with no lock-in periods. You can manage your billing directly from your dashboard."
+    question: "Чи можу я скасувати підписку в будь-який час?",
+    answer: "Абсолютно. Ми пропонуємо прозорий помісячний план без періодів блокування. Ви можете керувати своїм біллінгом безпосередньо з панелі керування."
   },
   {
     id: 4,
-    question: "Are the interview questions up-to-date?",
-    answer: "Yes. Our question bank is updated weekly based on verified community reports from recent interviews at companies like Meta, OpenAI, and Stripe."
+    question: "Чи актуальні питання для співбесід?",
+    answer: "Так. Наша база питань оновлюється щотижня на основі перевірених звітів спільноти про нещодавні співбесіди в таких компаніях, як Meta, OpenAI та Stripe."
   },
   {
     id: 5,
-    question: "Does DevPrep provide referral opportunities?",
-    answer: "Active members in our 'Pro' tier gain access to an exclusive referral network where verified mentors can refer candidates directly into their internal hiring pipelines."
+    question: "Чи надає ITLead можливості для рефералів?",
+    answer: "Активні учасники нашого 'Pro' рівня отримують доступ до ексклюзивної реферальної мережі, де перевірені ментори можуть рекомендувати кандидатів безпосередньо у свої внутрішні конвеєри найму."
   }
 ];
 
@@ -47,15 +47,15 @@ export const LandingFAQ: React.FC = () => {
           <div className={styles.leftColumn}>
             <div className={styles.badge}>
               <div className={styles.badgeDot}></div>
-              <span>SUPPORT</span>
+              <span>ПІДТРИМКА</span>
             </div>
             
             <h2 className={styles.title}>
-              Common Questions
+              Поширені питання
             </h2>
             
             <p className={styles.subtitle}>
-              Can't find what you're looking for? Reach out to our engineering support team anytime.
+              Не знайшли те, що шукали? Зверніться до нашої команди технічної підтримки в будь-який час.
             </p>
           </div>
           
