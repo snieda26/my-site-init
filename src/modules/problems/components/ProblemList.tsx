@@ -71,7 +71,9 @@ export const ProblemList = ({
     try {
       const response = await apiClient.get('/problems/solved/me');
       const solved = response.data?.solved || [];
-      setSolvedProblemIds(new Set(solved.map((s: any) => s.problemId)));
+      // Only include problems with status 'SOLVED' (not just 'ATTEMPTED')
+      const solvedOnly = solved.filter((s: any) => s.status === 'SOLVED');
+      setSolvedProblemIds(new Set(solvedOnly.map((s: any) => s.problemId)));
     } catch (error) {
       console.error('Failed to fetch solved problems:', error);
     }
