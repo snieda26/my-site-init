@@ -27,40 +27,97 @@ export function OutputPanel({ output, testResults, consoleOutput }: OutputPanelP
   };
 
   // Parse console output - each console.log execution should be separate
-  // Backend wraps each value with JSON.stringify, so we need to parse JSON values
+  // Backend wraps each value with JSON.stringify, separated by literal \n
   const formatConsoleOutput = (output: string): string[] => {
     if (!output) return [];
     
     const results: string[] = [];
+    let i = 0;
     
-    // Match JSON string values: "..." handling escaped quotes and other escapes
-    // This regex matches: opening quote, then any non-quote/non-backslash OR any escaped char, then closing quote
-    const jsonStringRegex = /"(?:[^"\\]|\\.)*"/g;
-    
-    let match;
-    while ((match = jsonStringRegex.exec(output)) !== null) {
-      try {
-        // Parse the JSON string to get actual content (converts \n to real newlines)
-        const parsed = JSON.parse(match[0]);
-        if (parsed !== '' && String(parsed).trim() !== '') {
-          results.push(String(parsed));
-        }
-      } catch {
-        // If parsing fails, use raw match without outer quotes
-        const raw = match[0].slice(1, -1);
-        if (raw.trim() !== '') {
-          results.push(raw.replace(/\\n/g, '\n').replace(/\\t/g, '\t'));
-        }
+    while (i < output.length) {
+      // Skip separator (literal backslash + n)
+      if (output[i] === '\\' && output[i + 1] === 'n') {
+        i += 2;
+        continue;
       }
-    }
-    
-    // Also handle non-string JSON values (numbers, booleans, arrays, objects)
-    // that might appear between string matches
-    const nonStringRegex = /(?<=\\n|^)(\d+\.?\d*|true|false|null|\[[\s\S]*?\]|\{[\s\S]*?\})(?=\\n|$)/g;
-    let nonStringMatch;
-    while ((nonStringMatch = nonStringRegex.exec(output)) !== null) {
-      if (nonStringMatch[1].trim() !== '') {
-        results.push(nonStringMatch[1]);
+      
+      // Skip whitespace
+      if (output[i] === ' ' || output[i] === '\t') {
+        i++;
+        continue;
+      }
+      
+      const char = output[i];
+      
+      if (char === '"') {
+        // Parse JSON string value
+        let end = i + 1;
+        while (end < output.length) {
+          if (output[end] === '\\' && end + 1 < output.length) {
+            end += 2; // Skip escaped character
+          } else if (output[end] === '"') {
+            end++;
+            break;
+          } else {
+            end++;
+          }
+        }
+        const jsonStr = output.slice(i, end);
+        try {
+          const parsed = JSON.parse(jsonStr);
+          if (String(parsed).trim()) results.push(String(parsed));
+        } catch {
+          const raw = jsonStr.slice(1, -1).replace(/\\n/g, '\n').replace(/\\t/g, '\t');
+          if (raw.trim()) results.push(raw);
+        }
+        i = end;
+      } else if (char === '{' || char === '[') {
+        // Parse object or array
+        const closeChar = char === '{' ? '}' : ']';
+        let depth = 1;
+        let end = i + 1;
+        let inString = false;
+        while (end < output.length && depth > 0) {
+          if (output[end] === '\\' && inString) {
+            end += 2;
+            continue;
+          }
+          if (output[end] === '"') {
+            inString = !inString;
+          }
+          if (!inString) {
+            if (output[end] === char) depth++;
+            if (output[end] === closeChar) depth--;
+          }
+          end++;
+        }
+        const jsonVal = output.slice(i, end);
+        try {
+          const parsed = JSON.parse(jsonVal);
+          results.push(JSON.stringify(parsed, null, 2));
+        } catch {
+          results.push(jsonVal);
+        }
+        i = end;
+      } else if ((char >= '0' && char <= '9') || char === '-') {
+        // Parse number
+        let end = i;
+        while (end < output.length && /[\d.\-eE+]/.test(output[end])) {
+          end++;
+        }
+        results.push(output.slice(i, end));
+        i = end;
+      } else if (output.slice(i, i + 4) === 'true') {
+        results.push('true');
+        i += 4;
+      } else if (output.slice(i, i + 5) === 'false') {
+        results.push('false');
+        i += 5;
+      } else if (output.slice(i, i + 4) === 'null') {
+        results.push('null');
+        i += 4;
+      } else {
+        i++; // Skip unknown character
       }
     }
     
