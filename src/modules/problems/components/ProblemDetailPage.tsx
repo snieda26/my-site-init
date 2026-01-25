@@ -194,39 +194,6 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
 
   return (
     <div className={styles.container}>
-      {/* Top Bar */}
-      <div className={styles.topBar}>
-        <div className={styles.topBarLeft}>
-          <button className={styles.backButton}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-            <span>Problems List</span>
-          </button>
-        </div>
-        <div className={styles.topBarRight}>
-          <button 
-            className={`${styles.runButton} ${isRunning ? styles.running : ''}`}
-            onClick={handleRunCode}
-            disabled={isRunning}
-          >
-            {isRunning ? (
-              <>
-                <div className={styles.buttonSpinner} />
-                Running...
-              </>
-            ) : (
-              <>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                Run Code
-              </>
-            )}
-          </button>
-        </div>
-      </div>
-
       {/* Main Content - Split Layout */}
       <div className={styles.mainContent}>
         <div className={styles.splitContainer}>
@@ -254,7 +221,12 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
                 className={styles.editorPanel}
                 style={{ height: `${editorHeight}%` }}
               >
-                <CodeEditor code={code} onChange={setCode} />
+                <CodeEditor 
+                  code={code} 
+                  onChange={setCode}
+                  onRunCode={handleRunCode}
+                  isRunning={isRunning}
+                />
               </div>
 
               <div 

@@ -7,9 +7,11 @@ import styles from './CodeEditor.module.scss';
 interface CodeEditorProps {
   code: string;
   onChange: (value: string) => void;
+  onRunCode: () => void;
+  isRunning: boolean;
 }
 
-export function CodeEditor({ code, onChange }: CodeEditorProps) {
+export function CodeEditor({ code, onChange, onRunCode, isRunning }: CodeEditorProps) {
   const { theme } = useTheme();
 
   const handleEditorChange = (value: string | undefined) => {
@@ -76,6 +78,25 @@ export function CodeEditor({ code, onChange }: CodeEditorProps) {
             </svg>
           </button>
         </div>
+        <button 
+          className={`${styles.runButton} ${isRunning ? styles.running : ''}`}
+          onClick={onRunCode}
+          disabled={isRunning}
+        >
+          {isRunning ? (
+            <>
+              <div className={styles.buttonSpinner} />
+              Running
+            </>
+          ) : (
+            <>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Run
+            </>
+          )}
+        </button>
       </div>
 
       <div className={styles.editorWrapper}>

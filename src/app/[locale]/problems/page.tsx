@@ -4,12 +4,12 @@ import { ProblemsPage } from '@/modules/problems'
 
 export default function ProblemsPageRoute() {
   return (
-    <>
+    <div style={{ minHeight: '100vh', background: '#000000' }}>
       <Header />
-      <main className="flex-1 w-full" style={{ paddingTop: '80px' }}>
+      <main style={{ paddingTop: '80px' }}>
         <ProblemsPage />
       </main>
       <LandingFooter />
-    </>
+    </div>
   );
 }

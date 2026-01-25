@@ -5,11 +5,9 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
   const { slug } = await params;
   
   return (
-    <>
+    <div style={{ minHeight: '100vh', background: '#000000' }}>
       <Header />
-      <main className="flex-1 w-full h-screen" style={{ paddingTop: '64px' }}>
-        <ProblemDetailPage slug={slug} />
-      </main>
-    </>
+      <ProblemDetailPage slug={slug} />
+    </div>
   );
 }
