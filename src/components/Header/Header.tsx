@@ -26,6 +26,13 @@ export const Header: React.FC = () => {
   // Check if current page is home page
   const isHomePage = pathname === '/' || pathname === `/${locale}`;
   
+  // Check if a path is active
+  const isActive = (path: string) => {
+    const normalizedPathname = pathname.replace(`/${locale}`, '') || '/';
+    const normalizedPath = path.replace(`/${locale}`, '') || '/';
+    return normalizedPathname.startsWith(normalizedPath);
+  };
+  
   // Build returnTo param - only include if not on home page
   const getAuthUrl = (path: string) => {
     if (isHomePage) {
@@ -62,13 +69,22 @@ export const Header: React.FC = () => {
           </Link>
           
           <div className={styles.desktopMenu}>
-            <Link href={localePath('/interview-questions')} className={styles.navLink}>
+            <Link 
+              href={localePath('/interview-questions')} 
+              className={`${styles.navLink} ${isActive('/interview-questions') ? styles.navLinkActive : ''}`}
+            >
               {t('questions')}
             </Link>
-            <Link href={localePath('/problems')} className={styles.navLink}>
+            <Link 
+              href={localePath('/problems')} 
+              className={`${styles.navLink} ${isActive('/problems') ? styles.navLinkActive : ''}`}
+            >
               {t('problems')}
             </Link>
-            <Link href={localePath('/check-knowledge')} className={styles.navLink}>
+            <Link 
+              href={localePath('/check-knowledge')} 
+              className={`${styles.navLink} ${isActive('/check-knowledge') ? styles.navLinkActive : ''}`}
+            >
               {t('knowledgeCheck')}
             </Link>
           </div>
@@ -161,13 +177,25 @@ export const Header: React.FC = () => {
       <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
         <div className={styles.mobileMenuContent}>
           <div className={styles.mobileMenuNav}>
-            <Link href={localePath('/interview-questions')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+            <Link 
+              href={localePath('/interview-questions')} 
+              className={`${styles.mobileNavLink} ${isActive('/interview-questions') ? styles.mobileNavLinkActive : ''}`}
+              onClick={closeMobileMenu}
+            >
               {t('questions')}
             </Link>
-            <Link href={localePath('/problems')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+            <Link 
+              href={localePath('/problems')} 
+              className={`${styles.mobileNavLink} ${isActive('/problems') ? styles.mobileNavLinkActive : ''}`}
+              onClick={closeMobileMenu}
+            >
               {t('problems')}
             </Link>
-            <Link href={localePath('/check-knowledge')} className={styles.mobileNavLink} onClick={closeMobileMenu}>
+            <Link 
+              href={localePath('/check-knowledge')} 
+              className={`${styles.mobileNavLink} ${isActive('/check-knowledge') ? styles.mobileNavLinkActive : ''}`}
+              onClick={closeMobileMenu}
+            >
               {t('knowledgeCheck')}
             </Link>
           </div>

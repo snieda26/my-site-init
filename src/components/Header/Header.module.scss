@@ -73,7 +73,8 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: #a3a3a3;
-  transition: color 150ms;
+  transition: all 150ms;
+  position: relative;
   
   &:hover {
     color: white;
@@ -82,6 +83,11 @@
       transform: translateY(2px);
     }
   }
+}
+
+.navLinkActive {
+  color: white;
+  font-weight: 600;
 }
 
 .chevron {
@@ -237,10 +243,19 @@
   text-align: left;
   width: 100%;
   cursor: pointer;
+  transition: all 150ms;
   
   svg {
     flex-shrink: 0;
   }
+}
+
+.mobileNavLinkActive {
+  color: $indigo-400;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), transparent);
+  border-left: 3px solid $indigo-500;
+  padding-left: 1rem;
+  margin-left: -1rem;
 }
 
 .divider {
