@@ -15,13 +15,31 @@ export const ProblemsPage = () => {
   const [companyFilter, setCompanyFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [totalProblems, setTotalProblems] = useState(0);
 
   // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [activeTab, statusFilter, companyFilter, itemsPerPage]);
 
-  const totalPages = getTotalPages(activeTab, statusFilter, companyFilter, itemsPerPage);
+  // Fetch total problems count
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/problems');
+        if (response.ok) {
+          const data = await response.json();
+          const problemsData = data.data || data;
+          setTotalProblems(Array.isArray(problemsData) ? problemsData.length : 0);
+        }
+      } catch (error) {
+        console.error('Failed to fetch problems count:', error);
+      }
+    };
+    fetchCount();
+  }, []);
+
+  const totalPages = getTotalPages(totalProblems, itemsPerPage);
 
   return (
     <div className={styles.page}>

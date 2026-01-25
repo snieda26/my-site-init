@@ -6,6 +6,7 @@ import styles from './ProblemItem.module.scss';
 interface ProblemItemProps {
   problem: {
     id: string;
+    slug?: string;
     number: number;
     title: string;
     companies: string[];
@@ -14,10 +15,12 @@ interface ProblemItemProps {
 }
 
 export const ProblemItem = ({ problem, locale }: ProblemItemProps) => {
+  const problemSlug = problem.slug || problem.id;
+  
   return (
     <li className={styles.item}>
       <Link
-        href={`/problems/${problem.id}/${locale}`}
+        href={`/${locale}/problems/${problemSlug}`}
         className={styles.link}
       >
         <div className={styles.header}>

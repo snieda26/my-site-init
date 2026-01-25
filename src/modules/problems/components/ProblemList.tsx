@@ -1,8 +1,17 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useLocale } from '@/common/hooks';
 import { ProblemItem } from './ProblemItem';
 import styles from './ProblemList.module.scss';
+
+interface Problem {
+  id: string;
+  slug: string;
+  title: string;
+  difficulty: string;
+  companies?: Array<{ id: string; name: string }>;
+}
 
 interface ProblemListProps {
   activeTab: 'problems' | 'react-problems' | 'quizzes';
@@ -12,95 +21,11 @@ interface ProblemListProps {
   itemsPerPage: number;
 }
 
-// Mock data - in real app, this would come from an API or data source
-const getProblems = (tab: string, status: string, company: string) => {
-  const allProblems = [
-    {
-      id: 'cm6b5wm4a0029ih1prn41pwml',
-      number: 1,
-      title: 'K Most Frequent Elements',
-      companies: ['EPAM', 'SoftServe', 'GlobalLogic'],
-    },
-    {
-      id: 'cm6b5wfhc001gih1pheddzt5k',
-      number: 2,
-      title: 'Group Anagrams',
-      companies: ['Grammarly', 'SoftServe', 'Luxoft'],
-    },
-    {
-      id: 'cm6b5w4ro0004ih1px6xahwn6',
-      number: 3,
-      title: 'Extract Nodes by Type',
-      companies: ['EPAM', 'Ciklum', 'GlobalLogic'],
-    },
-    {
-      id: 'cm6b5w8ux000rih1pky1dueno',
-      number: 4,
-      title: 'Reverse Polish Notation Calculator',
-      companies: ['EPAM', 'GlobalLogic'],
-    },
-    {
-      id: 'cm6b5wibk001tih1pafpep7vc',
-      number: 5,
-      title: 'Capitalize Words in String',
-      companies: ['GlobalLogic', 'Luxoft'],
-    },
-    {
-      id: 'cm6b5wejq001dih1p72d9kx71',
-      number: 6,
-      title: 'Concatenate Strings from Objects',
-      companies: ['Ciklum', 'SoftServe', 'Luxoft'],
-    },
-    {
-      id: 'cm6b5wain000xih1pkag1ocar',
-      number: 7,
-      title: 'Find Indices of Elements for Sum',
-      companies: ['GlobalLogic'],
-    },
-    {
-      id: 'cm6b5wdu4001aih1pnrt9ff3t',
-      number: 8,
-      title: 'Find Deepest Maximum Element',
-      companies: ['N-iX', 'Ciklum', 'Luxoft'],
-    },
-    {
-      id: 'cm6b5whpi001qih1ps7s2hx17',
-      number: 9,
-      title: 'Find Strings with Substring',
-      companies: ['GlobalLogic'],
-    },
-    {
-      id: 'cm6b5wgab001jih1pf27mum8t',
-      number: 10,
-      title: 'Get Value from Object by Path',
-      companies: ['N-iX'],
-    },
-  ];
-
-  // Filter by company
-  let filtered = allProblems;
-  if (company !== 'all') {
-    filtered = filtered.filter(problem =>
-      problem.companies.some(comp =>
-        comp.toLowerCase() === company.toLowerCase()
-      )
-    );
-  }
-
-  // Filter by status would be applied here when user is logged in
-  // For now, we just return all problems
-
-  return filtered;
-};
-
 export const getTotalPages = (
-  tab: string,
-  status: string,
-  company: string,
+  totalProblems: number,
   itemsPerPage: number
 ) => {
-  const problems = getProblems(tab, status, company);
-  return Math.ceil(problems.length / itemsPerPage);
+  return Math.ceil(totalProblems / itemsPerPage);
 };
 
 export const ProblemList = ({
@@ -111,21 +36,74 @@ export const ProblemList = ({
   itemsPerPage,
 }: ProblemListProps) => {
   const locale = useLocale();
+  const [problems, setProblems] = useState<Problem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const problems = getProblems(activeTab, statusFilter, companyFilter);
+  useEffect(() => {
+    fetchProblems();
+  }, []);
+
+  const fetchProblems = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('http://localhost:4000/api/problems');
+      if (response.ok) {
+        const data = await response.json();
+        // Handle both paginated and direct array responses
+        const problemsData = data.data || data;
+        setProblems(Array.isArray(problemsData) ? problemsData : []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch problems:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Filter by company
+  let filtered = problems;
+  if (companyFilter !== 'all') {
+    filtered = filtered.filter(problem =>
+      problem.companies?.some(comp =>
+        comp.name.toLowerCase() === companyFilter.toLowerCase()
+      )
+    );
+  }
 
   // Pagination
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedProblems = problems.slice(startIndex, endIndex);
+  const paginatedProblems = filtered.slice(startIndex, endIndex);
+
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.loading}>Loading problems...</div>
+      </div>
+    );
+  }
+
+  if (problems.length === 0) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.empty}>No problems found</div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <ul className={styles.list}>
-        {paginatedProblems.map((problem) => (
+        {paginatedProblems.map((problem, index) => (
           <ProblemItem
             key={problem.id}
-            problem={problem}
+            problem={{
+              id: problem.id,
+              slug: problem.slug,
+              number: startIndex + index + 1,
+              title: problem.title,
+              companies: problem.companies?.map(c => c.name) || [],
+            }}
             locale={locale}
           />
         ))}

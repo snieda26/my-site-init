@@ -21,3 +21,16 @@
     gap: 0.625rem;
   }
 }
+
+.loading,
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+}
