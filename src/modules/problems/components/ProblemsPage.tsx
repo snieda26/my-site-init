@@ -55,14 +55,15 @@ export const ProblemsPage = () => {
             
             <div className={styles.divider}></div>
             
-            <Reveal delay={200}>
+            {/* TODO: Add filters */}
+            {/* <Reveal delay={200}>
               <ProblemsFilters
                 statusFilter={statusFilter}
                 companyFilter={companyFilter}
                 onStatusChange={setStatusFilter}
                 onCompanyChange={setCompanyFilter}
               />
-            </Reveal>
+            </Reveal> */}
             
             <Reveal delay={300}>
               <ProblemList

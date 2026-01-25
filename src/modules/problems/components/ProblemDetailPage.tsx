@@ -33,6 +33,8 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [code, setCode] = useState('// Write your solution here\n\nfunction solution() {\n  \n}\n');
   const [output, setOutput] = useState('');
+  const [testResults, setTestResults] = useState<any[]>([]);
+  const [consoleOutput, setConsoleOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
   
   // Resize state
@@ -121,7 +123,9 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
 
   const handleRunCode = async () => {
     setIsRunning(true);
-    setOutput('Running tests...\n');
+    setOutput('Running tests...');
+    setTestResults([]);
+    setConsoleOutput('');
 
     try {
       const response = await fetch(`http://localhost:4000/api/problems/${slug}/run`, {
@@ -135,42 +139,18 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
       if (response.ok) {
         const result = await response.json();
         
-        // Format test results
-        let outputText = `\n✨ Test Results\n${'='.repeat(50)}\n\n`;
-        outputText += `Total Tests: ${result.totalTests}\n`;
-        outputText += `Passed: ${result.passedTests}\n`;
-        outputText += `Failed: ${result.totalTests - result.passedTests}\n\n`;
-        outputText += `${'='.repeat(50)}\n\n`;
-
-        result.testResults.forEach((test: any, index: number) => {
-          const icon = test.passed ? '✅' : '❌';
-          outputText += `${icon} Test ${index + 1}: ${test.passed ? 'PASSED' : 'FAILED'}\n`;
-          outputText += `  Input: ${JSON.stringify(test.input)}\n`;
-          outputText += `  Expected: ${JSON.stringify(test.expected)}\n`;
-          outputText += `  Actual: ${JSON.stringify(test.actual)}\n`;
-          if (test.error) {
-            outputText += `  Error: ${test.error}\n`;
-          }
-          outputText += '\n';
-        });
-
-        if (result.output) {
-          outputText += `\n📝 Console Output:\n${'='.repeat(50)}\n${result.output}\n`;
-        }
-
-        if (result.success) {
-          outputText += `\n🎉 All tests passed! Great job!\n`;
-        } else {
-          outputText += `\n⚠️  Some tests failed. Keep trying!\n`;
-        }
-
-        setOutput(outputText);
+        // Set test results for visual display
+        setTestResults(result.testResults || []);
+        setConsoleOutput(result.output || '');
+        setOutput(''); // Clear text output when showing visual results
       } else {
         const error = await response.json();
-        setOutput(`❌ Error: ${error.message || 'Failed to run code'}`);
+        setOutput(`Error: ${error.message || 'Failed to run code'}`);
+        setTestResults([]);
       }
     } catch (error) {
-      setOutput(`❌ Error: ${error instanceof Error ? error.message : 'Failed to run code'}`);
+      setOutput(`Error: ${error instanceof Error ? error.message : 'Failed to run code'}`);
+      setTestResults([]);
     } finally {
       setIsRunning(false);
     }
@@ -241,7 +221,11 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
                 className={styles.outputPanel}
                 style={{ height: `${100 - editorHeight}%` }}
               >
-                <OutputPanel output={output} />
+                <OutputPanel 
+                  output={output} 
+                  testResults={testResults}
+                  consoleOutput={consoleOutput}
+                />
               </div>
             </div>
           </div>

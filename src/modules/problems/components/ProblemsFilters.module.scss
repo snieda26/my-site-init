@@ -31,15 +31,14 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 9999px;
-  border: 1px solid rgba(38, 38, 38, 0.6);
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
   padding: 0.5rem 1rem;
   font-size: 0.8125rem;
   min-width: 130px;
   cursor: pointer;
-  transition: all 150ms;
-  color: #a3a3a3;
+  transition: all var(--transition-fast);
+  color: var(--color-muted-foreground);
   
   @include md {
     font-size: 0.875rem;
@@ -47,14 +46,14 @@
   }
   
   &:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(99, 102, 241, 0.4);
-    color: white;
+    background: var(--color-accent);
+    border-color: var(--color-primary);
+    color: var(--color-foreground);
   }
   
   &:focus {
     outline: none;
-    border-color: $indigo-400;
+    border-color: var(--color-primary);
   }
 }
 
@@ -89,12 +88,11 @@
   top: 100%;
   left: 0;
   margin-top: 0.5rem;
-  background: rgba(23, 23, 23, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(38, 38, 38, 0.6);
-  border-radius: 1rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-  z-index: 50;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
   min-width: 140px;
   padding: 0.5rem;
   
@@ -107,27 +105,31 @@
   display: flex;
   width: 100%;
   align-items: center;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
   padding: 0.625rem 0.875rem;
   font-size: 0.8125rem;
   cursor: pointer;
-  background: none;
+  background: transparent;
   border: none;
   text-align: left;
-  color: #a3a3a3;
-  transition: all 150ms;
+  color: var(--color-foreground);
+  transition: all var(--transition-fast);
+  margin-bottom: 0.25rem;
   
   @include md {
     font-size: 0.875rem;
   }
   
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
+    background: var(--color-accent);
   }
   
   &.active {
-    background: rgba(99, 102, 241, 0.15);
-    color: $indigo-400;
+    background: var(--color-accent);
+    font-weight: 500;
   }
 }
