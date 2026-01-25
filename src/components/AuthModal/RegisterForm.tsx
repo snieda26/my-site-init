@@ -12,7 +12,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const registerMutation = useRegister();
+  const registerMutation = useRegister(true); // Skip redirect for modal use
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

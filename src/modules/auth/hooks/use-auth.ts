@@ -36,8 +36,9 @@ export function useAuth() {
 
 /**
  * Hook to register a new user
+ * @param skipRedirect - If true, won't redirect after successful registration (for modal use)
  */
-export function useRegister() {
+export function useRegister(skipRedirect = false) {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const locale = useLocale()
@@ -56,15 +57,18 @@ export function useRegister() {
 				})
 			)
 			toast.success('Account created successfully!')
-			router.push(`/${locale}/interview-questions`)
+			if (!skipRedirect) {
+				router.push(`/${locale}/interview-questions`)
+			}
 		},
 	})
 }
 
 /**
  * Hook to login a user
+ * @param skipRedirect - If true, won't redirect after successful login (for modal use)
  */
-export function useLogin() {
+export function useLogin(skipRedirect = false) {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const locale = useLocale()
@@ -83,7 +87,9 @@ export function useLogin() {
 				})
 			)
 			toast.success('Logged in successfully!')
-			router.push(`/${locale}/interview-questions`)
+			if (!skipRedirect) {
+				router.push(`/${locale}/interview-questions`)
+			}
 		},
 	})
 }
