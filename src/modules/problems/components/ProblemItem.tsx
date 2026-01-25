@@ -13,9 +13,10 @@ interface ProblemItemProps {
     companies: string[];
   };
   locale: string;
+  isSolved?: boolean;
 }
 
-export const ProblemItem = ({ problem, locale }: ProblemItemProps) => {
+export const ProblemItem = ({ problem, locale, isSolved = false }: ProblemItemProps) => {
   const problemSlug = problem.slug || problem.id;
   const itemRef = useRef<HTMLLIElement>(null);
   
@@ -45,7 +46,14 @@ export const ProblemItem = ({ problem, locale }: ProblemItemProps) => {
             {problem.number}. {problem.title}
           </div>
           <div className={styles.actions}>
-            {/* Status icons or actions can go here */}
+            {isSolved && (
+              <span className={styles.solvedBadge}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Solved
+              </span>
+            )}
           </div>
         </div>
         <div className={styles.companies}>

@@ -1,10 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { ProblemDescription } from './ProblemDescription';
 import { CodeEditor } from './CodeEditor';
 import { OutputPanel } from './OutputPanel';
 import { Confetti } from '@/components/Confetti';
+import { AuthModal } from '@/components/AuthModal';
+import { useAuth } from '@/modules/auth/hooks/use-auth';
+import apiClient from '@/infrastructure/api/client';
 import styles from './ProblemDetailPage.module.scss';
 
 interface Problem {
@@ -30,6 +34,7 @@ interface ProblemDetailPageProps {
 }
 
 export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
+  const { isAuthenticated } = useAuth();
   const [problem, setProblem] = useState<Problem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [code, setCode] = useState('// Write your solution here\n\nfunction solution() {\n  \n}\n');
@@ -38,6 +43,9 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
   const [consoleOutput, setConsoleOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
   const [confettiKey, setConfettiKey] = useState(0);
+  const [allTestsPassed, setAllTestsPassed] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   
   // Resize state
   const [leftPanelWidth, setLeftPanelWidth] = useState(35); // percentage
@@ -124,10 +132,17 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
   }, [isResizingHorizontal, isResizingVertical]);
 
   const handleRunCode = async () => {
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      setShowAuthModal(true);
+      return;
+    }
+
     setIsRunning(true);
     setOutput('Running tests...');
     setTestResults([]);
     setConsoleOutput('');
+    setAllTestsPassed(false); // Reset on new run
 
     try {
       const response = await fetch(`http://localhost:4000/api/problems/${slug}/run`, {
@@ -146,8 +161,12 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
         setConsoleOutput(result.output || '');
         setOutput(''); // Clear text output when showing visual results
 
+        // Check if all tests passed
+        const passed = result.success && result.passedTests === result.totalTests;
+        setAllTestsPassed(passed);
+
         // Trigger confetti if all tests passed
-        if (result.success && result.passedTests === result.totalTests) {
+        if (passed) {
           // Use key increment to trigger new confetti instance
           setConfettiKey(prev => prev + 1);
         }
@@ -155,12 +174,40 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
         const error = await response.json();
         setOutput(`Error: ${error.message || 'Failed to run code'}`);
         setTestResults([]);
+        setAllTestsPassed(false);
       }
     } catch (error) {
       setOutput(`Error: ${error instanceof Error ? error.message : 'Failed to run code'}`);
       setTestResults([]);
+      setAllTestsPassed(false);
     } finally {
       setIsRunning(false);
+    }
+  };
+
+  const handleSaveSolution = async () => {
+    if (!isAuthenticated) {
+      toast.error('Please login to save your solution');
+      return;
+    }
+
+    if (!allTestsPassed) {
+      toast.error('Please pass all tests first');
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      await apiClient.post(`/problems/${slug}/submit`, {
+        code,
+        status: 'SOLVED',
+      });
+      
+      toast.success('Solution saved successfully!');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to save solution');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -184,6 +231,13 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
 
   return (
     <div className={styles.container}>
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        message="Увійдіть, щоб запустити код"
+      />
+
       {/* Confetti Animation */}
       {confettiKey > 0 && (
         <Confetti 
@@ -223,9 +277,18 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
               >
                 <CodeEditor 
                   code={code} 
-                  onChange={setCode}
+                  onChange={(value) => {
+                    setCode(value);
+                    // Reset passed state when code changes
+                    if (allTestsPassed) {
+                      setAllTestsPassed(false);
+                    }
+                  }}
                   onRunCode={handleRunCode}
+                  onSaveSolution={handleSaveSolution}
                   isRunning={isRunning}
+                  isSaving={isSaving}
+                  allTestsPassed={allTestsPassed}
                 />
               </div>
 

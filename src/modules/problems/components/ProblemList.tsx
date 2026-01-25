@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useLocale } from '@/common/hooks';
+import { useAuth } from '@/modules/auth/hooks/use-auth';
+import apiClient from '@/infrastructure/api/client';
 import { ProblemItem } from './ProblemItem';
 import styles from './ProblemList.module.scss';
 
@@ -36,12 +38,17 @@ export const ProblemList = ({
   itemsPerPage,
 }: ProblemListProps) => {
   const locale = useLocale();
+  const { isAuthenticated } = useAuth();
   const [problems, setProblems] = useState<Problem[]>([]);
+  const [solvedProblemIds, setSolvedProblemIds] = useState<Set<string>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchProblems();
-  }, []);
+    if (isAuthenticated) {
+      fetchSolvedProblems();
+    }
+  }, [isAuthenticated]);
 
   const fetchProblems = async () => {
     try {
@@ -57,6 +64,16 @@ export const ProblemList = ({
       console.error('Failed to fetch problems:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const fetchSolvedProblems = async () => {
+    try {
+      const response = await apiClient.get('/problems/solved/me');
+      const solved = response.data?.solved || [];
+      setSolvedProblemIds(new Set(solved.map((s: any) => s.problemId)));
+    } catch (error) {
+      console.error('Failed to fetch solved problems:', error);
     }
   };
 
@@ -105,6 +122,7 @@ export const ProblemList = ({
               companies: problem.companies?.map(c => c.name) || [],
             }}
             locale={locale}
+            isSolved={solvedProblemIds.has(problem.id)}
           />
         ))}
       </ul>

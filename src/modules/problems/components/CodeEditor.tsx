@@ -8,10 +8,21 @@ interface CodeEditorProps {
   code: string;
   onChange: (value: string) => void;
   onRunCode: () => void;
+  onSaveSolution?: () => void;
   isRunning: boolean;
+  isSaving?: boolean;
+  allTestsPassed?: boolean;
 }
 
-export function CodeEditor({ code, onChange, onRunCode, isRunning }: CodeEditorProps) {
+export function CodeEditor({ 
+  code, 
+  onChange, 
+  onRunCode, 
+  onSaveSolution,
+  isRunning, 
+  isSaving = false,
+  allTestsPassed = false 
+}: CodeEditorProps) {
   const { theme } = useTheme();
 
   const handleEditorChange = (value: string | undefined) => {
@@ -80,14 +91,26 @@ export function CodeEditor({ code, onChange, onRunCode, isRunning }: CodeEditorP
           </button>
         </div>
         <button 
-          className={`${styles.runButton} ${isRunning ? styles.running : ''}`}
-          onClick={onRunCode}
-          disabled={isRunning}
+          className={`${styles.runButton} ${isRunning || isSaving ? styles.running : ''} ${allTestsPassed ? styles.success : ''}`}
+          onClick={allTestsPassed && onSaveSolution ? onSaveSolution : onRunCode}
+          disabled={isRunning || isSaving}
         >
           {isRunning ? (
             <>
               <div className={styles.buttonSpinner} />
               Running
+            </>
+          ) : isSaving ? (
+            <>
+              <div className={styles.buttonSpinner} />
+              Saving
+            </>
+          ) : allTestsPassed ? (
+            <>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Done
             </>
           ) : (
             <>
