@@ -1,7 +1,5 @@
 // Custom scrollbar styles for problem pages
-body {
-  overflow: hidden;
-}
+// Note: overflow control is handled per-page, not globally
 
 // Thin custom scrollbar
 ::-webkit-scrollbar {
