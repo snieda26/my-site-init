@@ -9,12 +9,13 @@ import styles from './AuthForms.module.scss'
 
 interface LoginFormProps {
 	onSubmit?: (data: LoginFormData) => void
+	redirectTo?: string
 }
 
-export function LoginForm({ onSubmit }: LoginFormProps) {
+export function LoginForm({ onSubmit, redirectTo }: LoginFormProps) {
 	const t = useTranslations('auth.login')
 	const tValidation = useTranslations('auth.validation')
-	const login = useLogin()
+	const login = useLogin({ redirectTo })
 
 	const {
 		register,
@@ -24,8 +25,8 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
 		mode: 'onTouched',
 		reValidateMode: 'onChange',
 		defaultValues: {
-			email: '',
-			password: '',
+			email: 'petrosnieda.work@gmail.com',
+			password: 'password123',
 		},
 	})
 

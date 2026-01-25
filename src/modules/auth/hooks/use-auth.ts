@@ -34,11 +34,18 @@ export function useAuth() {
 	}
 }
 
+interface UseRegisterOptions {
+	skipRedirect?: boolean
+	redirectTo?: string
+}
+
 /**
  * Hook to register a new user
- * @param skipRedirect - If true, won't redirect after successful registration (for modal use)
+ * @param options.skipRedirect - If true, won't redirect after successful registration (for modal use)
+ * @param options.redirectTo - Custom URL to redirect to after registration
  */
-export function useRegister(skipRedirect = false) {
+export function useRegister(options: UseRegisterOptions = {}) {
+	const { skipRedirect = false, redirectTo } = options
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const locale = useLocale()
@@ -58,17 +65,24 @@ export function useRegister(skipRedirect = false) {
 			)
 			toast.success('Account created successfully!')
 			if (!skipRedirect) {
-				router.push(`/${locale}/interview-questions`)
+				router.push(redirectTo || `/${locale}/interview-questions`)
 			}
 		},
 	})
 }
 
+interface UseLoginOptions {
+	skipRedirect?: boolean
+	redirectTo?: string
+}
+
 /**
  * Hook to login a user
- * @param skipRedirect - If true, won't redirect after successful login (for modal use)
+ * @param options.skipRedirect - If true, won't redirect after successful login (for modal use)
+ * @param options.redirectTo - Custom URL to redirect to after login
  */
-export function useLogin(skipRedirect = false) {
+export function useLogin(options: UseLoginOptions = {}) {
+	const { skipRedirect = false, redirectTo } = options
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const locale = useLocale()
@@ -88,7 +102,7 @@ export function useLogin(skipRedirect = false) {
 			)
 			toast.success('Logged in successfully!')
 			if (!skipRedirect) {
-				router.push(`/${locale}/interview-questions`)
+				router.push(redirectTo || `/${locale}/interview-questions`)
 			}
 		},
 	})
@@ -99,9 +113,7 @@ export function useLogin(skipRedirect = false) {
  */
 export function useLogout() {
 	const dispatch = useAppDispatch()
-	const router = useRouter()
 	const queryClient = useQueryClient()
-	const locale = useLocale()
 
 	return useMutation({
 		mutationFn: () => authService.logout(),
@@ -109,7 +121,7 @@ export function useLogout() {
 			dispatch(logoutAction())
 			queryClient.clear()
 			toast.success('Logged out successfully')
-			router.push(`/auth/login/${locale}`)
+			// No redirect - stay on current page
 		},
 	})
 }

@@ -9,10 +9,10 @@ interface RegisterFormProps {
 }
 
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const registerMutation = useRegister(true); // Skip redirect for modal use
+  const [email, setEmail] = useState('petrosnieda.work@gmail.com');
+  const [username, setUsername] = useState('Petro');
+  const [password, setPassword] = useState('password123');
+  const registerMutation = useRegister({ skipRedirect: true }); // Skip redirect for modal use
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

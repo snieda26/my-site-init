@@ -29,12 +29,18 @@ interface Problem {
   }>;
 }
 
+interface UserSubmission {
+  code: string;
+  status: 'ATTEMPTED' | 'SOLVED';
+  solvedAt: string;
+}
+
 interface ProblemDetailPageProps {
   slug: string;
 }
 
 export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, accessToken } = useAuth();
   const [problem, setProblem] = useState<Problem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [code, setCode] = useState('// Write your solution here\n\nfunction solution() {\n  \n}\n');
@@ -46,6 +52,7 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
   const [allTestsPassed, setAllTestsPassed] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [isSolved, setIsSolved] = useState(false);
   
   // Resize state
   const [leftPanelWidth, setLeftPanelWidth] = useState(35); // percentage
@@ -57,6 +64,13 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
     fetchProblem();
   }, [slug]);
 
+  // Fetch user's saved submission when authenticated
+  useEffect(() => {
+    if (isAuthenticated && accessToken && problem) {
+      fetchUserSubmission();
+    }
+  }, [isAuthenticated, accessToken, problem?.id]);
+
   const fetchProblem = async () => {
     try {
       setIsLoading(true);
@@ -64,7 +78,7 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
       if (response.ok) {
         const data = await response.json();
         setProblem(data);
-        // Set starter code when problem loads
+        // Set starter code when problem loads (will be overwritten if user has submission)
         if (data.starterCode) {
           setCode(data.starterCode);
         }
@@ -73,6 +87,26 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
       console.error('Failed to fetch problem:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const fetchUserSubmission = async () => {
+    try {
+      const response = await apiClient.get<UserSubmission>(`/problems/${slug}/submission`);
+      if (response.data) {
+        // Load user's saved code
+        setCode(response.data.code);
+        // Mark as solved if previously solved
+        if (response.data.status === 'SOLVED') {
+          setIsSolved(true);
+          setAllTestsPassed(true);
+        }
+      }
+    } catch (error: any) {
+      // 404 means no submission yet - that's fine
+      if (error.response?.status !== 404) {
+        console.error('Failed to fetch user submission:', error);
+      }
     }
   };
 
@@ -203,6 +237,7 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
         status: 'SOLVED',
       });
       
+      setIsSolved(true);
       toast.success('Solution saved successfully!');
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Failed to save solution');

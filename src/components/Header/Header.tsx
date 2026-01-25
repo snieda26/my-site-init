@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { LuMenu, LuX } from 'react-icons/lu';
 import { FiBarChart2, FiLogOut, FiSettings } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
@@ -18,8 +19,20 @@ export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const locale = useLocale();
   const localePath = useLocalePath();
+  const pathname = usePathname();
   const { user, isAuthenticated, isLoading } = useAuth();
   const logout = useLogout();
+
+  // Check if current page is home page
+  const isHomePage = pathname === '/' || pathname === `/${locale}`;
+  
+  // Build returnTo param - only include if not on home page
+  const getAuthUrl = (path: string) => {
+    if (isHomePage) {
+      return localePath(path);
+    }
+    return `${localePath(path)}?returnTo=${encodeURIComponent(pathname)}`;
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -120,10 +133,10 @@ export const Header: React.FC = () => {
             </Dropdown>
           ) : (
             <>
-              <Link href={localePath('/auth/login')} className={styles.loginLink}>
+              <Link href={getAuthUrl('/auth/login')} className={styles.loginLink}>
                 {t('login')}
               </Link>
-              <Link href={localePath('/auth/register')} className={styles.signupBtn}>
+              <Link href={getAuthUrl('/auth/register')} className={styles.signupBtn}>
                 {t('signup')}
               </Link>
             </>
@@ -199,10 +212,10 @@ export const Header: React.FC = () => {
               </>
             ) : (
               <>
-                <Link href={localePath('/auth/login')} className={styles.mobileLoginLink} onClick={closeMobileMenu}>
+                <Link href={getAuthUrl('/auth/login')} className={styles.mobileLoginLink} onClick={closeMobileMenu}>
                   {t('login')}
                 </Link>
-                <Link href={localePath('/auth/register')} className={styles.mobileSignupBtn} onClick={closeMobileMenu}>
+                <Link href={getAuthUrl('/auth/register')} className={styles.mobileSignupBtn} onClick={closeMobileMenu}>
                   {t('signup')}
                 </Link>
               </>

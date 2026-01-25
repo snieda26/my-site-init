@@ -9,9 +9,9 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onSuccess }: LoginFormProps) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const loginMutation = useLogin(true); // Skip redirect for modal use
+  const [email, setEmail] = useState('petrosnieda.work@gmail.com');
+  const [password, setPassword] = useState('password123');
+  const loginMutation = useLogin({ skipRedirect: true }); // Skip redirect for modal use
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

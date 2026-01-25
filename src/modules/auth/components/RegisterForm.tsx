@@ -9,12 +9,13 @@ import styles from './AuthForms.module.scss'
 
 interface RegisterFormProps {
 	onSubmit?: (data: RegisterFormData) => void
+	redirectTo?: string
 }
 
-export function RegisterForm({ onSubmit }: RegisterFormProps) {
+export function RegisterForm({ onSubmit, redirectTo }: RegisterFormProps) {
 	const t = useTranslations('auth.register')
 	const tValidation = useTranslations('auth.validation')
-	const registerMutation = useRegister()
+	const registerMutation = useRegister({ redirectTo })
 
 	const {
 		register,
@@ -25,10 +26,10 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
 		mode: 'onTouched',
 		reValidateMode: 'onChange',
 		defaultValues: {
-			name: '',
-			email: '',
-			password: '',
-			confirmPassword: '',
+			name: 'Petro',
+			email: 'petrosnieda.work@gmail.com',
+			password: 'password123',
+			confirmPassword: 'password123',
 		},
 	})
 

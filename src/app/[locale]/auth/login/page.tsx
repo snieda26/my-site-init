@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { FaCode } from 'react-icons/fa'
 import { useLocale } from '@/common/hooks'
@@ -11,6 +12,8 @@ export default function LoginPage() {
 	const t = useTranslations('auth.login')
 	const tAuth = useTranslations('auth')
 	const locale = useLocale()
+	const searchParams = useSearchParams()
+	const returnTo = searchParams.get('returnTo')
 
 	return (
 		<>
@@ -27,7 +30,7 @@ export default function LoginPage() {
 					</div>
 
 					<div className="auth-card__content">
-						<LoginForm />
+						<LoginForm redirectTo={returnTo || undefined} />
 
 						<div className="auth-card__divider">
 							<span className="auth-card__divider-line" />
@@ -40,10 +43,10 @@ export default function LoginPage() {
 						</div>
 					</div>
 
-					<div className="auth-card__footer">
-						{t('noAccount')}
-						<Link href={`/auth/register/${locale}`}>{tAuth('signUp')}</Link>
-					</div>
+				<div className="auth-card__footer">
+					{t('noAccount')}
+					<Link href={returnTo ? `/auth/register/${locale}?returnTo=${encodeURIComponent(returnTo)}` : `/auth/register/${locale}`}>{tAuth('signUp')}</Link>
+				</div>
 				</div>
 			</main>
 		</>
