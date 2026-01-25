@@ -11,3 +11,11 @@
   filter: blur(0px);
   transform: translateY(0);
 }
+
+// Skip animation - immediately show content
+.noAnimation {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0);
+  transition: none;
+}

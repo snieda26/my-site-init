@@ -8,6 +8,13 @@
   @include md {
     margin-bottom: 4rem;
   }
+  
+  &.noAnimation {
+    animation: none;
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
 }
 
 @keyframes blur-in {

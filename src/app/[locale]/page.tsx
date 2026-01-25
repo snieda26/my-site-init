@@ -25,11 +25,11 @@ export default function HomePage() {
         <main>
           <LandingHero />
           
-          <Reveal delay={200}>
+          <Reveal delay={200} once={false}>
             <PlatformPreview />
           </Reveal>
 
-          <Reveal delay={300}>
+          <Reveal delay={300} once={false}>
             <QuestionVault />
           </Reveal>
           
@@ -37,13 +37,13 @@ export default function HomePage() {
             <Reviews />
           </Reveal> */}
           
-          <Reveal>
+          <Reveal once={false}>
             <div className={styles.faqSection}>
               <LandingFAQ />
             </div>
           </Reveal>
           
-          <Reveal>
+          <Reveal once={false}>
             <LandingCTA />
           </Reveal>
         </main>

@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useLocale } from '@/common/hooks';
+import { useLocale, usePageAnimation } from '@/common/hooks';
 import styles from './CategoryHeader.module.scss';
 
 interface CategoryHeaderProps {
@@ -12,11 +12,12 @@ interface CategoryHeaderProps {
 export const CategoryHeader = ({ category }: CategoryHeaderProps) => {
   const t = useTranslations('knowledgeCheck.categoryPage');
   const locale = useLocale();
+  const shouldAnimate = usePageAnimation();
 
   const categoryName = t(`categories.${category}.name`) || category;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${!shouldAnimate ? styles.noAnimation : ''}`}>
       <div className={styles.content}>
         <h1 className={styles.title}>
           {t('title', { category: categoryName })}
