@@ -53,6 +53,8 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
+  const [attemptCount, setAttemptCount] = useState(0);
+  const [activeTab, setActiveTab] = useState<'code' | 'solution'>('code');
   
   // Resize state
   const [leftPanelWidth, setLeftPanelWidth] = useState(35); // percentage
@@ -177,6 +179,9 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
     setTestResults([]);
     setConsoleOutput('');
     setAllTestsPassed(false); // Reset on new run
+
+    // Increment attempt count
+    setAttemptCount(prev => prev + 1);
 
     try {
       const response = await fetch(`http://localhost:4000/api/problems/${slug}/run`, {
@@ -324,6 +329,11 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
                   isRunning={isRunning}
                   isSaving={isSaving}
                   allTestsPassed={allTestsPassed}
+                  attemptCount={attemptCount}
+                  isSolved={isSolved}
+                  activeTab={activeTab}
+                  onTabChange={setActiveTab}
+                  solution={problem?.solution}
                 />
               </div>
 
