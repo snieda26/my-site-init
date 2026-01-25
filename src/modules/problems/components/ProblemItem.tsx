@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRef, MouseEvent } from 'react';
 import styles from './ProblemItem.module.scss';
 
 interface ProblemItemProps {
@@ -16,9 +17,25 @@ interface ProblemItemProps {
 
 export const ProblemItem = ({ problem, locale }: ProblemItemProps) => {
   const problemSlug = problem.slug || problem.id;
+  const itemRef = useRef<HTMLLIElement>(null);
+  
+  const handleMouseMove = (e: MouseEvent<HTMLLIElement>) => {
+    if (!itemRef.current) return;
+    
+    const rect = itemRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    itemRef.current.style.setProperty('--mouse-x', `${x}px`);
+    itemRef.current.style.setProperty('--mouse-y', `${y}px`);
+  };
   
   return (
-    <li className={styles.item}>
+    <li 
+      ref={itemRef}
+      className={styles.item}
+      onMouseMove={handleMouseMove}
+    >
       <Link
         href={`/${locale}/problems/${problemSlug}`}
         className={styles.link}

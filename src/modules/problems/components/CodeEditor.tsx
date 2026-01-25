@@ -1,6 +1,6 @@
 'use client';
 
-import { Editor } from '@monaco-editor/react';
+import { Editor, OnMount } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import styles from './CodeEditor.module.scss';
 
@@ -16,6 +16,42 @@ export function CodeEditor({ code, onChange }: CodeEditorProps) {
     if (value !== undefined) {
       onChange(value);
     }
+  };
+
+  const handleEditorDidMount: OnMount = (editor, monaco) => {
+    // Define custom theme matching the design system
+    monaco.editor.defineTheme('custom-dark', {
+      base: 'vs-dark',
+      inherit: true,
+      rules: [
+        { token: 'comment', foreground: '6B7280', fontStyle: 'italic' },
+        { token: 'keyword', foreground: 'C084FC', fontStyle: 'bold' },
+        { token: 'string', foreground: '6EE7B7' },
+        { token: 'number', foreground: 'FCA5A5' },
+        { token: 'function', foreground: '93C5FD' },
+        { token: 'variable', foreground: 'E5E7EB' },
+        { token: 'type', foreground: 'A5B4FC' },
+        { token: 'identifier', foreground: 'E5E7EB' },
+      ],
+      colors: {
+        'editor.background': '#00000000', // Transparent to show glass effect
+        'editor.foreground': '#E5E7EB',
+        'editor.lineHighlightBackground': '#6366F115',
+        'editor.selectionBackground': '#6366F130',
+        'editor.inactiveSelectionBackground': '#6366F120',
+        'editorLineNumber.foreground': '#6B7280',
+        'editorLineNumber.activeForeground': '#A5B4FC',
+        'editorCursor.foreground': '#6366F1',
+        'editorWhitespace.foreground': '#374151',
+        'editorIndentGuide.background': '#374151',
+        'editorIndentGuide.activeBackground': '#4B5563',
+        'editor.selectionHighlightBackground': '#6366F120',
+        'editor.wordHighlightBackground': '#6366F115',
+        'editorBracketMatch.background': '#6366F120',
+        'editorBracketMatch.border': '#6366F1',
+      },
+    });
+    monaco.editor.setTheme('custom-dark');
   };
 
   return (
@@ -48,7 +84,8 @@ export function CodeEditor({ code, onChange }: CodeEditorProps) {
           defaultLanguage="javascript"
           value={code}
           onChange={handleEditorChange}
-          theme={theme === 'dark' ? 'vs-dark' : 'light'}
+          theme="custom-dark"
+          onMount={handleEditorDidMount}
           options={{
             minimap: { enabled: false },
             fontSize: 14,
@@ -62,6 +99,15 @@ export function CodeEditor({ code, onChange }: CodeEditorProps) {
             lineDecorationsWidth: 5,
             lineNumbersMinChars: 3,
             padding: { top: 16, bottom: 16 },
+            fontFamily: "'JetBrains Mono', 'Monaco', 'Consolas', monospace",
+            fontLigatures: true,
+            cursorBlinking: 'smooth',
+            cursorSmoothCaretAnimation: 'on',
+            smoothScrolling: true,
+            renderLineHighlight: 'all',
+            bracketPairColorization: {
+              enabled: true,
+            },
           }}
           loading={
             <div className={styles.loading}>
