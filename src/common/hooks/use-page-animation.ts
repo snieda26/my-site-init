@@ -1,37 +1,46 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
-// In-memory Set - resets on page refresh, persists during client-side navigation
-const animatedPages = new Set<string>();
+// Set to track which pages have been visited - cleared on page refresh
+const visitedPages = new Set<string>();
 
 /**
  * Hook to determine if page animations should play.
  * Returns true if this is the first visit to this page since the last refresh.
  * 
- * - Page refresh: animations play again (memory is cleared)
- * - Client-side navigation back to page: animations are skipped
+ * Behavior:
+ * - First visit to page: animations play, page marked as visited
+ * - Return visit (same session): animations skipped
+ * - Page refresh: visitedPages cleared, animations play again
+ * - Home page (once=false): always animates
  */
 export const usePageAnimation = (once: boolean = true): boolean => {
   const pathname = usePathname();
-
-  // Compute synchronously and memoize per pathname
-  const shouldAnimate = useMemo(() => {
+  const isFirstRender = useRef(true);
+  const [shouldAnimate] = useState(() => {
+    // Always animate if once=false (home page)
     if (!once) {
-      // Always animate if once=false
       return true;
     }
+
+    // Check if page has been visited before
+    const hasVisited = visitedPages.has(pathname);
     
-    if (animatedPages.has(pathname)) {
-      // Already visited - skip animation
-      return false;
+    // Mark as visited for future navigations
+    if (!hasVisited) {
+      visitedPages.add(pathname);
     }
-    
-    // First visit - animate and mark as visited
-    animatedPages.add(pathname);
-    return true;
-  }, [once, pathname]);
+
+    // Animate only if this is the first visit
+    return !hasVisited;
+  });
+
+  // Mark that we've completed the first render
+  useEffect(() => {
+    isFirstRender.current = false;
+  }, []);
 
   return shouldAnimate;
 };

@@ -38,10 +38,8 @@ export const authService = {
 	},
 
 	async refreshToken(): Promise<{ accessToken: string }> {
-		const refreshToken = Cookies.get('refreshToken')
-		const response = await apiClient.post<{ accessToken: string }>('/auth/refresh', {
-			refreshToken,
-		})
+		// Refresh token is automatically sent via httpOnly cookie
+		const response = await apiClient.post<{ accessToken: string }>('/auth/refresh', {})
 		Cookies.set('accessToken', response.data.accessToken, { expires: 7 })
 		return response.data
 	},

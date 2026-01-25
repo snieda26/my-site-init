@@ -16,14 +16,12 @@ export const Reveal: React.FC<RevealProps> = ({ children, delay = 0, once = true
   const shouldAnimate = usePageAnimation(once);
 
   useEffect(() => {
-    // Skip animation - immediately show content
+    // Don't animate - content is already visible via noAnimation class
     if (!shouldAnimate) {
-      if (ref.current) {
-        ref.current.classList.add(styles.noAnimation);
-      }
       return;
     }
 
+    // Animate on scroll into view
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -40,7 +38,7 @@ export const Reveal: React.FC<RevealProps> = ({ children, delay = 0, once = true
   return (
     <div 
       ref={ref} 
-      className={styles.reveal}
+      className={`${styles.reveal} ${!shouldAnimate ? styles.noAnimation : ''}`}
       style={{ '--delay': `${delay}ms` } as React.CSSProperties}
     >
       {children}

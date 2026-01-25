@@ -76,15 +76,15 @@ apiClient.interceptors.response.use(
 			isRefreshing = true
 
 			try {
-				// Try to refresh token
+				// Try to refresh token using httpOnly cookie
 				const response = await axios.post(
 					`${API_URL}/auth/refresh`,
-					{},
+					{}, // Empty body - backend reads refreshToken from httpOnly cookie
 					{ withCredentials: true }
 				)
 
 				const { accessToken } = response.data
-				Cookies.set('accessToken', accessToken)
+				Cookies.set('accessToken', accessToken, { expires: 7 })
 
 				processQueue(null, accessToken)
 
@@ -98,6 +98,7 @@ apiClient.interceptors.response.use(
 
 				// Clear tokens and Redux state
 				Cookies.remove('accessToken')
+				Cookies.remove('refreshToken')
 				store.dispatch(logout())
 
 				return Promise.reject(refreshError)
