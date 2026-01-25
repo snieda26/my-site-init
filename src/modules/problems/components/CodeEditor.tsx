@@ -36,10 +36,10 @@ export function CodeEditor({ code, onChange, onRunCode, isRunning }: CodeEditorP
         { token: 'identifier', foreground: 'E5E7EB' },
       ],
       colors: {
-        'editor.background': '#00000000', // Transparent to show glass effect
+        'editor.background': '#0a0a0a', // Slight background for better rendering
         'editor.foreground': '#E5E7EB',
-        'editor.lineHighlightBackground': '#ffffff08', // Keep subtle highlight
-        'editor.lineHighlightBorder': '#00000000', // No border
+        'editor.lineHighlightBackground': '#ffffff08',
+        'editor.lineHighlightBorder': '#00000000',
         'editor.selectionBackground': '#6366F130',
         'editor.inactiveSelectionBackground': '#6366F120',
         'editorLineNumber.foreground': '#6B7280',
@@ -139,6 +139,10 @@ export function CodeEditor({ code, onChange, onRunCode, isRunning }: CodeEditorP
             bracketPairColorization: {
               enabled: true,
             },
+            // Fix potential rendering issues
+            fixedOverflowWidgets: true,
+            disableLayerHinting: false,
+            renderWhitespace: 'selection',
           }}
           loading={
             <div className={styles.loading}>

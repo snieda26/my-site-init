@@ -26,6 +26,20 @@ export function OutputPanel({ output, testResults, consoleOutput }: OutputPanelP
     return JSON.stringify(value);
   };
 
+  // Parse console output - convert escaped newlines and format nicely
+  const formatConsoleOutput = (output: string): string[] => {
+    if (!output) return [];
+    // Replace literal \n with actual newlines, then split
+    const formatted = output
+      .replace(/\\n/g, '\n')
+      .replace(/^"|"$/g, '') // Remove surrounding quotes if present
+      .split('\n')
+      .filter(line => line.trim() !== '');
+    return formatted;
+  };
+
+  const consoleLines = formatConsoleOutput(consoleOutput || '');
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -117,8 +131,15 @@ export function OutputPanel({ output, testResults, consoleOutput }: OutputPanelP
 
         {activeTab === 'console' && (
           <div className={styles.consoleContent}>
-            {consoleOutput ? (
-              <pre className={styles.consoleText}>{consoleOutput}</pre>
+            {consoleLines.length > 0 ? (
+              <div className={styles.consoleLogs}>
+                {consoleLines.map((line, index) => (
+                  <div key={index} className={styles.consoleLine}>
+                    <span className={styles.consolePrompt}>&gt;</span>
+                    <span className={styles.consoleValue}>{line}</span>
+                  </div>
+                ))}
+              </div>
             ) : (
               <div className={styles.emptyState}>
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

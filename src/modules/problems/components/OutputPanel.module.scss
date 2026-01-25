@@ -265,3 +265,40 @@
   word-break: break-word;
   margin: 0;
 }
+
+.consoleLogs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.consoleLine {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0.5rem;
+  border-left: 2px solid rgba(99, 102, 241, 0.4);
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-left-color: rgba(99, 102, 241, 0.6);
+  }
+}
+
+.consolePrompt {
+  color: rgba(99, 102, 241, 0.7);
+  font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.consoleValue {
+  font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.9);
+  word-break: break-word;
+}

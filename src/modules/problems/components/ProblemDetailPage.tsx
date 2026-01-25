@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { ProblemDescription } from './ProblemDescription';
 import { CodeEditor } from './CodeEditor';
 import { OutputPanel } from './OutputPanel';
+import { Confetti } from '@/components/Confetti';
 import styles from './ProblemDetailPage.module.scss';
 
 interface Problem {
@@ -36,6 +37,7 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
   const [testResults, setTestResults] = useState<any[]>([]);
   const [consoleOutput, setConsoleOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
+  const [confettiKey, setConfettiKey] = useState(0);
   
   // Resize state
   const [leftPanelWidth, setLeftPanelWidth] = useState(35); // percentage
@@ -143,6 +145,12 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
         setTestResults(result.testResults || []);
         setConsoleOutput(result.output || '');
         setOutput(''); // Clear text output when showing visual results
+
+        // Trigger confetti if all tests passed
+        if (result.success && result.passedTests === result.totalTests) {
+          // Use key increment to trigger new confetti instance
+          setConfettiKey(prev => prev + 1);
+        }
       } else {
         const error = await response.json();
         setOutput(`Error: ${error.message || 'Failed to run code'}`);
@@ -176,6 +184,16 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
 
   return (
     <div className={styles.container}>
+      {/* Confetti Animation */}
+      {confettiKey > 0 && (
+        <Confetti 
+          key={confettiKey}
+          active={true} 
+          duration={1250}
+          onComplete={() => {}}
+        />
+      )}
+
       {/* Main Content - Split Layout */}
       <div className={styles.mainContent}>
         <div className={styles.splitContainer}>

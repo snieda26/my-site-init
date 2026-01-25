@@ -92,6 +92,13 @@
   min-height: 200px;
   overflow: hidden;
   box-sizing: border-box;
+  position: relative;
+  
+  // Ensure proper sizing for child components
+  & > div {
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .outputPanel {
