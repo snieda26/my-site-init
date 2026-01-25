@@ -10,7 +10,9 @@ interface Problem {
   id: string;
   slug: string;
   title: string;
+  titleUa?: string;
   description: string;
+  descriptionUa?: string;
   difficulty: 'EASY' | 'MEDIUM' | 'HARD';
   starterCode?: string;
   solution?: string;

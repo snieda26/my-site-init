@@ -1,10 +1,13 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import styles from './ProblemDescription.module.scss';
 
 interface Problem {
   title: string;
+  titleUa?: string;
   description: string;
+  descriptionUa?: string;
   difficulty: 'EASY' | 'MEDIUM' | 'HARD';
   companies?: Array<{ name: string }>;
   testCases?: string;
@@ -15,6 +18,8 @@ interface ProblemDescriptionProps {
 }
 
 export function ProblemDescription({ problem }: ProblemDescriptionProps) {
+  const params = useParams();
+  const locale = params?.locale as string || 'en';
   const difficultyColors = {
     EASY: styles.easy,
     MEDIUM: styles.medium,
@@ -34,10 +39,14 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
     }
   })() : [];
 
+  // Use Ukrainian if locale is 'ua' and Ukrainian version exists
+  const title = locale === 'ua' && problem.titleUa ? problem.titleUa : problem.title;
+  const description = locale === 'ua' && problem.descriptionUa ? problem.descriptionUa : problem.description;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>{problem.title}</h1>
+        <h1 className={styles.title}>{title}</h1>
         <div className={styles.meta}>
           <span className={`${styles.difficulty} ${difficultyColors[problem.difficulty]}`}>
             {problem.difficulty}
@@ -57,7 +66,7 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
 
       <div className={styles.content}>
         <div className={styles.description}>
-          <p>{problem.description}</p>
+          <p>{description}</p>
         </div>
 
         {examples.length > 0 && (

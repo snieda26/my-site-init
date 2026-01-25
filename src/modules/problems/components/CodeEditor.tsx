@@ -129,6 +129,13 @@ export function CodeEditor({ code, onChange, onRunCode, isRunning }: CodeEditorP
             renderLineHighlight: 'gutter',
             hideCursorInOverviewRuler: true,
             overviewRulerBorder: false,
+            scrollbar: {
+              vertical: 'auto',
+              horizontal: 'auto',
+              verticalScrollbarSize: 6,
+              horizontalScrollbarSize: 6,
+              useShadows: false,
+            },
             bracketPairColorization: {
               enabled: true,
             },

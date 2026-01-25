@@ -18,6 +18,28 @@
       0 0 0 1px rgba(99, 102, 241, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(99, 102, 241, 0.3);
+    }
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 
 .header {
@@ -91,6 +113,7 @@
 }
 
 .companies {
+  margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
