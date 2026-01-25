@@ -38,7 +38,8 @@ export function CodeEditor({ code, onChange, onRunCode, isRunning }: CodeEditorP
       colors: {
         'editor.background': '#00000000', // Transparent to show glass effect
         'editor.foreground': '#E5E7EB',
-        'editor.lineHighlightBackground': '#6366F115',
+        'editor.lineHighlightBackground': '#ffffff08', // Keep subtle highlight
+        'editor.lineHighlightBorder': '#00000000', // No border
         'editor.selectionBackground': '#6366F130',
         'editor.inactiveSelectionBackground': '#6366F120',
         'editorLineNumber.foreground': '#6B7280',
@@ -50,7 +51,7 @@ export function CodeEditor({ code, onChange, onRunCode, isRunning }: CodeEditorP
         'editor.selectionHighlightBackground': '#6366F120',
         'editor.wordHighlightBackground': '#6366F115',
         'editorBracketMatch.background': '#6366F120',
-        'editorBracketMatch.border': '#6366F1',
+        'editorBracketMatch.border': '#00000000',
       },
     });
     monaco.editor.setTheme('custom-dark');
@@ -125,7 +126,9 @@ export function CodeEditor({ code, onChange, onRunCode, isRunning }: CodeEditorP
             cursorBlinking: 'smooth',
             cursorSmoothCaretAnimation: 'on',
             smoothScrolling: true,
-            renderLineHighlight: 'all',
+            renderLineHighlight: 'gutter',
+            hideCursorInOverviewRuler: true,
+            overviewRulerBorder: false,
             bracketPairColorization: {
               enabled: true,
             },
