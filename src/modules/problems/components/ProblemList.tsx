@@ -121,6 +121,7 @@ export const ProblemList = ({
               slug: problem.slug,
               number: startIndex + index + 1,
               title: problem.title,
+              difficulty: problem.difficulty as 'JUNIOR' | 'MIDDLE' | 'SENIOR',
               companies: problem.companies?.map(c => c.name) || [],
             }}
             locale={locale}

@@ -23,13 +23,13 @@
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 6rem 1rem 4rem;
+  padding: 2rem 1rem 4rem;
   
   @include sm {
-    padding: 7rem 1.5rem 5rem;
+    padding: 2rem 1.5rem 5rem;
   }
   
   @include md {
-    padding: 8rem 2rem 6rem;
+    padding: 2rem 2rem 6rem;
   }
 }

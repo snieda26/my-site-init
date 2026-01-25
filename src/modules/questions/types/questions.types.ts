@@ -1,4 +1,4 @@
-export type Difficulty = 'EASY' | 'MEDIUM' | 'HARD'
+export type Difficulty = 'JUNIOR' | 'MIDDLE' | 'SENIOR'
 export type Locale = 'en' | 'ua'
 
 export interface Category {

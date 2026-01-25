@@ -8,7 +8,7 @@ interface Problem {
   titleUa?: string;
   description: string;
   descriptionUa?: string;
-  difficulty: 'EASY' | 'MEDIUM' | 'HARD';
+  difficulty: 'JUNIOR' | 'MIDDLE' | 'SENIOR';
   companies?: Array<{ name: string }>;
   testCases?: string;
 }
@@ -22,9 +22,9 @@ export function ProblemDescription({ problem, isSolved = false }: ProblemDescrip
   const params = useParams();
   const locale = params?.locale as string || 'en';
   const difficultyColors = {
-    EASY: styles.easy,
-    MEDIUM: styles.medium,
-    HARD: styles.hard,
+    JUNIOR: styles.junior,
+    MIDDLE: styles.middle,
+    SENIOR: styles.senior,
   };
 
   // Parse test cases for examples

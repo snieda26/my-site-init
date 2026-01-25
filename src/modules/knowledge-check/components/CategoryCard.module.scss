@@ -172,6 +172,48 @@
   text-align: center;
 }
 
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  color: #a3a3a3;
+  font-size: 0.75rem;
+  
+  @include md {
+    font-size: 0.8125rem;
+  }
+}
+
+.progressLabel {
+  color: #a3a3a3;
+}
+
+.progressValue {
+  color: white;
+  font-weight: 600;
+}
+
+.learnedInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #22c55e;
+  font-size: 0.75rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid rgba(38, 38, 38, 0.6);
+  
+  @include md {
+    font-size: 0.8125rem;
+  }
+}
+
+.checkIcon {
+  height: 1rem;
+  width: 1rem;
+  flex-shrink: 0;
+}
+
 .questionCount {
   display: flex;
   justify-content: space-between;

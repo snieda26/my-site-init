@@ -13,17 +13,17 @@ export const KnowledgeCheckPage = () => {
       <AnimatedBackground />
       <div className={styles.content}>
         <div className={styles.container}>
-          <KnowledgeCheckHero />
+          {/* <KnowledgeCheckHero /> */}
+          
+          {/* <Reveal delay={100}>
+            <LoginPromptCard />
+          </Reveal> */}
           
           <Reveal delay={100}>
-            <LoginPromptCard />
-          </Reveal>
-          
-          <Reveal delay={200}>
             <HowItWorks />
           </Reveal>
           
-          <Reveal delay={300}>
+          <Reveal delay={200}>
             <CategoryGrid />
           </Reveal>
         </div>

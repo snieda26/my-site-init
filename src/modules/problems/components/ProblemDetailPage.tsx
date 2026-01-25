@@ -18,7 +18,7 @@ interface Problem {
   titleUa?: string;
   description: string;
   descriptionUa?: string;
-  difficulty: 'EASY' | 'MEDIUM' | 'HARD';
+  difficulty: 'JUNIOR' | 'MIDDLE' | 'SENIOR';
   starterCode?: string;
   solution?: string;
   testCases?: string;

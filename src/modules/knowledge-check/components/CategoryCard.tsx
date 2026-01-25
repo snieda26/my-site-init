@@ -14,9 +14,14 @@ interface CategoryCardProps {
     icons: React.ReactNode[];
   };
   locale: string;
+  progress?: {
+    learned: number;
+    percentage: number;
+  };
+  isAuthenticated?: boolean;
 }
 
-export const CategoryCard = ({ category, locale }: CategoryCardProps) => {
+export const CategoryCard = ({ category, locale, progress, isAuthenticated }: CategoryCardProps) => {
   const t = useTranslations('knowledgeCheck');
 
   return (
@@ -60,25 +65,52 @@ export const CategoryCard = ({ category, locale }: CategoryCardProps) => {
         <p className={styles.description}>{category.description}</p>
         
         <div className={styles.footer}>
-          <div className={styles.loginPrompt}>
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-              className={styles.loginIcon}
-            >
-              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-              <polyline points="10 17 15 12 10 7"></polyline>
-              <line x1="15" x2="3" y1="12" y2="12"></line>
-            </svg>
-            <span className={styles.loginText}>{t('loginPrompt.trackProgress')}</span>
-          </div>
+          {isAuthenticated && progress ? (
+            <>
+              <div className={styles.progressInfo}>
+                <span className={styles.progressLabel}>Progress</span>
+                <span className={styles.progressValue}>{progress.percentage}%</span>
+              </div>
+              <div className={styles.learnedInfo}>
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="16" 
+                  height="16" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  className={styles.checkIcon}
+                >
+                  <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+                  <path d="m9 11 3 3L22 4"></path>
+                </svg>
+                <span>{progress.learned} Learned</span>
+              </div>
+            </>
+          ) : (
+            <div className={styles.loginPrompt}>
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                className={styles.loginIcon}
+              >
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                <polyline points="10 17 15 12 10 7"></polyline>
+                <line x1="15" x2="3" y1="12" y2="12"></line>
+              </svg>
+              <span className={styles.loginText}>{t('loginPrompt.trackProgress')}</span>
+            </div>
+          )}
           <div className={styles.questionCount}>
             <svg 
               xmlns="http://www.w3.org/2000/svg" 

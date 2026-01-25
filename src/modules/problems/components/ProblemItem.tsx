@@ -10,6 +10,7 @@ interface ProblemItemProps {
     slug?: string;
     number: number;
     title: string;
+    difficulty: 'JUNIOR' | 'MIDDLE' | 'SENIOR';
     companies: string[];
   };
   locale: string;
@@ -56,7 +57,10 @@ export const ProblemItem = ({ problem, locale, isSolved = false }: ProblemItemPr
             )}
           </div>
         </div>
-        <div className={styles.companies}>
+        <div className={styles.tags}>
+          <span className={`${styles.levelBadge} ${styles[problem.difficulty.toLowerCase()]}`}>
+            {problem.difficulty}
+          </span>
           {problem.companies.map((company) => (
             <span key={company} className={styles.badge}>
               {company}

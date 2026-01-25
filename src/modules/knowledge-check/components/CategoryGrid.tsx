@@ -3,12 +3,26 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useLocale } from '@/common/hooks';
+import { isAuthenticated } from '@/infrastructure/auth/session';
 import { CategoryCard } from './CategoryCard';
 import styles from './CategoryGrid.module.scss';
 
 export const CategoryGrid = () => {
   const t = useTranslations('knowledgeCheck.categories');
   const locale = useLocale();
+  const userIsAuthenticated = isAuthenticated();
+
+  // Mock progress data - in production, this should come from an API
+  const mockProgress: Record<string, { learned: number; percentage: number }> = {
+    'html-and-css': { learned: 0, percentage: 0 },
+    'javascript': { learned: 0, percentage: 0 },
+    'react': { learned: 0, percentage: 0 },
+    'typescript': { learned: 0, percentage: 0 },
+    'vue': { learned: 0, percentage: 0 },
+    'angular': { learned: 0, percentage: 0 },
+    'redux': { learned: 0, percentage: 0 },
+    'general-questions': { learned: 0, percentage: 0 },
+  };
 
   const categories = [
     {
@@ -119,6 +133,8 @@ export const CategoryGrid = () => {
           key={category.id}
           category={category}
           locale={locale}
+          isAuthenticated={userIsAuthenticated}
+          progress={userIsAuthenticated ? mockProgress[category.id] : undefined}
         />
       ))}
     </div>
