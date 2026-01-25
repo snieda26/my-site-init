@@ -14,7 +14,7 @@ export const LoginPromptCard = () => {
       <div className={styles.content}>
         <h2 className={styles.title}>{t('loginPrompt.title')}</h2>
         <Link 
-          href={`/auth/login/${locale}`}
+          href={`/${locale}/auth/login`}
           className={styles.button}
         >
           <svg 

@@ -2,10 +2,10 @@
 @use '../../../styles/mixins' as *;
 
 .container {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   
   @include md {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 }
 
@@ -13,19 +13,36 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(38, 38, 38, 0.6);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 1rem;
   padding: 1rem;
-  transition: all 300ms;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
   
   @include md {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.5rem;
+    padding: 0.875rem 1.25rem;
     border-radius: 9999px;
+  }
+  
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+  @include md {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
   }
 }
 
@@ -33,11 +50,12 @@
   display: flex;
   align-items: center;
   color: #a3a3a3;
-  transition: all 150ms;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   width: fit-content;
   font-size: 0.875rem;
   font-weight: 500;
+  padding: 0.25rem 0;
   
   &:hover {
     color: white;
@@ -52,7 +70,7 @@
   height: 1rem;
   width: 1rem;
   margin-right: 0.5rem;
-  transition: transform 150ms;
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .backTextDesktop {
@@ -71,6 +89,66 @@
   }
 }
 
+// Filter Tabs
+.filterTabs {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 9999px;
+  padding: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.filterTab {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.4375rem 0.75rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: #71717a;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  
+  &:hover:not(.filterTabActive) {
+    color: #a3a3a3;
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.filterTabActive {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+  
+  .filterCount {
+    background: linear-gradient(135deg, $indigo-500, $purple-500);
+    color: white;
+  }
+}
+
+.filterLabel {
+  letter-spacing: -0.01em;
+}
+
+.filterCount {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.125rem 0.4rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #a3a3a3;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 1.25rem;
+  text-align: center;
+}
+
+// Pagination
 .pagination {
   display: flex;
   align-items: center;
@@ -90,10 +168,10 @@
   justify-content: center;
   height: 2.25rem;
   width: 2.25rem;
-  border: 1px solid rgba(38, 38, 38, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.03);
   border-radius: 9999px;
-  transition: all 150ms;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   color: #a3a3a3;
   
@@ -101,6 +179,12 @@
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(99, 102, 241, 0.4);
     color: white;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+  }
+  
+  &:active:not(:disabled) {
+    transform: scale(0.95);
   }
   
   &:disabled {
@@ -118,33 +202,37 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.375rem 0.75rem;
-  background: rgba(38, 38, 38, 0.5);
+  padding: 0.375rem 0.875rem;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 9999px;
   font-size: 0.8125rem;
   font-weight: 500;
   min-width: 90px;
   justify-content: center;
-  color: #a3a3a3;
+  color: #71717a;
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .currentPage {
-  background: linear-gradient(to right, $indigo-500, $purple-500);
+  background: linear-gradient(135deg, $indigo-500, $purple-500);
   color: white;
   border-radius: 9999px;
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 1.625rem;
+  width: 1.625rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
   font-weight: 700;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
 }
 
 .ofText {
   margin: 0 0.125rem;
+  color: #52525b;
 }
 
 .totalPages {
-  color: white;
+  color: #a3a3a3;
+  font-weight: 600;
 }

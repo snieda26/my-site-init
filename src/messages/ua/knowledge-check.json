@@ -69,11 +69,25 @@
         "backToCategories": "Назад до категорій",
         "of": "з"
       },
+      "filters": {
+        "all": "Усі",
+        "learned": "Вивчені",
+        "notLearned": "Не вивчені"
+      },
       "question": {
         "trackButton": "Увійти для відстеження",
         "trackButtonShort": "Увійти",
         "viewAnswer": "Переглянути відповідь та пояснення",
-        "answerPlaceholder": "Тут буде відображено відповідь..."
+        "answerPlaceholder": "Тут буде відображено відповідь...",
+        "learned": "Вивчено",
+        "notLearned": "Не вивчено",
+        "markAsLearned": "Позначити як вивчене",
+        "markAsNotLearned": "Позначити як не вивчене",
+        "answer": "Відповідь:",
+        "readMoreOnPlatform": "Дізнатися більше на платформі:",
+        "usefulResources": "Корисні ресурси:",
+        "noQuestions": "Питання не знайдено",
+        "noQuestionsDescription": "Спробуйте змінити фільтр або перевірте пізніше"
       },
       "categories": {
         "html-and-css": {

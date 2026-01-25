@@ -2,51 +2,111 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useLocale } from '@/common/hooks';
+import { AnswerContent } from './AnswerContent';
+import type { QuestionWithProgress } from '../types/knowledge-check.types';
+import { getLocalizedQuestionTitle, getLocalizedQuestionContent } from '../types/knowledge-check.types';
 import styles from './QuestionCard.module.scss';
 
 interface QuestionCardProps {
-  question: {
-    id: number;
-    title: string;
-  };
+  question: QuestionWithProgress;
+  index: number;
   isExpanded: boolean;
   onToggle: () => void;
+  isAuthenticated: boolean;
+  onToggleLearned: (questionId: string, isLearned: boolean) => void;
+  isTogglingLearned: boolean;
+  locale: 'en' | 'ua';
 }
 
-export const QuestionCard = ({ question, isExpanded, onToggle }: QuestionCardProps) => {
-  const t = useTranslations('knowledgeCheck.categoryPage');
-  const locale = useLocale();
+export const QuestionCard = ({ 
+  question, 
+  index,
+  isExpanded, 
+  onToggle,
+  isAuthenticated,
+  onToggleLearned,
+  isTogglingLearned,
+  locale,
+}: QuestionCardProps) => {
+  const t = useTranslations('knowledgeCheck.categoryPage.question');
+  
+  const title = getLocalizedQuestionTitle(question, locale);
+  const content = getLocalizedQuestionContent(question, locale);
+  
+  const handleToggleLearned = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!isTogglingLearned) {
+      onToggleLearned(question.id, !question.isLearned);
+    }
+  };
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${isExpanded ? styles.cardExpanded : ''}`}>
       <div className={styles.header}>
         <div className={styles.questionInfo}>
-          <span className={styles.badge}>#{question.id}</span>
-          <div className={styles.title}>{question.title}</div>
+          <span className={styles.badge}>#{index}</span>
+          <div className={styles.title}>{title}</div>
         </div>
-        <Link 
-          href={`/auth/login/${locale}`}
-          className={styles.trackButton}
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            className={styles.lockIcon}
+        
+        {isAuthenticated ? (
+          <button
+            type="button"
+            className={`${styles.statusButton} ${question.isLearned ? styles.statusButtonLearned : styles.statusButtonNotLearned}`}
+            onClick={handleToggleLearned}
+            disabled={isTogglingLearned}
+            title={question.isLearned ? t('markAsNotLearned') : t('markAsLearned')}
           >
-            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span className={styles.trackTextDesktop}>{t('question.trackButton')}</span>
-          <span className={styles.trackTextMobile}>{t('question.trackButtonShort')}</span>
-        </Link>
+            <span className={styles.statusIndicator}>
+              {question.isLearned ? (
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="14" 
+                  height="14" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  className={styles.checkIcon}
+                >
+                  <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+              ) : (
+                <span className={styles.emptyCircle} />
+              )}
+            </span>
+            <span className={styles.statusTextDesktop}>
+              {question.isLearned ? t('learned') : t('notLearned')}
+            </span>
+            <span className={styles.statusTextMobile}>
+              {question.isLearned ? t('learned') : t('notLearned')}
+            </span>
+          </button>
+        ) : (
+          <Link 
+            href={`/${locale}/auth/login`}
+            className={styles.trackButton}
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+              className={styles.lockIcon}
+            >
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span className={styles.trackTextDesktop}>{t('trackButton')}</span>
+            <span className={styles.trackTextMobile}>{t('trackButtonShort')}</span>
+          </Link>
+        )}
       </div>
       
       <div className={styles.content}>
@@ -72,7 +132,7 @@ export const QuestionCard = ({ question, isExpanded, onToggle }: QuestionCardPro
               <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
               <circle cx="12" cy="12" r="3"></circle>
             </svg>
-            {t('question.viewAnswer')}
+            {t('viewAnswer')}
           </div>
           <svg 
             stroke="currentColor" 
@@ -87,12 +147,11 @@ export const QuestionCard = ({ question, isExpanded, onToggle }: QuestionCardPro
           </svg>
         </button>
         
-        {isExpanded && (
+        <div className={`${styles.answerWrapper} ${isExpanded ? styles.answerWrapperExpanded : ''}`}>
           <div className={styles.answerContent}>
-            <p>{t('question.answerPlaceholder')}</p>
-            {/* In real app, this would show the actual answer content */}
+            <AnswerContent content={content} locale={locale} questionSlug={question.slug} />
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

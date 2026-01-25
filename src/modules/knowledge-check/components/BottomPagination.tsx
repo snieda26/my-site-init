@@ -1,23 +1,30 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import styles from './BottomPagination.module.scss';
 
-export const BottomPagination = () => {
+interface BottomPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+}
+
+export const BottomPagination = ({ 
+  currentPage, 
+  totalPages, 
+  onPageChange 
+}: BottomPaginationProps) => {
   const t = useTranslations('knowledgeCheck.categoryPage');
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 7; // This would come from your data source
 
   const handlePrev = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      onPageChange(currentPage - 1);
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      onPageChange(currentPage + 1);
     }
   };
 

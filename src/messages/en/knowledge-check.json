@@ -69,11 +69,25 @@
         "backToCategories": "Back to categories",
         "of": "of"
       },
+      "filters": {
+        "all": "All",
+        "learned": "Learned",
+        "notLearned": "Not learned"
+      },
       "question": {
         "trackButton": "Log in to track",
         "trackButtonShort": "Log in",
         "viewAnswer": "View answer and explanation",
-        "answerPlaceholder": "Answer content will be displayed here..."
+        "answerPlaceholder": "Answer content will be displayed here...",
+        "learned": "Learned",
+        "notLearned": "Not learned",
+        "markAsLearned": "Mark as learned",
+        "markAsNotLearned": "Mark as not learned",
+        "answer": "Answer:",
+        "readMoreOnPlatform": "Read more on platform:",
+        "usefulResources": "Useful resources:",
+        "noQuestions": "No questions found",
+        "noQuestionsDescription": "Try changing the filter or check back later"
       },
       "categories": {
         "html-and-css": {
