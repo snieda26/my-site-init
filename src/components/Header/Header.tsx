@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { LuMenu, LuX } from 'react-icons/lu';
 import { FiBarChart2, FiLogOut, FiSettings } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
 import { useLocale, useLocalePath } from '@/common/hooks';
 import { useAuth, useLogout } from '@/modules/auth/hooks/use-auth';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher';
+import { Dropdown } from '@/components/Dropdown';
 import styles from './Header.module.scss';
 
 export const Header: React.FC = () => {
@@ -18,8 +20,6 @@ export const Header: React.FC = () => {
   const localePath = useLocalePath();
   const { user, isAuthenticated, isLoading } = useAuth();
   const logout = useLogout();
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const userMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -31,16 +31,6 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
-        setUserMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
@@ -48,10 +38,14 @@ export const Header: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.left}>
           <Link href={`/${locale}`} className={styles.logo}>
-            <div className={styles.logoIcon}>
-              <span>D</span>
-            </div>
-            <span className={styles.logoText}>ITLead</span>
+            <Image
+              src="/logo.png"
+              alt="ITLead"
+              width={140}
+              height={40}
+              className={styles.logoImage}
+              priority
+            />
           </Link>
           
           <div className={styles.desktopMenu}>
@@ -75,58 +69,55 @@ export const Header: React.FC = () => {
           {isLoading ? (
             <div className={styles.avatarSkeleton} />
           ) : isAuthenticated ? (
-            <div className={styles.userMenu} ref={userMenuRef}>
-              <button
-                className={styles.avatarBtn}
-                onClick={() => setUserMenuOpen(!userMenuOpen)}
-                aria-label="User menu"
-              >
+            <Dropdown
+              trigger={
+                <button
+                  className={styles.avatarBtn}
+                  aria-label="User menu"
+                >
+                  <img
+                    src={user?.avatarUrl || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&s=128'}
+                    alt={user?.name || 'User'}
+                    className={styles.avatar}
+                  />
+                </button>
+              }
+            >
+              <div className={styles.dropdownHeader}>
                 <img
                   src={user?.avatarUrl || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&s=128'}
                   alt={user?.name || 'User'}
-                  className={styles.avatar}
+                  className={styles.headerAvatar}
                 />
-              </button>
-              
-              {userMenuOpen && (
-                <div className={styles.dropdown}>
-                  <div className={styles.dropdownHeader}>
-                    <div className={styles.userInfo}>
-                      <span className={styles.userName}>{user?.name}</span>
-                      <span className={styles.userEmail}>{user?.email}</span>
-                    </div>
-                  </div>
-                  <div className={styles.dropdownDivider} />
-                  <Link
-                    href={localePath('/dashboard')}
-                    className={styles.dropdownItem}
-                    onClick={() => setUserMenuOpen(false)}
-                  >
-                    <FiBarChart2 size={18} />
-                    <span>{locale === 'ua' ? 'Панель керування' : 'Dashboard'}</span>
-                  </Link>
-                  <Link
-                    href={localePath('/settings')}
-                    className={styles.dropdownItem}
-                    onClick={() => setUserMenuOpen(false)}
-                  >
-                    <FiSettings size={18} />
-                    <span>{locale === 'ua' ? 'Налаштування' : 'Settings'}</span>
-                  </Link>
-                  <div className={styles.dropdownDivider} />
-                  <button
-                    className={styles.dropdownItem}
-                    onClick={() => {
-                      logout.mutate();
-                      setUserMenuOpen(false);
-                    }}
-                  >
-                    <FiLogOut size={18} />
-                    <span>{locale === 'ua' ? 'Вийти' : 'Logout'}</span>
-                  </button>
+                <div className={styles.userInfo}>
+                  <span className={styles.userName}>{user?.name}</span>
+                  <span className={styles.userUsername}>@{user?.username || 'user'}</span>
                 </div>
-              )}
-            </div>
+              </div>
+              <div className={styles.dropdownDivider} />
+              <Link
+                href={localePath('/dashboard')}
+                className={styles.dropdownItem}
+              >
+                <FiBarChart2 size={18} />
+                <span>{locale === 'ua' ? 'Панель керування' : 'Dashboard'}</span>
+              </Link>
+              <Link
+                href={localePath('/settings')}
+                className={styles.dropdownItem}
+              >
+                <FiSettings size={18} />
+                <span>{locale === 'ua' ? 'Налаштування' : 'Settings'}</span>
+              </Link>
+              <div className={styles.dropdownDivider} />
+              <button
+                className={styles.dropdownItem}
+                onClick={() => logout.mutate()}
+              >
+                <FiLogOut size={18} />
+                <span>{locale === 'ua' ? 'Вийти' : 'Logout'}</span>
+              </button>
+            </Dropdown>
           ) : (
             <>
               <Link href={localePath('/auth/login')} className={styles.loginLink}>
@@ -183,7 +174,7 @@ export const Header: React.FC = () => {
                     </div>
                     <div className={styles.mobileUserDetails}>
                       <span className={styles.mobileUserName}>{user.name}</span>
-                      <span className={styles.mobileUserEmail}>{user.email}</span>
+                      <span className={styles.mobileUserEmail}>@{user.username || 'user'}</span>
                     </div>
                   </div>
                 )}

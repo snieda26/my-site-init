@@ -34,6 +34,11 @@ export const metadata: Metadata = {
 	keywords:
 		'frontend interview preparation, frontend interview questions, javascript interview, react interview questions, typescript interview',
 	authors: [{ name: 'ITLead' }],
+	icons: {
+		icon: '/logo.png',
+		shortcut: '/logo.png',
+		apple: '/logo.png',
+	},
 	openGraph: {
 		title: 'ITLead — Platform for Frontend Interview Preparation',
 		description:

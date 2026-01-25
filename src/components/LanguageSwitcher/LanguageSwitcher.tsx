@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { locales, localeNames, localeFlags, type Locale } from '@/i18n/config';
 import { useLocale } from '@/common/hooks';
+import { Dropdown } from '@/components/Dropdown';
 import styles from './LanguageSwitcher.module.scss';
 
 export const LanguageSwitcher = () => {
@@ -36,64 +37,64 @@ export const LanguageSwitcher = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <button
-        className={styles.trigger}
-        aria-label="Change language"
-        title="Change language"
-      >
-        <span className={styles.flag}>{localeFlags[currentLocale]}</span>
-        <svg
-          className={styles.icon}
-          width="12"
-          height="12"
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+    <Dropdown
+      trigger={
+        <button
+          className={styles.trigger}
+          aria-label="Change language"
+          title="Change language"
         >
-          <path
-            d="M4 6L7.5 9.5L11 6"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
-
-      <div className={styles.dropdown}>
-        {locales.map((locale) => (
-          <button
-            key={locale}
-            onClick={() => switchLocale(locale)}
-            className={`${styles.option} ${
-              locale === currentLocale ? styles.active : ''
-            }`}
-            aria-label={`Switch to ${localeNames[locale]}`}
+          <span className={styles.flag}>{localeFlags[currentLocale]}</span>
+          <svg
+            className={styles.icon}
+            width="12"
+            height="12"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <span className={styles.optionFlag}>{localeFlags[locale]}</span>
-            <span className={styles.optionName}>{localeNames[locale]}</span>
-            {locale === currentLocale && (
-              <svg
-                className={styles.checkIcon}
-                width="16"
-                height="16"
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.5 3.5L6 9.5L3.5 7"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            )}
-          </button>
-        ))}
-      </div>
-    </div>
+            <path
+              d="M4 6L7.5 9.5L11 6"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      }
+    >
+      {locales.map((locale) => (
+        <button
+          key={locale}
+          onClick={() => switchLocale(locale)}
+          className={`${styles.option} ${
+            locale === currentLocale ? styles.active : ''
+          }`}
+          aria-label={`Switch to ${localeNames[locale]}`}
+        >
+          <span className={styles.optionFlag}>{localeFlags[locale]}</span>
+          <span className={styles.optionName}>{localeNames[locale]}</span>
+          {locale === currentLocale && (
+            <svg
+              className={styles.checkIcon}
+              width="16"
+              height="16"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.5 3.5L6 9.5L3.5 7"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
+        </button>
+      ))}
+    </Dropdown>
   );
 };
