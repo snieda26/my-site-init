@@ -15,9 +15,10 @@ interface Problem {
 
 interface ProblemDescriptionProps {
   problem: Problem;
+  isSolved?: boolean;
 }
 
-export function ProblemDescription({ problem }: ProblemDescriptionProps) {
+export function ProblemDescription({ problem, isSolved = false }: ProblemDescriptionProps) {
   const params = useParams();
   const locale = params?.locale as string || 'en';
   const difficultyColors = {
@@ -51,6 +52,14 @@ export function ProblemDescription({ problem }: ProblemDescriptionProps) {
           <span className={`${styles.difficulty} ${difficultyColors[problem.difficulty]}`}>
             {problem.difficulty}
           </span>
+          {isSolved && (
+            <span className={styles.solvedBadge}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Solved
+            </span>
+          )}
         </div>
       </div>
 

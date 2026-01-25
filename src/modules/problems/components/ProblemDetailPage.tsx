@@ -291,7 +291,7 @@ export function ProblemDetailPage({ slug }: ProblemDetailPageProps) {
             className={styles.leftPanel} 
             style={{ width: `${leftPanelWidth}%` }}
           >
-            <ProblemDescription problem={problem} />
+            <ProblemDescription problem={problem} isSolved={isSolved} />
           </div>
 
           <div 
