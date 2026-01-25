@@ -281,11 +281,33 @@
   border-radius: 0.5rem;
   border-left: 2px solid rgba(99, 102, 241, 0.4);
   transition: all 0.15s ease;
+  overflow-x: auto;
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);
     border-left-color: rgba(99, 102, 241, 0.6);
   }
+
+  // Custom scrollbar for long lines
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+
+    &:hover {
+      background: rgba(99, 102, 241, 0.3);
+    }
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 
 .consolePrompt {
@@ -300,5 +322,8 @@
   font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
   font-size: 0.8125rem;
   color: rgba(255, 255, 255, 0.9);
-  word-break: break-word;
+  white-space: pre;
+  flex: 1;
+  min-width: 0;
+  display: block;
 }

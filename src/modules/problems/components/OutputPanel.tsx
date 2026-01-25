@@ -26,16 +26,45 @@ export function OutputPanel({ output, testResults, consoleOutput }: OutputPanelP
     return JSON.stringify(value);
   };
 
-  // Parse console output - convert escaped newlines and format nicely
+  // Parse console output - each console.log execution should be separate
+  // Backend wraps each value with JSON.stringify, so we need to parse JSON values
   const formatConsoleOutput = (output: string): string[] => {
     if (!output) return [];
-    // Replace literal \n with actual newlines, then split
-    const formatted = output
-      .replace(/\\n/g, '\n')
-      .replace(/^"|"$/g, '') // Remove surrounding quotes if present
-      .split('\n')
-      .filter(line => line.trim() !== '');
-    return formatted;
+    
+    const results: string[] = [];
+    
+    // Match JSON string values: "..." handling escaped quotes and other escapes
+    // This regex matches: opening quote, then any non-quote/non-backslash OR any escaped char, then closing quote
+    const jsonStringRegex = /"(?:[^"\\]|\\.)*"/g;
+    
+    let match;
+    while ((match = jsonStringRegex.exec(output)) !== null) {
+      try {
+        // Parse the JSON string to get actual content (converts \n to real newlines)
+        const parsed = JSON.parse(match[0]);
+        if (parsed !== '' && String(parsed).trim() !== '') {
+          results.push(String(parsed));
+        }
+      } catch {
+        // If parsing fails, use raw match without outer quotes
+        const raw = match[0].slice(1, -1);
+        if (raw.trim() !== '') {
+          results.push(raw.replace(/\\n/g, '\n').replace(/\\t/g, '\t'));
+        }
+      }
+    }
+    
+    // Also handle non-string JSON values (numbers, booleans, arrays, objects)
+    // that might appear between string matches
+    const nonStringRegex = /(?<=\\n|^)(\d+\.?\d*|true|false|null|\[[\s\S]*?\]|\{[\s\S]*?\})(?=\\n|$)/g;
+    let nonStringMatch;
+    while ((nonStringMatch = nonStringRegex.exec(output)) !== null) {
+      if (nonStringMatch[1].trim() !== '') {
+        results.push(nonStringMatch[1]);
+      }
+    }
+    
+    return results;
   };
 
   const consoleLines = formatConsoleOutput(consoleOutput || '');
@@ -136,7 +165,7 @@ export function OutputPanel({ output, testResults, consoleOutput }: OutputPanelP
                 {consoleLines.map((line, index) => (
                   <div key={index} className={styles.consoleLine}>
                     <span className={styles.consolePrompt}>&gt;</span>
-                    <span className={styles.consoleValue}>{line}</span>
+                    <code className={styles.consoleValue}>{line}</code>
                   </div>
                 ))}
               </div>
