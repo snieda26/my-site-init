@@ -35,8 +35,11 @@ export const TableOfContents = () => {
       if (!heading.id) {
         heading.id = id;
       }
-      // Remove hashtag from text content for display in sidebar
-      const text = (heading.textContent || '').replace(/^#\s*/, '').trim();
+      // Remove all hashtags and anchor symbols from text content for display in sidebar
+      const text = (heading.textContent || '')
+        .replace(/^#+\s*/, '') // Remove leading hashtags with optional space
+        .replace(/#/g, '') // Remove any remaining hashtags
+        .trim();
       tocItems.push({
         id,
         text,

@@ -26,7 +26,7 @@ export function LoginForm({ onSubmit, redirectTo }: LoginFormProps) {
 		reValidateMode: 'onChange',
 		defaultValues: {
 			email: 'petrosnieda.work@gmail.com',
-			password: 'password123',
+			password: 'petrosnieda.work@gmail.com',
 		},
 	})
 

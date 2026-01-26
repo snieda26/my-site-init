@@ -249,9 +249,6 @@ export const MarkdownContent = ({ content }: MarkdownContentProps) => {
           ul: ({ node, ...props }) => <ul className={styles.ul} {...props} />,
           ol: ({ node, ...props }) => <ol className={styles.ol} {...props} />,
           li: ({ node, ...props }) => <li className={styles.li} {...props} />,
-          blockquote: ({ node, ...props }) => (
-            <blockquote className={styles.blockquote} {...props} />
-          ),
         }}
       >
         {content}
