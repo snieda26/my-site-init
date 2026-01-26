@@ -120,27 +120,18 @@
 
 .anchor {
   text-decoration: none;
-  color: $indigo-400;
+  color: white;
   transition: all 200ms ease;
   
   &:hover {
-    color: white;
+    color: $purple-400;
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 }
 
 .anchorIcon {
-  display: inline-block;
-  font-size: 0.75em;
-  margin-left: 0.5rem;
-  opacity: 0;
-  transition: opacity 200ms ease;
-  
-  .h2:hover &,
-  .h3:hover & {
-    opacity: 0.5;
-  }
+  display: none;
 }
 
 .p {
