@@ -2,8 +2,10 @@
 
 import { useState, useCallback } from 'react';
 import { useLocale } from '@/common/hooks';
+import { AuthModal } from '@/common/components/ui';
 import { Reveal, AnimatedBackground } from '@/components/Landing';
 import { CategoryHeader } from './CategoryHeader';
+import { StudyProgress } from './StudyProgress';
 import { CategoryNavigation } from './CategoryNavigation';
 import { QuestionList } from './QuestionList';
 import { BottomPagination } from './BottomPagination';
@@ -22,6 +24,7 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentFilter, setCurrentFilter] = useState<LearnedStatus>('all');
   const [expandedQuestion, setExpandedQuestion] = useState<string | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   
   const {
     questions,
@@ -37,7 +40,9 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
     status: currentFilter,
   });
   
-  const { mutate: toggleLearned, isPending: isTogglingLearned } = useToggleLearned();
+  const { mutate: toggleLearned, isPending: isTogglingLearned } = useToggleLearned({
+    onAuthError: () => setShowAuthModal(true),
+  });
   
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
@@ -60,12 +65,23 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
     toggleLearned({ questionId, isLearned });
   }, [toggleLearned]);
 
+  const handleAuthRequired = useCallback(() => {
+    setShowAuthModal(true);
+  }, []);
+
   return (
     <div className={styles.page}>
       <AnimatedBackground />
       <div className={styles.content}>
         <div className={styles.container}>
           <CategoryHeader category={category} />
+          
+          <Reveal delay={50}>
+            <StudyProgress 
+              learned={counts.learned} 
+              total={counts.all} 
+            />
+          </Reveal>
           
           <Reveal delay={100}>
             <CategoryNavigation 
@@ -90,6 +106,7 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
             onToggleQuestion={handleToggleQuestion}
             onToggleLearned={handleToggleLearned}
             isTogglingLearned={isTogglingLearned}
+            onAuthRequired={handleAuthRequired}
           />
           
           {totalPages > 1 && questions.length > 0 && (
@@ -103,6 +120,11 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
           )}
         </div>
       </div>
+
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+      />
     </div>
   );
 };

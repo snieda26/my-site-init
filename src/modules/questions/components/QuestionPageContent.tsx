@@ -51,7 +51,7 @@ export const QuestionPageContent = ({
 
   return (
     <div className={styles.container}>
-      <QuestionActionButtons section={section} />
+      <QuestionActionButtons section={section} questionSlug={question} />
       
       <div className={styles.breadcrumbWrapper}>
         <Breadcrumb items={breadcrumbItems} />

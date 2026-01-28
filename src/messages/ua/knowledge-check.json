@@ -59,6 +59,10 @@
     "questions": "питань",
     "categoryPage": {
       "title": "Питання за розділом {category}",
+      "studyProgress": {
+        "title": "Прогрес навчання",
+        "questionsLearned": "{count} з {total} питань вивчено"
+      },
       "loginPrompt": {
         "title": "Увійдіть для відстеження прогресу",
         "description": "Зберігайте статистику навчання та синхронізуйте прогрес на всіх пристроях",

@@ -16,6 +16,7 @@ interface QuestionListProps {
   onToggleQuestion: (id: string) => void;
   onToggleLearned: (questionId: string, isLearned: boolean) => void;
   isTogglingLearned: boolean;
+  onAuthRequired: () => void;
 }
 
 export const QuestionList = ({ 
@@ -27,6 +28,7 @@ export const QuestionList = ({
   onToggleQuestion,
   onToggleLearned,
   isTogglingLearned,
+  onAuthRequired,
 }: QuestionListProps) => {
   const t = useTranslations('knowledgeCheck.categoryPage.question');
   const locale = useLocale();
@@ -74,6 +76,7 @@ export const QuestionList = ({
               onToggleLearned={onToggleLearned}
               isTogglingLearned={isTogglingLearned}
               locale={locale as 'en' | 'ua'}
+              onAuthRequired={onAuthRequired}
             />
           ))}
         </div>

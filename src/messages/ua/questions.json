@@ -119,7 +119,9 @@
       },
       "actions": {
         "practiceProblems": "Практика {section} завдань",
-        "signInToMark": "Увійти, щоб позначити як прочитане"
+        "signInToMark": "Увійти, щоб позначити як прочитане",
+        "markAsRead": "Позначити як прочитане",
+        "markedAsRead": "Прочитано"
       },
       "navigation": {
         "back": "Назад",

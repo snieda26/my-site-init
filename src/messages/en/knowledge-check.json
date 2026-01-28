@@ -59,6 +59,10 @@
     "questions": "questions",
     "categoryPage": {
       "title": "Questions by section {category}",
+      "studyProgress": {
+        "title": "Study progress",
+        "questionsLearned": "{count} of {total} questions learned"
+      },
       "loginPrompt": {
         "title": "Log in to track progress",
         "description": "Save study statistics and sync progress across devices",

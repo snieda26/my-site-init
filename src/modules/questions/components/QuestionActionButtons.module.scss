@@ -1,15 +1,76 @@
 @use '../../../styles/variables' as *;
 @use '../../../styles/mixins' as *;
 
+// Animations
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes borderBeam {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .container {
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
-  margin: 0.75rem 0;
+  margin: 1.5rem 0;
   
   @include md {
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 }
 
@@ -19,75 +80,421 @@
   gap: 0.75rem;
   width: 100%;
   
-  @include md {
+  @include sm {
     flex-direction: row;
     width: auto;
   }
 }
 
+// Practice Button - Primary action with glow effect
 .practiceButton {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  height: 2.5rem;
-  padding: 0 1.25rem;
-  background: white;
-  color: black;
+  height: 2.75rem;
+  padding: 0 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #000;
+  background: #fff;
   border: none;
+  border-radius: 8px;
   text-decoration: none;
-  transition: all 150ms;
   cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // Subtle shadow
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
   
   &:hover {
-    background: #e5e5e5;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+    box-shadow: 
+      0 4px 12px rgba(255, 255, 255, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.2);
+    
+    .buttonGlow {
+      opacity: 1;
+    }
+    
+    .buttonShine {
+      animation: shimmer 0.6s ease-in-out;
+    }
   }
   
-  .icon {
-    width: 0.875rem;
-    height: 0.875rem;
-    margin-right: 0.5rem;
+  &:active {
+    transform: translateY(0);
   }
 }
 
-.signInButton {
+.buttonGlow {
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.4),
+    rgba(139, 92, 246, 0.4),
+    rgba(99, 102, 241, 0.4)
+  );
+  border-radius: 9px;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 300ms ease;
+  z-index: -1;
+}
+
+.buttonShine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.buttonContent {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+// Mark as Read Button - Secondary with animated border
+.markReadButton {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;
-  font-weight: 600;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  height: 2.5rem;
-  padding: 0 1.25rem;
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #ef4444;
-  transition: all 150ms;
+  height: 2.75rem;
+  padding: 0 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  width: 100%;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  overflow: hidden;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   
-  @include md {
-    width: auto;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.05)
+    );
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  
+  &:hover:not(:disabled) {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
+    
+    &::before {
+      background: linear-gradient(
+        135deg,
+        rgba(99, 102, 241, 0.5),
+        rgba(139, 92, 246, 0.5),
+        rgba(99, 102, 241, 0.5)
+      );
+      background-size: 200% 200%;
+      animation: borderBeam 2s ease infinite;
+    }
+    
+    .buttonBorder {
+      opacity: 1;
+    }
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  // Marked state
+  &.marked {
+    color: rgba(34, 197, 94, 0.9);
+    background: rgba(34, 197, 94, 0.08);
+    
+    &::before {
+      background: linear-gradient(
+        135deg,
+        rgba(34, 197, 94, 0.3),
+        rgba(34, 197, 94, 0.15)
+      );
+    }
+    
+    &:hover:not(:disabled) {
+      color: rgb(34, 197, 94);
+      background: rgba(34, 197, 94, 0.12);
+      
+      &::before {
+        background: linear-gradient(
+          135deg,
+          rgba(34, 197, 94, 0.5),
+          rgba(74, 222, 128, 0.5),
+          rgba(34, 197, 94, 0.5)
+        );
+      }
+    }
+  }
+}
+
+.buttonBorder {
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.3),
+    rgba(139, 92, 246, 0.3)
+  );
+  border-radius: 9px;
+  opacity: 0;
+  filter: blur(4px);
+  transition: opacity 300ms ease;
+  z-index: -1;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  animation: spin 1s linear infinite;
+}
+
+// Modal Styles
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 200ms ease;
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: rgba(18, 18, 18, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  animation: slideUp 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // Subtle glow
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 20px 50px -10px rgba(0, 0, 0, 0.5),
+    0 0 100px -20px rgba(99, 102, 241, 0.15);
+}
+
+.modalClose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 150ms ease;
+  
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
   }
   
   &:hover {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: rgba(239, 68, 68, 0.5);
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.modalHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.modalSubtitle {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formError {
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+  color: #ef4444;
+  font-size: 0.8125rem;
+  animation: slideUp 200ms ease;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  
+  label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: -0.01em;
   }
   
-  .icon {
-    width: 0.75rem;
-    height: 0.75rem;
-    margin-right: 0.375rem;
+  input {
+    width: 100%;
+    height: 2.75rem;
+    padding: 0 1rem;
+    font-size: 0.9375rem;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    outline: none;
+    transition: all 200ms ease;
+    
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+    
+    &:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(99, 102, 241, 0.5);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    &.inputError {
+      border-color: rgba(239, 68, 68, 0.5);
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+      }
+    }
+  }
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.75rem;
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #000;
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 200ms ease;
+  
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.authSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.8125rem;
+  
+  span {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    transition: color 150ms ease;
+    
+    &:hover {
+      color: $indigo-400;
+    }
   }
 }

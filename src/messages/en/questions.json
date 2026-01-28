@@ -119,7 +119,9 @@
       },
       "actions": {
         "practiceProblems": "Practice {section} Problems",
-        "signInToMark": "Sign in to mark as read"
+        "signInToMark": "Sign in to mark as read",
+        "markAsRead": "Mark as read",
+        "markedAsRead": "Completed"
       },
       "navigation": {
         "back": "Back",

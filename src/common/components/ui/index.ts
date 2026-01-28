@@ -14,3 +14,5 @@ export { default as Textarea } from './textarea/Textarea'
 export type { TextareaProps } from './textarea/Textarea'
 
 export { default as Skeleton } from './skeleton/Skeleton'
+
+export { AuthModal } from './auth-modal'

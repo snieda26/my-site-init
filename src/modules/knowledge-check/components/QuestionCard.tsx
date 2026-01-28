@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { AnswerContent } from './AnswerContent';
 import type { QuestionWithProgress } from '../types/knowledge-check.types';
 import { getLocalizedQuestionTitle, getLocalizedQuestionContent } from '../types/knowledge-check.types';
@@ -16,6 +15,7 @@ interface QuestionCardProps {
   onToggleLearned: (questionId: string, isLearned: boolean) => void;
   isTogglingLearned: boolean;
   locale: 'en' | 'ua';
+  onAuthRequired: () => void;
 }
 
 export const QuestionCard = ({ 
@@ -27,6 +27,7 @@ export const QuestionCard = ({
   onToggleLearned,
   isTogglingLearned,
   locale,
+  onAuthRequired,
 }: QuestionCardProps) => {
   const t = useTranslations('knowledgeCheck.categoryPage.question');
   
@@ -84,8 +85,9 @@ export const QuestionCard = ({
             </span>
           </button>
         ) : (
-          <Link 
-            href={`/${locale}/auth/login`}
+          <button 
+            type="button"
+            onClick={onAuthRequired}
             className={styles.trackButton}
           >
             <svg 
@@ -105,7 +107,7 @@ export const QuestionCard = ({
             </svg>
             <span className={styles.trackTextDesktop}>{t('trackButton')}</span>
             <span className={styles.trackTextMobile}>{t('trackButtonShort')}</span>
-          </Link>
+          </button>
         )}
       </div>
       

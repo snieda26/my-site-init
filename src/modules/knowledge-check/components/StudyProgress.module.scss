@@ -1,0 +1,203 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.progressCard {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 40, 0.8) 0%,
+    rgba(20, 20, 30, 0.9) 100%
+  );
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  
+  // Subtle glow effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(99, 102, 241, 0.5),
+      rgba(139, 92, 246, 0.5),
+      transparent
+    );
+  }
+  
+  // Inner glow
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(99, 102, 241, 0.05) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(251, 191, 36, 0.1));
+  border-radius: 0.5rem;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: #fbbf24;
+  fill: rgba(251, 191, 36, 0.2);
+}
+
+.title {
+  flex: 1;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.01em;
+}
+
+.percentage {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  font-variant-numeric: tabular-nums;
+}
+
+.progressBarWrapper {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 0.875rem;
+}
+
+.progressBar {
+  position: relative;
+  height: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #6366f1 0%,
+    #8b5cf6 50%,
+    #a78bfa 100%
+  );
+  border-radius: 1rem;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // Shimmer effect
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkIcon {
+  width: 1rem;
+  height: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footerText {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: -0.01em;
+}
+
+// Responsive adjustments
+@include sm {
+  .progressCard {
+    padding: 1.5rem 2rem;
+  }
+  
+  .header {
+    gap: 1rem;
+  }
+  
+  .iconWrapper {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+  
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .title {
+    font-size: 1rem;
+  }
+  
+  .percentage {
+    font-size: 1.25rem;
+  }
+  
+  .progressBar {
+    height: 0.625rem;
+  }
+  
+  .footerText {
+    font-size: 0.875rem;
+  }
+}

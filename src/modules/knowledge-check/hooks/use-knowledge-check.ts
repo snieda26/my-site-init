@@ -134,11 +134,16 @@ export function useKnowledgeCheckQuestions({
   }
 }
 
+interface UseToggleLearnedOptions {
+  onAuthError?: () => void
+}
+
 /**
  * Hook to toggle learned status for a question
  */
-export function useToggleLearned() {
+export function useToggleLearned(options: UseToggleLearnedOptions = {}) {
   const queryClient = useQueryClient()
+  const { onAuthError } = options
 
   return useMutation({
     mutationFn: async ({ questionId, isLearned }: { questionId: string; isLearned: boolean }) => {
@@ -170,14 +175,22 @@ export function useToggleLearned() {
 
       return { previousProgress }
     },
-    onError: (err, variables, context) => {
+    onError: (err: any, variables, context) => {
       // Rollback on error
       if (context?.previousProgress) {
         context.previousProgress.forEach(([queryKey, data]) => {
           queryClient.setQueryData(queryKey, data)
         })
       }
-      toast.error('Failed to update progress')
+      
+      // Check if it's an auth error (401)
+      const status = err?.response?.status
+      if (status === 401 || status === 403) {
+        toast.error('Please sign in to track progress')
+        onAuthError?.()
+      } else {
+        toast.error('Failed to update progress')
+      }
     },
     onSuccess: (data, { isLearned }) => {
       toast.success(isLearned ? 'Marked as learned!' : 'Marked as not learned')
