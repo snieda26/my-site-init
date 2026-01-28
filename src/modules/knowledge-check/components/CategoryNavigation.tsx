@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import type { LearnedStatus } from '../types/knowledge-check.types';
 import styles from './CategoryNavigation.module.scss';
@@ -33,6 +34,29 @@ export const CategoryNavigation = ({
   isAuthenticated,
 }: CategoryNavigationProps) => {
   const t = useTranslations('knowledgeCheck.categoryPage');
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
+
+  const updateIndicator = useCallback(() => {
+    if (!tabsRef.current) return;
+    
+    const activeTab = tabsRef.current.querySelector(`.${styles.filterTabActive}`) as HTMLElement;
+    if (activeTab) {
+      const tabsRect = tabsRef.current.getBoundingClientRect();
+      const activeRect = activeTab.getBoundingClientRect();
+      setIndicatorStyle({
+        left: activeRect.left - tabsRect.left,
+        width: activeRect.width,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    updateIndicator();
+    // Update on resize
+    window.addEventListener('resize', updateIndicator);
+    return () => window.removeEventListener('resize', updateIndicator);
+  }, [currentFilter, updateIndicator]);
 
   const handlePrev = () => {
     if (currentPage > 1) {
@@ -81,7 +105,14 @@ export const CategoryNavigation = ({
 
           {/* Filter Tabs - only show when authenticated */}
           {isAuthenticated && (
-            <div className={styles.filterTabs}>
+            <div className={styles.filterTabs} ref={tabsRef}>
+              <div 
+                className={styles.filterIndicator}
+                style={{
+                  transform: `translateX(${indicatorStyle.left}px)`,
+                  width: `${indicatorStyle.width}px`,
+                }}
+              />
               {filters.map((filter) => (
                 <button
                   key={filter.key}
