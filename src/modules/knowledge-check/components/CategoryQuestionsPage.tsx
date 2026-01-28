@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import { useLocale } from '@/common/hooks';
 import { AuthModal } from '@/common/components/ui';
-import { Reveal, AnimatedBackground } from '@/components/Landing';
+import { Reveal } from '@/components/Landing';
 import { CategoryHeader } from './CategoryHeader';
 import { StudyProgress } from './StudyProgress';
 import { CategoryNavigation } from './CategoryNavigation';
@@ -71,7 +71,6 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
 
   return (
     <div className={styles.page}>
-      <AnimatedBackground />
       <div className={styles.content}>
         <div className={styles.container}>
           <CategoryHeader category={category} />

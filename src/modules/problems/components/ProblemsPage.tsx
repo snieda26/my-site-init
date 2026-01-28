@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Reveal, AnimatedBackground } from '@/components/Landing';
+import { Reveal } from '@/components/Landing';
 import { ProblemsHeader } from './ProblemsHeader';
 import { TabNavigation } from './TabNavigation';
 import { ProblemsFilters } from './ProblemsFilters';
@@ -43,7 +43,6 @@ export const ProblemsPage = () => {
 
   return (
     <div className={styles.page}>
-      <AnimatedBackground />
       <div className={styles.pageContent}>
         <div className={styles.container}>
           <div className={styles.content}>
