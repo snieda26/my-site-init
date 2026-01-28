@@ -82,8 +82,8 @@ export const TableOfContents = () => {
   const scrollToHeading = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      // Account for sticky header (80px) + extra padding
-      const headerOffset = 120;
+      // Account for sticky header + extra padding to avoid showing previous content
+      const headerOffset = 90;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
