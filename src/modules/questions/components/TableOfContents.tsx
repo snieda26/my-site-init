@@ -31,10 +31,20 @@ export const TableOfContents = () => {
     const tocItems: TOCItem[] = [];
 
     headings.forEach((heading) => {
-      const id = heading.id || heading.textContent?.toLowerCase().replace(/\s+/g, '-') || '';
-      if (!heading.id) {
+      // Get or generate a clean ID
+      let id = heading.id;
+      if (!id) {
+        // Generate ID from text content with proper sanitization
+        id = (heading.textContent || '')
+          .toLowerCase()
+          .replace(/^#+\s*/, '') // Remove leading hashtags
+          .replace(/[^\w\s-]/g, '') // Remove special characters except spaces and hyphens
+          .replace(/\s+/g, '-') // Replace spaces with hyphens
+          .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+          .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
         heading.id = id;
       }
+      
       // Remove all hashtags and anchor symbols from text content for display in sidebar
       const text = (heading.textContent || '')
         .replace(/^#+\s*/, '') // Remove leading hashtags with optional space
@@ -72,14 +82,17 @@ export const TableOfContents = () => {
   const scrollToHeading = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 100;
+      // Account for sticky header (80px) + extra padding
+      const headerOffset = 120;
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth',
       });
+      
+      // Update active state immediately
       setActiveId(id);
     }
   };
