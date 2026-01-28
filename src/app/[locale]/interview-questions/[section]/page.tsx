@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { LandingFooter } from '@/components/Landing/LandingFooter/LandingFooter';
 import { AnimatedBackground } from '@/components/Landing';
@@ -10,6 +11,8 @@ import { Spinner } from '@/components/Spinner';
 import { useLocale, useLocalePath } from '@/common/hooks';
 import { useCategoriesWithQuestions } from '@/modules/questions';
 import { getLocalizedCategoryName, getLocalizedTitle } from '@/modules/questions/types/questions.types';
+import { progressService } from '@/modules/progress/services/progress.service';
+import { useAuth } from '@/modules/auth/hooks/use-auth';
 import styles from './section.module.scss';
 
 export default function SectionPage() {
@@ -18,9 +21,28 @@ export default function SectionPage() {
   const locale = useLocale();
   const localePath = useLocalePath();
   const section = params?.section as string;
+  const { isAuthenticated } = useAuth();
 
   // Fetch categories with questions from API
   const { data: categoriesData, isLoading } = useCategoriesWithQuestions();
+  
+  // Fetch progress for this category if authenticated
+  const { data: progressData } = useQuery({
+    queryKey: ['category-progress', section],
+    queryFn: () => progressService.getCategoryProgress(section),
+    enabled: !!section && isAuthenticated,
+    retry: false,
+  });
+
+  // Create a map of completed questions
+  const completedQuestions = useMemo(() => {
+    if (!progressData?.questions) return new Set<string>();
+    return new Set(
+      progressData.questions
+        .filter(q => q.status === 'COMPLETED')
+        .map(q => q.slug)
+    );
+  }, [progressData]);
 
   // Find the current category and its questions
   const categoryData = useMemo(() => {
@@ -37,9 +59,10 @@ export default function SectionPage() {
         title: getLocalizedTitle(q, locale as 'en' | 'ua'),
         href: `/interview-questions/${category.slug}/${q.slug}`,
         slug: q.slug,
+        isCompleted: completedQuestions.has(q.slug),
       })),
     };
-  }, [categoriesData, section, locale]);
+  }, [categoriesData, section, locale, completedQuestions]);
 
   // Show loading state
   if (isLoading) {
@@ -127,7 +150,25 @@ export default function SectionPage() {
                   >
                     <div className={styles.questionNumber}>{question.number}</div>
                     <div className={styles.questionContent}>
-                      <h3 className={styles.questionTitle}>{question.title}</h3>
+                      <h3 className={styles.questionTitle}>
+                        {question.title}
+                        {question.isCompleted && (
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            width="16" 
+                            height="16" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2.5" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round"
+                            className={styles.checkIcon}
+                          >
+                            <path d="M20 6 9 17l-5-5" />
+                          </svg>
+                        )}
+                      </h3>
                       <span className={styles.questionArrow}>→</span>
                     </div>
                   </Link>

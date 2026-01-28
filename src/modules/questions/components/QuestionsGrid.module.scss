@@ -172,6 +172,17 @@
   color: #a3a3a3;
   transition: color 150ms;
   line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.checkIcon {
+  flex-shrink: 0;
+  width: 0.875rem;
+  height: 0.875rem;
+  color: #22c55e;
+  opacity: 1;
 }
 
 .emptySection {

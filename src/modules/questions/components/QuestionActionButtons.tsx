@@ -3,9 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import { useLocale } from '@/common/hooks';
 import { useAuth, useLogin, useRegister } from '@/modules/auth';
 import { useForm } from 'react-hook-form';
+import { progressService } from '@/modules/progress/services/progress.service';
+import { questionsService } from '@/modules/questions/services/questions.service';
 import type { LoginFormData, RegisterFormData } from '@/modules/auth/types/auth.types';
 import styles from './QuestionActionButtons.module.scss';
 
@@ -18,12 +22,11 @@ export const QuestionActionButtons = ({ section, questionSlug }: QuestionActionB
   const t = useTranslations('docs.questions');
   const tAuth = useTranslations('auth');
   const locale = useLocale();
+  const queryClient = useQueryClient();
   const { isAuthenticated, isLoading: authLoading } = useAuth();
   
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
-  const [isMarkedAsRead, setIsMarkedAsRead] = useState(false);
-  const [isMarking, setIsMarking] = useState(false);
 
   const login = useLogin({ skipRedirect: true });
   const registerMutation = useRegister({ skipRedirect: true });
@@ -31,13 +34,50 @@ export const QuestionActionButtons = ({ section, questionSlug }: QuestionActionB
   const loginForm = useForm<LoginFormData>({ mode: 'onTouched' });
   const registerForm = useForm<RegisterFormData>({ mode: 'onTouched' });
 
-  // Check if question is already marked as read (from localStorage for now)
-  useEffect(() => {
-    if (questionSlug) {
-      const readQuestions = JSON.parse(localStorage.getItem('readQuestions') || '[]');
-      setIsMarkedAsRead(readQuestions.includes(questionSlug));
-    }
-  }, [questionSlug]);
+  // Fetch question data to get the ID
+  const { data: questionData } = useQuery({
+    queryKey: ['question', questionSlug],
+    queryFn: () => questionsService.getQuestionBySlug(questionSlug!),
+    enabled: !!questionSlug,
+  });
+
+  // Fetch progress for this category
+  const { data: progressData } = useQuery({
+    queryKey: ['category-progress', section],
+    queryFn: () => progressService.getCategoryProgress(section),
+    enabled: !!section && isAuthenticated,
+    retry: false,
+  });
+
+  // Check if current question is marked as completed
+  const isMarkedAsRead = progressData?.questions?.find(
+    q => q.slug === questionSlug
+  )?.status === 'COMPLETED';
+
+  // Mutation to update progress
+  const updateProgressMutation = useMutation({
+    mutationFn: async (status: 'COMPLETED' | 'NOT_STARTED') => {
+      if (!questionData?.id) throw new Error('Question ID not found');
+      return progressService.updateProgress({
+        questionId: questionData.id,
+        status,
+      });
+    },
+    onSuccess: () => {
+      // Invalidate progress queries to refetch
+      queryClient.invalidateQueries({ queryKey: ['category-progress', section] });
+      toast.success(isMarkedAsRead ? 'Unmarked as read' : 'Marked as read!');
+    },
+    onError: (error: any) => {
+      const status = error?.response?.status;
+      if (status === 401 || status === 403) {
+        toast.error('Please sign in to track progress');
+        setShowAuthModal(true);
+      } else {
+        toast.error('Failed to update progress');
+      }
+    },
+  });
 
   const handleMarkAsRead = async () => {
     if (!isAuthenticated) {
@@ -45,25 +85,8 @@ export const QuestionActionButtons = ({ section, questionSlug }: QuestionActionB
       return;
     }
 
-    setIsMarking(true);
-    
-    // Simulate API call - replace with actual API
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    if (questionSlug) {
-      const readQuestions = JSON.parse(localStorage.getItem('readQuestions') || '[]');
-      if (isMarkedAsRead) {
-        const updated = readQuestions.filter((q: string) => q !== questionSlug);
-        localStorage.setItem('readQuestions', JSON.stringify(updated));
-        setIsMarkedAsRead(false);
-      } else {
-        readQuestions.push(questionSlug);
-        localStorage.setItem('readQuestions', JSON.stringify(readQuestions));
-        setIsMarkedAsRead(true);
-      }
-    }
-    
-    setIsMarking(false);
+    const newStatus = isMarkedAsRead ? 'NOT_STARTED' : 'COMPLETED';
+    updateProgressMutation.mutate(newStatus);
   };
 
   const handleLoginSubmit = (data: LoginFormData) => {
@@ -122,11 +145,11 @@ export const QuestionActionButtons = ({ section, questionSlug }: QuestionActionB
           <button
             className={`${styles.markReadButton} ${isMarkedAsRead ? styles.marked : ''}`}
             onClick={handleMarkAsRead}
-            disabled={isMarking || authLoading}
+            disabled={updateProgressMutation.isPending || authLoading}
           >
             <span className={styles.buttonBorder} />
             <span className={styles.buttonContent}>
-              {isMarking ? (
+              {updateProgressMutation.isPending ? (
                 <svg className={styles.spinner} viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" strokeDasharray="60" strokeDashoffset="20" />
                 </svg>

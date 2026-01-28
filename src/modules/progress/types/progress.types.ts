@@ -27,7 +27,9 @@ export interface ProgressOverview {
 export interface QuestionProgress {
 	id: string
 	slug: string
-	title: string
+	titleEn?: string
+	titleUa?: string
+	title?: string
 	difficulty: Difficulty
 	status: ProgressStatus
 }
