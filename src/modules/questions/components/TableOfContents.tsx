@@ -87,14 +87,14 @@ export const TableOfContents = () => {
   return (
     <>
       <div className={styles.toc}>
-        <h3 className={styles.title}>{locale === 'ua' ? 'ЗМІСТ' : 'CONTENT'}</h3>
+        <h3 className={styles.title}>{locale === 'ua' ? 'Зміст' : 'Content'}</h3>
         <div className={styles.scrollArea}>
           <div className={styles.items}>
             {items.map((item) => (
               <button
                 key={item.id}
-                className={`${styles.item} ${activeId === item.id ? styles.active : ''}`}
-                style={{ paddingLeft: `${item.level * 12 + 12}px` }}
+                className={`${styles.item} ${activeId === item.id ? styles.active : ''} ${item.level > 0 ? styles.nested : ''}`}
+                style={item.level > 0 ? { paddingLeft: `${item.level * 16}px` } : undefined}
                 onClick={() => scrollToHeading(item.id)}
               >
                 {item.text}
