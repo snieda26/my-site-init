@@ -48,12 +48,21 @@ export const ProblemList = ({
     if (isAuthenticated) {
       fetchSolvedProblems();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, activeTab]);
 
   const fetchProblems = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('http://localhost:4000/api/problems');
+      // Map active tab to category filter
+      const categoryMap = {
+        'problems': 'javascript',
+        'react-problems': 'react',
+        'quizzes': 'quizzes'
+      };
+      const category = categoryMap[activeTab];
+      const url = category ? `http://localhost:4000/api/problems?category=${category}` : 'http://localhost:4000/api/problems';
+      
+      const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         // Handle both paginated and direct array responses

@@ -22,11 +22,20 @@ export const ProblemsPage = () => {
     setCurrentPage(1);
   }, [activeTab, statusFilter, companyFilter, itemsPerPage]);
 
-  // Fetch total problems count
+  // Fetch total problems count based on active tab
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/problems');
+        // Map active tab to category filter
+        const categoryMap = {
+          'problems': 'javascript',
+          'react-problems': 'react',
+          'quizzes': 'quizzes'
+        };
+        const category = categoryMap[activeTab];
+        const url = category ? `http://localhost:4000/api/problems?category=${category}` : 'http://localhost:4000/api/problems';
+        
+        const response = await fetch(url);
         if (response.ok) {
           const data = await response.json();
           const problemsData = data.data || data;
@@ -37,7 +46,7 @@ export const ProblemsPage = () => {
       }
     };
     fetchCount();
-  }, []);
+  }, [activeTab]);
 
   const totalPages = getTotalPages(totalProblems, itemsPerPage);
 

@@ -11,12 +11,15 @@ export interface Company {
 	}
 }
 
+export type ProblemCategory = 'javascript' | 'react' | 'typescript' | 'other'
+
 export interface Problem {
 	id: string
 	slug: string
 	title: string
 	description: string
 	difficulty: Difficulty
+	category: ProblemCategory
 	starterCode: string
 	solution: string
 	testCases: string

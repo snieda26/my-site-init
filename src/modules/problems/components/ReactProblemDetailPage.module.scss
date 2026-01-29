@@ -1,0 +1,515 @@
+.container {
+  height: calc(100vh - 80px);
+  background: #0d0d0d;
+  overflow: hidden;
+}
+
+.mainContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.splitContainer {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+// Description Panel (Left)
+.descriptionPanel {
+  height: 100%;
+  overflow-y: auto;
+  background: #111111;
+  border-right: 1px solid #222;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #111;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+}
+
+// Resize Handle (Vertical)
+.resizeHandle {
+  width: 4px;
+  background: #1a1a1a;
+  cursor: col-resize;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  
+  &:hover {
+    background: #7c3aed;
+  }
+}
+
+// Resize Handle (Horizontal)
+.resizeHandleHorizontal {
+  height: 4px;
+  background: #1a1a1a;
+  cursor: row-resize;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  
+  &:hover {
+    background: #7c3aed;
+  }
+}
+
+// Editor Panel (Middle)
+.editorPanel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0f0f0f;
+  border-right: 1px solid #222;
+}
+
+.editorHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  height: 48px;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+
+.tabsSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fileTabs {
+  display: flex;
+  gap: 4px;
+}
+
+.tab {
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  
+  &:hover:not(:disabled) {
+    color: #fff;
+    background: #1a1a1a;
+  }
+  
+  &.active {
+    color: #fff;
+    background: #222;
+  }
+  
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.runButton {
+  padding: 8px 20px;
+  background: #7c3aed;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  
+  &:hover {
+    background: #6d28d9;
+  }
+}
+
+.fileTabsRow {
+  display: flex;
+  padding: 0 12px;
+  background: #0a0a0a;
+  border-bottom: 1px solid #222;
+}
+
+.fileTab {
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #666;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:hover {
+    color: #999;
+  }
+  
+  &.active {
+    color: #fff;
+    border-bottom-color: #7c3aed;
+  }
+}
+
+.codeArea {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.solutionArea {
+  flex: 1;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.editorLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 12px;
+  color: #666;
+  background: #0a0a0a;
+  
+  p {
+    margin: 0;
+    font-size: 13px;
+  }
+}
+
+.editorFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #111;
+  border-top: 1px solid #222;
+}
+
+.language {
+  color: #666;
+  font-size: 12px;
+}
+
+.footerActions {
+  display: flex;
+  gap: 8px;
+}
+
+.saveButton {
+  padding: 6px 14px;
+  background: #222;
+  border: 1px solid #333;
+  color: #ccc;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  
+  &:hover:not(:disabled) {
+    background: #333;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.solvedButton {
+  padding: 6px 14px;
+  background: #10b981;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  
+  &:hover:not(:disabled) {
+    background: #059669;
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  &.isSolved {
+    background: #047857;
+  }
+}
+
+// Preview Panel (Right)
+.previewPanel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0f0f0f;
+}
+
+.previewSection {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.previewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #111;
+  border-bottom: 1px solid #222;
+  color: #ccc;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.refreshButton {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  
+  &:hover {
+    background: #222;
+    color: #fff;
+  }
+}
+
+.previewContent {
+  flex: 1;
+  background: #fff;
+  overflow: hidden;
+}
+
+.previewIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+// Console Section
+.consoleSection {
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+  border-top: 1px solid #222;
+}
+
+.consoleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 14px;
+  background: #111;
+  border-bottom: 1px solid #222;
+  flex-shrink: 0;
+  height: 40px;
+}
+
+.consoleTabs {
+  display: flex;
+  gap: 4px;
+  height: 100%;
+}
+
+.consoleTab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #888;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:hover {
+    color: #ccc;
+  }
+  
+  &.active {
+    color: #fff;
+    border-bottom-color: #7c3aed;
+    
+    .checkIcon {
+      color: #10b981;
+    }
+  }
+}
+
+.checkIcon {
+  font-size: 12px;
+  color: #666;
+}
+
+.clearButton {
+  padding: 4px 12px;
+  background: transparent;
+  border: 1px solid #333;
+  color: #888;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  
+  &:hover {
+    background: #222;
+    color: #fff;
+    border-color: #444;
+  }
+}
+
+.outputContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.outputPlaceholder {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  font-size: 13px;
+  padding: 12px;
+}
+
+.outputIcon {
+  color: #7c3aed;
+}
+
+.consoleContent {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
+  font-size: 12px;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+}
+
+.consolePlaceholder {
+  color: #555;
+  font-style: italic;
+}
+
+.consoleMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+  color: #e0e0e0;
+  
+  &.error {
+    color: #ef4444;
+  }
+  
+  &.warn {
+    color: #f59e0b;
+  }
+  
+  &.info {
+    color: #3b82f6;
+  }
+}
+
+.consoleIcon {
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+  color: #7c3aed;
+  
+  .error & {
+    color: #ef4444;
+  }
+  
+  .warn & {
+    color: #f59e0b;
+  }
+}
+
+.consoleText {
+  flex: 1;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+// Loading & Error States
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  gap: 16px;
+  color: #888;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #333;
+  border-top-color: #7c3aed;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  gap: 8px;
+  color: #888;
+  
+  h2 {
+    color: #fff;
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  p {
+    margin: 0;
+  }
+}

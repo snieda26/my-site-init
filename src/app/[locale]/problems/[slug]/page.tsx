@@ -1,5 +1,5 @@
 import { Header } from '@/components/Header';
-import { ProblemDetailPage } from '@/modules/problems/components/ProblemDetailPage';
+import { ProblemDetailPageWrapper } from '@/modules/problems/components/ProblemDetailPageWrapper';
 import '@/modules/problems/styles/scrollbar.scss';
 
 export default async function ProblemDetail({ params }: { params: Promise<{ slug: string; locale: string }> }) {
@@ -8,7 +8,7 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
   return (
     <div style={{ height: '100vh', background: '#000000', overflow: 'hidden' }}>
       <Header />
-      <ProblemDetailPage slug={slug} />
+      <ProblemDetailPageWrapper slug={slug} />
     </div>
   );
 }
