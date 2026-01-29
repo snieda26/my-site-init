@@ -286,59 +286,99 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
     // Transform JSX to JavaScript
     const transformedCode = transformJSX(appCode);
     
-    return `
-<!DOCTYPE html>
+    return `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>${cssCode}</style>
+  <style>
+    * { box-sizing: border-box; }
+    body { 
+      margin: 0; 
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+      min-height: 100vh;
+    }
+    #root { min-height: 100%; }
+    #loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      color: #666;
+    }
+    .error-display {
+      padding: 20px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      color: #dc2626;
+      font-family: monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+    ${cssCode}
+  </style>
+</head>
+<body>
+  <div id="root"><div id="loading">Loading...</div></div>
+  
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-</head>
-<body>
-  <div id="root"></div>
+  
   <script>
     // Override console methods to send to parent
     const originalConsole = { ...console };
     ['log', 'error', 'warn', 'info'].forEach(method => {
       console[method] = (...args) => {
         originalConsole[method](...args);
-        parent.postMessage({
-          type: 'console',
-          method,
-          args: args.map(arg => {
-            try {
-              if (typeof arg === 'object') {
-                return JSON.stringify(arg, null, 2);
+        try {
+          parent.postMessage({
+            type: 'console',
+            method,
+            args: args.map(arg => {
+              try {
+                if (typeof arg === 'object') {
+                  return JSON.stringify(arg, null, 2);
+                }
+                return String(arg);
+              } catch {
+                return String(arg);
               }
-              return String(arg);
-            } catch {
-              return String(arg);
-            }
-          })
-        }, '*');
+            })
+          }, '*');
+        } catch (e) {}
       };
     });
 
-    // Error handling
+    // Global error handling
     window.onerror = (message, source, lineno, colno, error) => {
-      console.error('Error:', message);
+      console.error('Runtime Error: ' + message);
       return true;
     };
-  </script>
-  <script type="text/babel" data-presets="react">
-    const { useState, useEffect, useRef, useCallback, useMemo, useContext, createContext } = React;
     
-    ${transformedCode}
+    window.addEventListener('unhandledrejection', (event) => {
+      console.error('Unhandled Promise Rejection: ' + event.reason);
+    });
+  </script>
+  
+  <script type="text/babel" data-presets="react">
+    const { useState, useEffect, useRef, useCallback, useMemo, useContext, createContext, useReducer, useLayoutEffect, memo, forwardRef, Fragment } = React;
     
     try {
-      const root = ReactDOM.createRoot(document.getElementById('root'));
-      root.render(React.createElement(App || (() => React.createElement('div', null, 'No App component exported'))));
+      ${transformedCode}
+      
+      if (typeof App === 'function') {
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+      } else {
+        document.getElementById('root').innerHTML = '<div class="error-display">Error: No App component found. Make sure to export default function App() { ... }</div>';
+      }
     } catch (error) {
-      console.error('Render Error:', error.message);
-      document.getElementById('root').innerHTML = '<div style="color: red; padding: 20px;">Error: ' + error.message + '</div>';
+      console.error('Compilation Error: ' + error.message);
+      document.getElementById('root').innerHTML = '<div class="error-display">Compilation Error:\\n' + error.message + '</div>';
     }
   </script>
 </body>
@@ -649,7 +689,7 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
                   key={previewKey}
                   srcDoc={generatePreviewHTML()}
                   className={styles.previewIframe}
-                  sandbox="allow-scripts allow-modals"
+                  sandbox="allow-scripts allow-same-origin allow-modals allow-forms"
                   title="Preview"
                 />
               </div>
