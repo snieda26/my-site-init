@@ -88,13 +88,14 @@
         "markAsLearned": "Позначити як вивчене",
         "markAsNotLearned": "Позначити як не вивчене",
         "answer": "Відповідь:",
+        "noShortAnswer": "Переглянути повну відповідь на платформі",
         "readMoreOnPlatform": "Дізнатися більше на платформі:",
         "usefulResources": "Корисні ресурси:",
         "noQuestions": "Питання не знайдено",
         "noQuestionsDescription": "Спробуйте змінити фільтр або перевірте пізніше"
       },
       "categories": {
-        "html-and-css": {
+        "html-css": {
           "name": "HTML та CSS"
         },
         "javascript": {
@@ -115,7 +116,7 @@
         "redux": {
           "name": "Redux"
         },
-        "general-questions": {
+        "general": {
           "name": "Загальні питання"
         }
       }

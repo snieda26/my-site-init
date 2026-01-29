@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { AnswerContent } from './AnswerContent';
 import type { QuestionWithProgress } from '../types/knowledge-check.types';
-import { getLocalizedQuestionTitle, getLocalizedQuestionContent } from '../types/knowledge-check.types';
+import { getLocalizedQuestionTitle, getLocalizedShortAnswer } from '../types/knowledge-check.types';
 import styles from './QuestionCard.module.scss';
 
 interface QuestionCardProps {
@@ -16,6 +16,7 @@ interface QuestionCardProps {
   isTogglingLearned: boolean;
   locale: 'en' | 'ua';
   onAuthRequired: () => void;
+  categorySlug: string;
 }
 
 export const QuestionCard = ({ 
@@ -28,11 +29,12 @@ export const QuestionCard = ({
   isTogglingLearned,
   locale,
   onAuthRequired,
+  categorySlug,
 }: QuestionCardProps) => {
   const t = useTranslations('knowledgeCheck.categoryPage.question');
   
   const title = getLocalizedQuestionTitle(question, locale);
-  const content = getLocalizedQuestionContent(question, locale);
+  const shortAnswer = getLocalizedShortAnswer(question, locale);
   
   const handleToggleLearned = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -151,7 +153,12 @@ export const QuestionCard = ({
         
         <div className={`${styles.answerWrapper} ${isExpanded ? styles.answerWrapperExpanded : ''}`}>
           <div className={styles.answerContent}>
-            <AnswerContent content={content} locale={locale} questionSlug={question.slug} />
+            <AnswerContent 
+              shortAnswer={shortAnswer} 
+              locale={locale} 
+              questionSlug={question.slug} 
+              categorySlug={categorySlug}
+            />
           </div>
         </div>
       </div>

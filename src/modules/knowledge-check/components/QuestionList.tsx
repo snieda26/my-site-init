@@ -77,6 +77,7 @@ export const QuestionList = ({
               isTogglingLearned={isTogglingLearned}
               locale={locale as 'en' | 'ua'}
               onAuthRequired={onAuthRequired}
+              categorySlug={category}
             />
           ))}
         </div>

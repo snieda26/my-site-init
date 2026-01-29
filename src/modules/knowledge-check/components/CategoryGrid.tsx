@@ -14,22 +14,22 @@ export const CategoryGrid = () => {
 
   // Mock progress data - in production, this should come from an API
   const mockProgress: Record<string, { learned: number; percentage: number }> = {
-    'html-and-css': { learned: 0, percentage: 0 },
+    'html-css': { learned: 0, percentage: 0 },
     'javascript': { learned: 0, percentage: 0 },
     'react': { learned: 0, percentage: 0 },
     'typescript': { learned: 0, percentage: 0 },
     'vue': { learned: 0, percentage: 0 },
     'angular': { learned: 0, percentage: 0 },
     'redux': { learned: 0, percentage: 0 },
-    'general-questions': { learned: 0, percentage: 0 },
+    'general': { learned: 0, percentage: 0 },
   };
 
   const categories = [
     {
-      id: 'html-and-css',
+      id: 'html-css',
       name: t('htmlAndCss.name'),
       description: t('htmlAndCss.description'),
-      questionCount: 70,
+      questionCount: 33,
       gradient: 'linear-gradient(to right, rgb(251, 146, 60) 0%, rgb(249, 115, 22) 50%, rgb(96, 165, 250) 50%, rgb(59, 130, 246) 100%)',
       icons: [
         <svg key="html" stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 384 512" height="80" width="80" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +44,7 @@ export const CategoryGrid = () => {
       id: 'javascript',
       name: t('javascript.name'),
       description: t('javascript.description'),
-      questionCount: 82,
+      questionCount: 49,
       gradient: 'linear-gradient(to right bottom, rgb(250, 204, 21), rgb(250, 204, 21))',
       icons: [
         <svg key="js" stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="96" width="96" xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +56,7 @@ export const CategoryGrid = () => {
       id: 'react',
       name: t('react.name'),
       description: t('react.description'),
-      questionCount: 79,
+      questionCount: 36,
       gradient: 'linear-gradient(to right bottom, rgb(103, 232, 249), rgb(14, 165, 233))',
       icons: [
         <svg key="react" stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="96" width="96" xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +68,7 @@ export const CategoryGrid = () => {
       id: 'typescript',
       name: t('typescript.name'),
       description: t('typescript.description'),
-      questionCount: 66,
+      questionCount: 38,
       gradient: 'linear-gradient(to right bottom, rgb(129, 140, 248), rgb(59, 130, 246))',
       icons: [
         <svg key="ts" stroke="currentColor" fill="currentColor" strokeWidth="0" role="img" viewBox="0 0 24 24" height="96" width="96" xmlns="http://www.w3.org/2000/svg">
@@ -80,7 +80,7 @@ export const CategoryGrid = () => {
       id: 'vue',
       name: t('vue.name'),
       description: t('vue.description'),
-      questionCount: 69,
+      questionCount: 16,
       gradient: 'linear-gradient(to right bottom, rgb(52, 211, 153), rgb(16, 185, 129))',
       icons: [
         <svg key="vue" stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="96" width="96" xmlns="http://www.w3.org/2000/svg">
@@ -92,7 +92,7 @@ export const CategoryGrid = () => {
       id: 'angular',
       name: t('angular.name'),
       description: t('angular.description'),
-      questionCount: 80,
+      questionCount: 11,
       gradient: 'linear-gradient(to right bottom, rgb(248, 113, 113), rgb(239, 68, 68))',
       icons: [
         <svg key="angular" stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="96" width="96" xmlns="http://www.w3.org/2000/svg">
@@ -104,7 +104,7 @@ export const CategoryGrid = () => {
       id: 'redux',
       name: t('redux.name'),
       description: t('redux.description'),
-      questionCount: 27,
+      questionCount: 5,
       gradient: 'linear-gradient(to right bottom, rgb(167, 139, 250), rgb(244, 114, 182))',
       icons: [
         <svg key="redux" stroke="currentColor" fill="currentColor" strokeWidth="0" role="img" viewBox="0 0 24 24" height="96" width="96" xmlns="http://www.w3.org/2000/svg">
@@ -113,10 +113,10 @@ export const CategoryGrid = () => {
       ]
     },
     {
-      id: 'general-questions',
+      id: 'general',
       name: t('generalQuestions.name'),
       description: t('generalQuestions.description'),
-      questionCount: 57,
+      questionCount: 30,
       gradient: 'linear-gradient(to right bottom, rgb(156, 163, 175), rgb(107, 114, 128))',
       icons: [
         <svg key="general" stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 640 512" height="96" width="96" xmlns="http://www.w3.org/2000/svg">

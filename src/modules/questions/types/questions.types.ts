@@ -29,6 +29,8 @@ export interface Question {
 	descriptionUa?: string
 	contentMarkdownEn: string // Markdown content in English
 	contentMarkdownUa: string // Markdown content in Ukrainian
+	shortAnswerEn?: string | null // Short answer for knowledge check in English
+	shortAnswerUa?: string | null // Short answer for knowledge check in Ukrainian
 	difficulty: Difficulty
 	order: number
 	prevSlug?: string | null
@@ -53,6 +55,10 @@ export function getLocalizedDescription(question: Question, locale: Locale): str
 
 export function getLocalizedCategoryName(category: Category, locale: Locale): string {
 	return locale === 'ua' ? category.nameUa : category.nameEn
+}
+
+export function getLocalizedShortAnswer(question: Question, locale: Locale): string | null | undefined {
+	return locale === 'ua' ? question.shortAnswerUa : question.shortAnswerEn
 }
 
 export interface PaginatedResult<T> {

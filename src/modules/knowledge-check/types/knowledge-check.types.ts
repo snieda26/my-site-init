@@ -29,3 +29,8 @@ export function getLocalizedQuestionTitle(question: Question, locale: Locale): s
 export function getLocalizedQuestionContent(question: Question, locale: Locale): string {
   return locale === 'ua' ? question.contentMarkdownUa : question.contentMarkdownEn
 }
+
+// Helper to get localized short answer
+export function getLocalizedShortAnswer(question: Question, locale: Locale): string | null | undefined {
+  return locale === 'ua' ? question.shortAnswerUa : question.shortAnswerEn
+}

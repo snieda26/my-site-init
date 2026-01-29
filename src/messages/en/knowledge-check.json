@@ -88,13 +88,14 @@
         "markAsLearned": "Mark as learned",
         "markAsNotLearned": "Mark as not learned",
         "answer": "Answer:",
+        "noShortAnswer": "View full answer on the platform",
         "readMoreOnPlatform": "Read more on platform:",
         "usefulResources": "Useful resources:",
         "noQuestions": "No questions found",
         "noQuestionsDescription": "Try changing the filter or check back later"
       },
       "categories": {
-        "html-and-css": {
+        "html-css": {
           "name": "HTML & CSS"
         },
         "javascript": {
@@ -115,7 +116,7 @@
         "redux": {
           "name": "Redux"
         },
-        "general-questions": {
+        "general": {
           "name": "General Questions"
         }
       }

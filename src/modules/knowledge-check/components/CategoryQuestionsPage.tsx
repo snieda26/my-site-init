@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useLocale } from '@/common/hooks';
 import { AuthModal } from '@/common/components/ui';
 import { Reveal } from '@/components/Landing';
@@ -19,7 +19,15 @@ interface CategoryQuestionsPageProps {
 
 const QUESTIONS_PER_PAGE = 10;
 
+// Map old URL slugs to database slugs for backwards compatibility
+const SLUG_MAP: Record<string, string> = {
+  'html-and-css': 'html-css',
+  'general-questions': 'general',
+};
+
 export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) => {
+  // Map URL slug to database slug
+  const categorySlug = useMemo(() => SLUG_MAP[category] || category, [category]);
   const locale = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
   const [currentFilter, setCurrentFilter] = useState<LearnedStatus>('all');
@@ -34,7 +42,7 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
     isLoading,
     isAuthenticated,
   } = useKnowledgeCheckQuestions({
-    categorySlug: category,
+    categorySlug,
     page: currentPage,
     limit: QUESTIONS_PER_PAGE,
     status: currentFilter,
@@ -73,7 +81,7 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
     <div className={styles.page}>
       <div className={styles.content}>
         <div className={styles.container}>
-          <CategoryHeader category={category} />
+          <CategoryHeader category={categorySlug} />
           
           <Reveal delay={50}>
             <StudyProgress 
@@ -84,7 +92,7 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
           
           <Reveal delay={100}>
             <CategoryNavigation 
-              category={category} 
+              category={categorySlug} 
               locale={locale}
               currentPage={currentPage}
               totalPages={totalPages}
@@ -97,7 +105,7 @@ export const CategoryQuestionsPage = ({ category }: CategoryQuestionsPageProps) 
           </Reveal>
           
           <QuestionList 
-            category={category}
+            category={categorySlug}
             questions={questions}
             isLoading={isLoading}
             isAuthenticated={isAuthenticated}
