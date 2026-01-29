@@ -3,6 +3,20 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { Editor, OnMount } from '@monaco-editor/react';
+import { 
+  Play, 
+  Code2, 
+  Lock, 
+  Unlock,
+  Save, 
+  Monitor, 
+  RefreshCw, 
+  Terminal,
+  XCircle, 
+  AlertTriangle,
+  Check,
+  ChevronRight
+} from 'lucide-react';
 import { ProblemDescription } from './ProblemDescription';
 import { Confetti } from '@/components/Confetti';
 import { AuthModal } from '@/components/AuthModal';
@@ -27,6 +41,7 @@ interface Problem {
 interface UserSubmission {
   code: string;
   status: 'ATTEMPTED' | 'SOLVED';
+  checkedRequirements?: string;
   solvedAt: string;
 }
 
@@ -105,8 +120,8 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
   const [previewKey, setPreviewKey] = useState(0);
-  const [outputTab, setOutputTab] = useState<'output' | 'console'>('output');
   const [lastRunCode, setLastRunCode] = useState({ appCode: '', cssCode: '' });
+  const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   
   // Resize state - 3 panels: description | editor | preview
   const [descriptionWidth, setDescriptionWidth] = useState(25); // percentage
@@ -165,6 +180,9 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
   useEffect(() => {
     if (isAuthenticated && accessToken && problem) {
       fetchUserSubmission();
+    } else if (isAuthenticated && !accessToken && problem) {
+      // If authenticated but no access token yet, clear localStorage to prevent conflicts
+      localStorage.removeItem(`problem-${slug}-checkboxes`);
     }
   }, [isAuthenticated, accessToken, problem?.id]);
 
@@ -191,8 +209,29 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
       if (response.ok) {
         const data = await response.json();
         setProblem(data);
+        
+        // Load checkbox state from localStorage ONLY for non-authenticated users
+        if (!isAuthenticated) {
+          const savedCheckboxes = localStorage.getItem(`problem-${slug}-checkboxes`);
+          if (savedCheckboxes) {
+            try {
+              const parsed = JSON.parse(savedCheckboxes);
+              setCheckedItems(new Set(parsed));
+            } catch (e) {
+              console.error('Failed to parse saved checkboxes:', e);
+            }
+          }
+        }
+        
         if (data.starterCode) {
           setAppCode(data.starterCode);
+          // For non-authenticated users, auto-run immediately
+          if (!isAuthenticated) {
+            setTimeout(() => {
+              setLastRunCode({ appCode: data.starterCode, cssCode });
+              setPreviewKey(prev => prev + 1);
+            }, 100);
+          }
         }
       }
     } catch (error) {
@@ -205,15 +244,44 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
   const fetchUserSubmission = async () => {
     try {
       const response = await apiClient.get<UserSubmission>(`/problems/${slug}/submission`);
+      console.log('Fetched submission:', response.data);
       if (response.data) {
+        // Load checked requirements from backend
+        if (response.data.checkedRequirements) {
+          try {
+            console.log('Parsing checkedRequirements:', response.data.checkedRequirements);
+            const checked = JSON.parse(response.data.checkedRequirements);
+            console.log('Parsed checked array:', checked);
+            setCheckedItems(new Set(checked));
+            // Clear localStorage since we loaded from backend
+            localStorage.removeItem(`problem-${slug}-checkboxes`);
+          } catch (e) {
+            console.error('Failed to parse checked requirements:', e);
+          }
+        } else {
+          console.log('No checkedRequirements in response');
+        }
+        
         // Parse saved code - might include both app and css
         try {
           const savedData = JSON.parse(response.data.code);
-          if (savedData.appCode) setAppCode(savedData.appCode);
+          if (savedData.appCode) {
+            setAppCode(savedData.appCode);
+            // Auto-run the saved code
+            setTimeout(() => {
+              setLastRunCode({ appCode: savedData.appCode, cssCode: savedData.cssCode || cssCode });
+              setPreviewKey(prev => prev + 1);
+            }, 100);
+          }
           if (savedData.cssCode) setCssCode(savedData.cssCode);
         } catch {
           // Fallback: treat as app code only
           setAppCode(response.data.code);
+          // Auto-run the saved code
+          setTimeout(() => {
+            setLastRunCode({ appCode: response.data.code, cssCode });
+            setPreviewKey(prev => prev + 1);
+          }, 100);
         }
         
         if (response.data.status === 'SOLVED') {
@@ -223,6 +291,22 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
     } catch (error: any) {
       if (error.response?.status !== 404) {
         console.error('Failed to fetch user submission:', error);
+      }
+      // If no submission found (404), load from localStorage and auto-run with starter code
+      if (error.response?.status === 404) {
+        const savedCheckboxes = localStorage.getItem(`problem-${slug}-checkboxes`);
+        if (savedCheckboxes) {
+          try {
+            const parsed = JSON.parse(savedCheckboxes);
+            setCheckedItems(new Set(parsed));
+          } catch (e) {
+            console.error('Failed to parse local checkboxes:', e);
+          }
+        }
+        setTimeout(() => {
+          setLastRunCode({ appCode, cssCode });
+          setPreviewKey(prev => prev + 1);
+        }, 100);
       }
     }
   };
@@ -426,11 +510,16 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
     try {
       // Save both app code and css code
       const codeData = JSON.stringify({ appCode, cssCode });
+      const checkedRequirementsData = JSON.stringify([...checkedItems]);
       
       await apiClient.post(`/problems/${slug}/submit`, {
         code: codeData,
         status: 'SOLVED',
+        checkedRequirements: checkedRequirementsData,
       });
+      
+      // Clear localStorage after successful backend save
+      localStorage.removeItem(`problem-${slug}-checkboxes`);
       
       setIsSolved(true);
       setConfettiKey(prev => prev + 1);
@@ -451,11 +540,16 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
     setIsSaving(true);
     try {
       const codeData = JSON.stringify({ appCode, cssCode });
+      const checkedRequirementsData = JSON.stringify([...checkedItems]);
       
       await apiClient.post(`/problems/${slug}/submit`, {
         code: codeData,
         status: 'ATTEMPTED',
+        checkedRequirements: checkedRequirementsData,
       });
+      
+      // Clear localStorage after successful backend save
+      localStorage.removeItem(`problem-${slug}-checkboxes`);
       
       toast.success('Progress saved!');
     } catch (error: any) {
@@ -513,7 +607,54 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
             className={styles.descriptionPanel} 
             style={{ width: `${descriptionWidth}%` }}
           >
-            <ProblemDescription problem={problem} isSolved={isSolved} hideExamples={true} />
+            <ProblemDescription 
+              problem={problem} 
+              isSolved={isSolved} 
+              hideExamples={true}
+              checkedItems={checkedItems}
+              onCheckItem={async (index) => {
+                const newChecked = new Set(checkedItems);
+                if (newChecked.has(index)) {
+                  newChecked.delete(index);
+                } else {
+                  newChecked.add(index);
+                }
+                setCheckedItems(newChecked);
+                
+                // Save to backend if authenticated, otherwise use localStorage
+                if (isAuthenticated) {
+                  try {
+                    const codeData = JSON.stringify({ appCode, cssCode });
+                    const checkedArray = [...newChecked];
+                    const checkedRequirementsData = JSON.stringify(checkedArray);
+                    
+                    console.log('Saving checkbox state:', {
+                      checkedArray,
+                      checkedRequirementsData,
+                      isSolved
+                    });
+                    
+                    const response = await apiClient.post(`/problems/${slug}/submit`, {
+                      code: codeData,
+                      status: isSolved ? 'SOLVED' : 'ATTEMPTED',
+                      checkedRequirements: checkedRequirementsData,
+                    });
+                    
+                    console.log('Backend response:', response.data);
+                    
+                    // Clear localStorage after successful backend save
+                    localStorage.removeItem(`problem-${slug}-checkboxes`);
+                  } catch (error) {
+                    console.error('Failed to save checkbox state to backend:', error);
+                    // Fallback to localStorage if backend fails
+                    localStorage.setItem(`problem-${slug}-checkboxes`, JSON.stringify([...newChecked]));
+                  }
+                } else {
+                  // Save to localStorage for non-authenticated users
+                  localStorage.setItem(`problem-${slug}-checkboxes`, JSON.stringify([...newChecked]));
+                }
+              }}
+            />
           </div>
 
           <div 
@@ -533,7 +674,8 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
                     className={`${styles.tab} ${activeTab === 'code' ? styles.active : ''}`}
                     onClick={() => setActiveTab('code')}
                   >
-                    {'</>'} Your Code
+                    <Code2 size={16} />
+                    Your Code
                   </button>
                   <button 
                     className={`${styles.tab} ${activeTab === 'solution' ? styles.active : ''}`}
@@ -541,7 +683,8 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
                     disabled={!isSolved}
                     title={!isSolved ? 'Solve the problem to unlock solution' : ''}
                   >
-                    🔓 Solution
+                    {isSolved ? <Unlock size={16} /> : <Lock size={16} />}
+                    Solution
                   </button>
                 </div>
               </div>
@@ -549,7 +692,8 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
                 className={styles.runButton}
                 onClick={handleRunCode}
               >
-                ▶ Run
+                <Play size={16} fill="currentColor" />
+                Run
               </button>
             </div>
 
@@ -667,14 +811,16 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
                   onClick={handleSaveProgress}
                   disabled={isSaving}
                 >
-                  💾 Save
+                  <Save size={14} />
+                  Save
                 </button>
                 <button 
                   className={`${styles.solvedButton} ${isSolved ? styles.isSolved : ''}`}
                   onClick={handleMarkAsSolved}
                   disabled={isSaving || isSolved}
                 >
-                  {isSolved ? '✓ Solved' : 'Mark as Solved'}
+                  {isSolved ? <Check size={14} /> : null}
+                  {isSolved ? 'Solved' : 'Mark as Solved'}
                 </button>
               </div>
             </div>
@@ -692,40 +838,27 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
           >
             <div className={styles.previewSection} style={{ height: `${100 - consoleHeight}%` }}>
               <div className={styles.previewHeader}>
-                <span>📱 Preview</span>
+                <span>
+                  <Monitor size={16} />
+                  Preview
+                </span>
                 <button 
                   className={styles.refreshButton}
                   onClick={handleRunCode}
                   title="Refresh preview"
                 >
-                  🔄
+                  <RefreshCw size={14} />
                 </button>
               </div>
               <div className={styles.previewContent}>
-                {previewKey === 0 ? (
-                  <div style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    height: '100%',
-                    color: '#999',
-                    fontSize: '14px',
-                    flexDirection: 'column',
-                    gap: '12px'
-                  }}>
-                    <div style={{ fontSize: '32px' }}>▶️</div>
-                    <div>Click "Run" to see your code in action</div>
-                  </div>
-                ) : (
-                  <iframe
-                    ref={iframeRef}
-                    key={previewKey}
-                    srcDoc={generatePreviewHTML(lastRunCode.appCode, lastRunCode.cssCode)}
-                    className={styles.previewIframe}
-                    sandbox="allow-scripts allow-same-origin allow-modals allow-forms"
-                    title="Preview"
-                  />
-                )}
+                <iframe
+                  ref={iframeRef}
+                  key={previewKey}
+                  srcDoc={generatePreviewHTML(lastRunCode.appCode, lastRunCode.cssCode)}
+                  className={styles.previewIframe}
+                  sandbox="allow-scripts allow-same-origin allow-modals allow-forms"
+                  title="Preview"
+                />
               </div>
             </div>
 
@@ -736,20 +869,10 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
 
             <div className={styles.consoleSection} style={{ height: `${consoleHeight}%` }}>
               <div className={styles.consoleHeader}>
-                <div className={styles.consoleTabs}>
-                  <button
-                    className={`${styles.consoleTab} ${outputTab === 'output' ? styles.active : ''}`}
-                    onClick={() => setOutputTab('output')}
-                  >
-                    <span className={styles.checkIcon}>✓</span> Output
-                  </button>
-                  <button
-                    className={`${styles.consoleTab} ${outputTab === 'console' ? styles.active : ''}`}
-                    onClick={() => setOutputTab('console')}
-                  >
-                    {'>'} Console
-                  </button>
-                </div>
+                <span className={styles.consoleTitle}>
+                  <Terminal size={14} />
+                  Console
+                </span>
                 <button 
                   className={styles.clearButton}
                   onClick={clearConsole}
@@ -759,33 +882,24 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
                 </button>
               </div>
               <div className={styles.consoleContent}>
-                {outputTab === 'output' ? (
-                  <div className={styles.outputContent}>
-                    <div className={styles.outputPlaceholder}>
-                      <span className={styles.outputIcon}>▶</span>
-                      <span>Click "Run" to execute your code and see the preview</span>
-                    </div>
+                {consoleMessages.length === 0 ? (
+                  <div className={styles.consolePlaceholder}>
+                    Console output will appear here...
                   </div>
                 ) : (
-                  consoleMessages.length === 0 ? (
-                    <div className={styles.consolePlaceholder}>
-                      Console output will appear here...
+                  consoleMessages.map((msg, index) => (
+                    <div 
+                      key={index} 
+                      className={`${styles.consoleMessage} ${styles[msg.type]}`}
+                    >
+                      <span className={styles.consoleIcon}>
+                        {msg.type === 'error' ? <XCircle size={14} /> : msg.type === 'warn' ? <AlertTriangle size={14} /> : <ChevronRight size={14} />}
+                      </span>
+                      <span className={styles.consoleText}>
+                        {msg.args.join(' ')}
+                      </span>
                     </div>
-                  ) : (
-                    consoleMessages.map((msg, index) => (
-                      <div 
-                        key={index} 
-                        className={`${styles.consoleMessage} ${styles[msg.type]}`}
-                      >
-                        <span className={styles.consoleIcon}>
-                          {msg.type === 'error' ? '❌' : msg.type === 'warn' ? '⚠️' : '›'}
-                        </span>
-                        <span className={styles.consoleText}>
-                          {msg.args.join(' ')}
-                        </span>
-                      </div>
-                    ))
-                  )
+                  ))
                 )}
               </div>
             </div>

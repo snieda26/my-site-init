@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRef, MouseEvent } from 'react';
+import { Check } from 'lucide-react';
 import styles from './ProblemItem.module.scss';
 
 interface ProblemItemProps {
@@ -49,9 +50,7 @@ export const ProblemItem = ({ problem, locale, isSolved = false }: ProblemItemPr
           <div className={styles.actions}>
             {isSolved && (
               <span className={styles.solvedBadge}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <Check size={12} strokeWidth={3} />
                 Solved
               </span>
             )}

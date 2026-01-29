@@ -135,7 +135,7 @@
 }
 
 .tab {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 10px 18px;
@@ -148,6 +148,10 @@
   border-radius: 8px;
   transition: all 0.2s ease;
   
+  svg {
+    flex-shrink: 0;
+  }
+  
   &:hover:not(:disabled) {
     color: #e0e0e0;
     background: #1a1a1a;
@@ -157,6 +161,10 @@
     color: #fff;
     background: #1f1f1f;
     box-shadow: inset 0 0 0 1px rgba(124, 58, 237, 0.3);
+    
+    svg {
+      color: #a78bfa;
+    }
   }
   
   &:disabled {
@@ -166,7 +174,7 @@
 }
 
 .runButton {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 10px 24px;
@@ -179,6 +187,10 @@
   border-radius: 8px;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+  
+  svg {
+    flex-shrink: 0;
+  }
   
   &:hover {
     background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
@@ -275,7 +287,7 @@
 }
 
 .saveButton {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
@@ -288,10 +300,19 @@
   border-radius: 6px;
   transition: all 0.2s ease;
   
+  svg {
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+  
   &:hover:not(:disabled) {
     background: #242424;
     border-color: #3a3a3a;
     color: #fff;
+    
+    svg {
+      opacity: 1;
+    }
   }
   
   &:disabled {
@@ -301,7 +322,7 @@
 }
 
 .solvedButton {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 8px 18px;
@@ -314,6 +335,10 @@
   border-radius: 6px;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+  
+  svg {
+    flex-shrink: 0;
+  }
   
   &:hover:not(:disabled) {
     background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
@@ -358,17 +383,22 @@
   flex-shrink: 0;
   
   span {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     color: #ccc;
     font-size: 13px;
     font-weight: 500;
+    
+    svg {
+      flex-shrink: 0;
+      color: #7c3aed;
+    }
   }
 }
 
 .refreshButton {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 32px;
@@ -378,12 +408,19 @@
   color: #666;
   cursor: pointer;
   border-radius: 6px;
-  font-size: 14px;
   transition: all 0.2s ease;
+  
+  svg {
+    flex-shrink: 0;
+  }
   
   &:hover {
     background: #1a1a1a;
-    color: #fff;
+    color: #7c3aed;
+    
+    svg {
+      animation: spin 0.5s ease-in-out;
+    }
   }
 }
 
@@ -425,6 +462,20 @@
   display: flex;
   gap: 0;
   height: 100%;
+}
+
+.consoleTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  
+  svg {
+    flex-shrink: 0;
+    color: #7c3aed;
+  }
 }
 
 .consoleTab {
@@ -564,9 +615,14 @@
 .consoleIcon {
   flex-shrink: 0;
   width: 18px;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: #7c3aed;
-  font-weight: 600;
+  
+  svg {
+    flex-shrink: 0;
+  }
   
   .error & {
     color: #f87171;

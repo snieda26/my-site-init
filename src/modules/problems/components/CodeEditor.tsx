@@ -2,6 +2,7 @@
 
 import { Editor, OnMount } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
+import { Code2, Layers, Check, Lock, Play, Clock } from 'lucide-react';
 import { Tooltip } from '@/components/Tooltip';
 import styles from './CodeEditor.module.scss';
 
@@ -90,10 +91,7 @@ export function CodeEditor({
             className={`${styles.tab} ${activeTab === 'code' ? styles.active : ''}`}
             onClick={() => onTabChange?.('code')}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polyline points="16 18 22 12 16 6" />
-              <polyline points="8 6 2 12 8 18" />
-            </svg>
+            <Code2 size={16} />
             Your Code
           </button>
           {isSolutionUnlocked ? (
@@ -101,15 +99,9 @@ export function CodeEditor({
               className={`${styles.tab} ${activeTab === 'solution' ? styles.active : ''}`}
               onClick={() => onTabChange?.('solution')}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
+              <Layers size={16} />
               Solution
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={styles.checkIcon}>
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
+              <Check size={14} strokeWidth={2.5} className={styles.checkIcon} />
             </button>
           ) : (
             <Tooltip 
@@ -119,14 +111,9 @@ export function CodeEditor({
             >
               <span>
                 <button className={`${styles.tab} ${styles.locked}`} disabled>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                  </svg>
+                  <Lock size={16} />
                   Solution
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-                  </svg>
+                  <Lock size={12} />
                 </button>
               </span>
             </Tooltip>
@@ -149,16 +136,12 @@ export function CodeEditor({
             </>
           ) : allTestsPassed ? (
             <>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
+              <Check size={16} strokeWidth={3} />
               Done
             </>
           ) : (
             <>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z" />
-              </svg>
+              <Play size={14} fill="currentColor" />
               Run
             </>
           )}
@@ -220,10 +203,7 @@ export function CodeEditor({
         ) : (
           <div className={styles.solutionView}>
             <div className={styles.solutionHeader}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12 6 12 12 16 14" />
-              </svg>
+              <Clock size={20} />
               <h3>Official Solution</h3>
             </div>
             <Editor

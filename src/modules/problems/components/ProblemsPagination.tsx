@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useState, useEffect, useRef } from 'react';
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './ProblemsPagination.module.scss';
 
 interface ProblemsPaginationProps {
@@ -90,20 +91,7 @@ export const ProblemsPagination = ({
           onClick={() => setItemsPerPageOpen(!itemsPerPageOpen)}
         >
           <span>{itemsPerPage}</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={styles.chevron}
-          >
-            <path d="m6 9 6 6 6-6"></path>
-          </svg>
+          <ChevronDown size={20} className={styles.chevron} />
         </button>
         {itemsPerPageOpen && (
           <div className={styles.itemsPerPageMenu}>
@@ -133,20 +121,7 @@ export const ProblemsPagination = ({
               disabled={currentPage === 1}
               aria-label="Previous page"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={styles.chevronIcon}
-              >
-                <path d="m15 18-6-6 6-6"></path>
-              </svg>
+              <ChevronLeft size={20} className={styles.chevronIcon} />
             </button>
           </li>
           {getPageNumbers().map((page, index) => (
@@ -170,20 +145,7 @@ export const ProblemsPagination = ({
               disabled={currentPage === totalPages}
               aria-label="Next page"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={styles.chevronIcon}
-              >
-                <path d="m9 18 6-6-6-6"></path>
-              </svg>
+              <ChevronRight size={20} className={styles.chevronIcon} />
             </button>
           </li>
         </ul>

@@ -1,8 +1,10 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import { useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Check, Terminal } from 'lucide-react';
 import styles from './ProblemDescription.module.scss';
 
 interface Problem {
@@ -19,9 +21,11 @@ interface ProblemDescriptionProps {
   problem: Problem;
   isSolved?: boolean;
   hideExamples?: boolean;
+  checkedItems?: Set<number>;
+  onCheckItem?: (index: number) => void;
 }
 
-export function ProblemDescription({ problem, isSolved = false, hideExamples = false }: ProblemDescriptionProps) {
+export function ProblemDescription({ problem, isSolved = false, hideExamples = false, checkedItems = new Set(), onCheckItem }: ProblemDescriptionProps) {
   const params = useParams();
   const locale = params?.locale as string || 'en';
   const difficultyColors = {
@@ -46,6 +50,12 @@ export function ProblemDescription({ problem, isSolved = false, hideExamples = f
   // Use Ukrainian if locale is 'ua' and Ukrainian version exists
   const title = locale === 'ua' && problem.titleUa ? problem.titleUa : problem.title;
   const description = locale === 'ua' && problem.descriptionUa ? problem.descriptionUa : problem.description;
+  
+  // Track checkbox index for interactive checkboxes
+  const checkboxIndexRef = useRef(0);
+  
+  // Reset checkbox index before rendering
+  checkboxIndexRef.current = 0;
 
   return (
     <div className={styles.container}>
@@ -57,9 +67,7 @@ export function ProblemDescription({ problem, isSolved = false, hideExamples = f
           </span>
           {isSolved && (
             <span className={styles.solvedBadge}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
+              <Check size={14} strokeWidth={3} />
               Solved
             </span>
           )}
@@ -82,9 +90,29 @@ export function ProblemDescription({ problem, isSolved = false, hideExamples = f
             remarkPlugins={[remarkGfm]}
             components={{
               // Style checkboxes properly
-              input: ({ node, ...props }) => {
+              input: ({ node, checked, disabled, readOnly, ...props }) => {
                 if (props.type === 'checkbox') {
-                  return <input {...props} className={styles.checkbox} />;
+                  const currentIndex = checkboxIndexRef.current++;
+                  const isChecked = checkedItems.has(currentIndex);
+                  
+                  return (
+                    <input 
+                      type="checkbox"
+                      className={styles.checkbox}
+                      checked={isChecked}
+                      disabled={false}
+                      readOnly={false}
+                      onChange={(e) => {
+                        e.stopPropagation();
+                        if (onCheckItem) {
+                          onCheckItem(currentIndex);
+                        }
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                    />
+                  );
                 }
                 return <input {...props} />;
               },
@@ -118,10 +146,7 @@ export function ProblemDescription({ problem, isSolved = false, hideExamples = f
         {!hideExamples && examples.length > 0 && (
           <div className={styles.examples}>
             <h3 className={styles.examplesTitle}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="4 17 10 11 4 5" />
-                <line x1="12" y1="19" x2="20" y2="19" />
-              </svg>
+              <Terminal size={16} />
               Examples:
             </h3>
             {examples.map((example: any, index: number) => (

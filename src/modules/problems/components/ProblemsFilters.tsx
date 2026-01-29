@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
+import { ChevronDown } from 'lucide-react';
 import styles from './ProblemsFilters.module.scss';
 
 interface ProblemsFiltersProps {
@@ -76,20 +77,7 @@ export const ProblemsFilters = ({
             <span className={styles.label}>
               <span className={styles.labelText}>{t('status.label')}</span>
             </span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className={styles.chevron}
-            >
-              <path d="m6 9 6 6 6-6"></path>
-            </svg>
+            <ChevronDown size={20} className={styles.chevron} />
           </button>
           {statusOpen && (
             <div className={styles.dropdownMenu}>
@@ -123,20 +111,7 @@ export const ProblemsFilters = ({
             <span className={styles.label}>
               <span className={styles.labelText}>{t('company.label')}</span>
             </span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className={styles.chevron}
-            >
-              <path d="m6 9 6 6 6-6"></path>
-            </svg>
+            <ChevronDown size={20} className={styles.chevron} />
           </button>
           {companyOpen && (
             <div className={styles.dropdownMenu}>
