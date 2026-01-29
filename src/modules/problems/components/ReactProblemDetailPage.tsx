@@ -106,6 +106,7 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
   const [isSolved, setIsSolved] = useState(false);
   const [previewKey, setPreviewKey] = useState(0);
   const [outputTab, setOutputTab] = useState<'output' | 'console'>('output');
+  const [lastRunCode, setLastRunCode] = useState({ appCode: '', cssCode: '' });
   
   // Resize state - 3 panels: description | editor | preview
   const [descriptionWidth, setDescriptionWidth] = useState(25); // percentage
@@ -282,9 +283,9 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
     };
   }, [isResizingDesc, isResizingEditor, isResizingConsole, descriptionWidth]);
 
-  const generatePreviewHTML = useCallback(() => {
+  const generatePreviewHTML = useCallback((codeToRun: string, cssToRun: string) => {
     // Transform JSX to JavaScript
-    const transformedCode = transformJSX(appCode);
+    const transformedCode = transformJSX(codeToRun);
     
     return `<!DOCTYPE html>
 <html>
@@ -317,73 +318,89 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
       font-family: monospace;
       font-size: 13px;
       white-space: pre-wrap;
+      margin: 20px;
     }
-    ${cssCode}
+    ${cssToRun}
   </style>
 </head>
 <body>
   <div id="root"><div id="loading">Loading...</div></div>
   
+  <script>
+    // Set up console FIRST before any other scripts
+    (function() {
+      const originalConsole = window.console || {};
+      const methods = ['log', 'error', 'warn', 'info'];
+      
+      methods.forEach(method => {
+        const original = originalConsole[method] || function() {};
+        window.console[method] = function(...args) {
+          // Call original console method
+          original.apply(console, args);
+          
+          // Send to parent window
+          try {
+            window.parent.postMessage({
+              type: 'console',
+              method: method,
+              args: args.map(arg => {
+                try {
+                  if (arg === null) return 'null';
+                  if (arg === undefined) return 'undefined';
+                  if (typeof arg === 'object') {
+                    return JSON.stringify(arg, null, 2);
+                  }
+                  return String(arg);
+                } catch (e) {
+                  return String(arg);
+                }
+              })
+            }, '*');
+          } catch (e) {
+            original.call(console, 'Failed to send console message to parent:', e);
+          }
+        };
+      });
+    })();
+
+    // Global error handling
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.error('Error: ' + message);
+      return true;
+    };
+    
+    window.addEventListener('unhandledrejection', function(event) {
+      console.error('Unhandled Promise: ' + (event.reason || 'Unknown error'));
+    });
+  </script>
+  
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   
-  <script>
-    // Override console methods to send to parent
-    const originalConsole = { ...console };
-    ['log', 'error', 'warn', 'info'].forEach(method => {
-      console[method] = (...args) => {
-        originalConsole[method](...args);
-        try {
-          parent.postMessage({
-            type: 'console',
-            method,
-            args: args.map(arg => {
-              try {
-                if (typeof arg === 'object') {
-                  return JSON.stringify(arg, null, 2);
-                }
-                return String(arg);
-              } catch {
-                return String(arg);
-              }
-            })
-          }, '*');
-        } catch (e) {}
-      };
-    });
-
-    // Global error handling
-    window.onerror = (message, source, lineno, colno, error) => {
-      console.error('Runtime Error: ' + message);
-      return true;
-    };
-    
-    window.addEventListener('unhandledrejection', (event) => {
-      console.error('Unhandled Promise Rejection: ' + event.reason);
-    });
-  </script>
-  
   <script type="text/babel" data-presets="react">
-    const { useState, useEffect, useRef, useCallback, useMemo, useContext, createContext, useReducer, useLayoutEffect, memo, forwardRef, Fragment } = React;
-    
-    try {
-      ${transformedCode}
+    (function() {
+      const { useState, useEffect, useRef, useCallback, useMemo, useContext, createContext, useReducer, useLayoutEffect, memo, forwardRef, Fragment } = React;
       
-      if (typeof App === 'function') {
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-      } else {
-        document.getElementById('root').innerHTML = '<div class="error-display">Error: No App component found. Make sure to export default function App() { ... }</div>';
+      try {
+        ${transformedCode}
+        
+        if (typeof App === 'function') {
+          const root = ReactDOM.createRoot(document.getElementById('root'));
+          root.render(React.createElement(App));
+        } else {
+          document.getElementById('root').innerHTML = '<div class="error-display">Error: No App component found.<br/>Make sure to use: export default function App() { ... }</div>';
+        }
+      } catch (error) {
+        console.error('Error: ' + error.message);
+        const stack = error.stack ? error.stack.split('\\n').slice(0, 5).join('\\n') : '';
+        document.getElementById('root').innerHTML = '<div class="error-display"><strong>Error:</strong> ' + error.message + '<br/><br/><small>' + stack + '</small></div>';
       }
-    } catch (error) {
-      console.error('Compilation Error: ' + error.message);
-      document.getElementById('root').innerHTML = '<div class="error-display">Compilation Error:\\n' + error.message + '</div>';
-    }
+    })();
   </script>
 </body>
 </html>`;
-  }, [appCode, cssCode]);
+  }, []);
 
   const transformJSX = (code: string): string => {
     // Remove import statements
@@ -395,6 +412,7 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
 
   const handleRunCode = () => {
     setConsoleMessages([]);
+    setLastRunCode({ appCode, cssCode });
     setPreviewKey(prev => prev + 1);
   };
 
@@ -684,14 +702,30 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
                 </button>
               </div>
               <div className={styles.previewContent}>
-                <iframe
-                  ref={iframeRef}
-                  key={previewKey}
-                  srcDoc={generatePreviewHTML()}
-                  className={styles.previewIframe}
-                  sandbox="allow-scripts allow-same-origin allow-modals allow-forms"
-                  title="Preview"
-                />
+                {previewKey === 0 ? (
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    height: '100%',
+                    color: '#999',
+                    fontSize: '14px',
+                    flexDirection: 'column',
+                    gap: '12px'
+                  }}>
+                    <div style={{ fontSize: '32px' }}>▶️</div>
+                    <div>Click "Run" to see your code in action</div>
+                  </div>
+                ) : (
+                  <iframe
+                    ref={iframeRef}
+                    key={previewKey}
+                    srcDoc={generatePreviewHTML(lastRunCode.appCode, lastRunCode.cssCode)}
+                    className={styles.previewIframe}
+                    sandbox="allow-scripts allow-same-origin allow-modals allow-forms"
+                    title="Preview"
+                  />
+                )}
               </div>
             </div>
 
