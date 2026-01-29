@@ -513,7 +513,7 @@ export function ReactProblemDetailPage({ slug }: ReactProblemDetailPageProps) {
             className={styles.descriptionPanel} 
             style={{ width: `${descriptionWidth}%` }}
           >
-            <ProblemDescription problem={problem} isSolved={isSolved} />
+            <ProblemDescription problem={problem} isSolved={isSolved} hideExamples={true} />
           </div>
 
           <div 

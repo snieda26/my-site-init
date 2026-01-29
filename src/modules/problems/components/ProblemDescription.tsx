@@ -16,9 +16,10 @@ interface Problem {
 interface ProblemDescriptionProps {
   problem: Problem;
   isSolved?: boolean;
+  hideExamples?: boolean;
 }
 
-export function ProblemDescription({ problem, isSolved = false }: ProblemDescriptionProps) {
+export function ProblemDescription({ problem, isSolved = false, hideExamples = false }: ProblemDescriptionProps) {
   const params = useParams();
   const locale = params?.locale as string || 'en';
   const difficultyColors = {
@@ -78,7 +79,7 @@ export function ProblemDescription({ problem, isSolved = false }: ProblemDescrip
           <p>{description}</p>
         </div>
 
-        {examples.length > 0 && (
+        {!hideExamples && examples.length > 0 && (
           <div className={styles.examples}>
             <h3 className={styles.examplesTitle}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
