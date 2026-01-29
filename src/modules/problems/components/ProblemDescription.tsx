@@ -1,6 +1,8 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import styles from './ProblemDescription.module.scss';
 
 interface Problem {
@@ -76,7 +78,41 @@ export function ProblemDescription({ problem, isSolved = false, hideExamples = f
 
       <div className={styles.content}>
         <div className={styles.description}>
-          <p>{description}</p>
+          <ReactMarkdown 
+            remarkPlugins={[remarkGfm]}
+            components={{
+              // Style checkboxes properly
+              input: ({ node, ...props }) => {
+                if (props.type === 'checkbox') {
+                  return <input {...props} className={styles.checkbox} />;
+                }
+                return <input {...props} />;
+              },
+              // Style links
+              a: ({ node, ...props }) => (
+                <a {...props} className={styles.link} target="_blank" rel="noopener noreferrer" />
+              ),
+              // Style code blocks
+              code: ({ node, inline, ...props }) => (
+                inline ? 
+                  <code {...props} className={styles.inlineCode} /> : 
+                  <code {...props} className={styles.codeBlock} />
+              ),
+              // Style lists
+              ul: ({ node, ...props }) => <ul {...props} className={styles.list} />,
+              ol: ({ node, ...props }) => <ol {...props} className={styles.orderedList} />,
+              li: ({ node, ...props }) => <li {...props} className={styles.listItem} />,
+              // Style headings
+              h3: ({ node, ...props }) => <h3 {...props} className={styles.heading} />,
+              h4: ({ node, ...props }) => <h4 {...props} className={styles.subheading} />,
+              // Style paragraphs
+              p: ({ node, ...props }) => <p {...props} className={styles.paragraph} />,
+              // Style strong/bold text
+              strong: ({ node, ...props }) => <strong {...props} className={styles.bold} />,
+            }}
+          >
+            {description}
+          </ReactMarkdown>
         </div>
 
         {!hideExamples && examples.length > 0 && (

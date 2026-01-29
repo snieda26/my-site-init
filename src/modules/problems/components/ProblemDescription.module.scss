@@ -187,34 +187,138 @@
 }
 
 .description {
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
   margin-bottom: 2rem;
   font-size: 0.9375rem;
+}
 
-  p {
-    margin: 0 0 1rem 0;
+.paragraph {
+  margin: 0 0 1.25rem 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.heading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 1.75rem 0 1rem 0;
+  letter-spacing: -0.01em;
+}
+
+.subheading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 1.5rem 0 0.875rem 0;
+  letter-spacing: -0.01em;
+}
+
+.list, .orderedList {
+  margin: 1rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.listItem {
+  position: relative;
+  padding-left: 1.75rem;
+  margin: 0.625rem 0;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0.7em;
+    width: 4px;
+    height: 4px;
+    background: #818cf8;
+    border-radius: 50%;
   }
 
-  ul, ol {
-    margin: 1rem 0;
-    padding-left: 1.75rem;
-
-    li {
-      margin: 0.75rem 0;
+  // For checkbox items
+  &:has(input[type="checkbox"]) {
+    padding-left: 2rem;
+    
+    &::before {
+      display: none;
     }
   }
+}
 
-  code {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875em;
-    background: rgba(99, 102, 241, 0.1);
-    color: #c4b5fd;
-    border-radius: 0.375rem;
-    font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    font-weight: 500;
+.checkbox {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.4em;
+  width: 1rem;
+  height: 1rem;
+  cursor: default;
+  accent-color: #818cf8;
+  pointer-events: none;
+}
+
+.orderedList {
+  counter-reset: list-counter;
+
+  .listItem {
+    counter-increment: list-counter;
+
+    &::before {
+      content: counter(list-counter) '.';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: auto;
+      height: auto;
+      background: none;
+      color: #818cf8;
+      font-weight: 600;
+      font-size: 0.875em;
+    }
   }
+}
+
+.inlineCode {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.875em;
+  background: rgba(99, 102, 241, 0.12);
+  color: #c4b5fd;
+  border-radius: 0.375rem;
+  font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  font-weight: 500;
+}
+
+.codeBlock {
+  display: block;
+  padding: 1rem;
+  margin: 1rem 0;
+  background: rgba(0, 0, 0, 0.3);
+  color: #c4b5fd;
+  border-radius: 0.5rem;
+  font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  font-size: 0.875rem;
+  overflow-x: auto;
+}
+
+.link {
+  color: #818cf8;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(129, 140, 248, 0.3);
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #a5b4fc;
+    border-bottom-color: rgba(165, 180, 252, 0.5);
+  }
+}
+
+.bold {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .examples {
